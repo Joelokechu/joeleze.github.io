@@ -1,113 +1,63 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Insights by Joel | Data Analyst Portfolio</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="favicon.ico">
-  <style>
-    html { scroll-behavior: smooth; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights by Joel | Data Analyst Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Insights<span>byJoel</span></div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <section class="hero">
+            <h1>Turning Data into Actionable Insights</h1>
+            <p>Hi, I'm <strong>Joel Eze</strong> — a Data Analyst passionate about uncovering stories behind numbers.</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </section>
+    </header>
 
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md fixed w-full z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="#" class="text-2xl font-bold text-indigo-600">Insights by Joel</a>
-      <div class="hidden md:flex space-x-6">
-        <a href="#about" class="hover:text-indigo-600">About</a>
-        <a href="#projects" class="hover:text-indigo-600">Projects</a>
-        <a href="#contact" class="hover:text-indigo-600">Contact</a>
-      </div>
-      <!-- Mobile menu button -->
-      <div class="md:hidden">
-        <button id="menu-btn" class="focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white">
-      <a href="#about" class="block px-4 py-2 hover:bg-gray-100">About</a>
-      <a href="#projects" class="block px-4 py-2 hover:bg-gray-100">Projects</a>
-      <a href="#contact" class="block px-4 py-2 hover:bg-gray-100">Contact</a>
-    </div>
-  </nav>
+    <main>
+        <section id="about" class="about">
+            <h2>About Me</h2>
+            <p>
+                I’m a UK-based Data Analyst skilled in Python, SQL, Excel, and Power BI.
+                I focus on helping businesses make data-driven decisions through analytics, visualisation, and predictive modelling.
+            </p>
+        </section>
 
-  <!-- Hero Section -->
-  <section class="bg-indigo-600 text-white py-32 text-center mt-16">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Hello, I’m Joel Eze</h1>
-    <p class="text-lg md:text-xl mb-6">Data Analyst | Power BI | Data Insights</p>
-    <a href="#projects"
-       class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">View My Projects</a>
-  </section>
+        <section id="projects" class="projects">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Sales Performance Dashboard</h3>
+                    <p>Power BI dashboard showing real-time sales insights and regional breakdowns.</p>
+                    <a href="#" class="btn">View Dashboard</a>
+                </div>
+                <div class="project-card">
+                    <h3>Customer Feedback Analysis</h3>
+                    <p>Text mining and sentiment analysis on customer reviews using Python and Power BI.</p>
+                    <a href="#" class="btn">Explore Insights</a>
+                </div>
+            </div>
+        </section>
 
-  <!-- About Section -->
-  <section id="about" class="max-w-5xl mx-auto py-20 px-4">
-    <h2 class="text-3xl font-bold text-center mb-6">About Me</h2>
-    <p class="text-center text-gray-700 max-w-3xl mx-auto mb-6">
-      I am Joel Eze, a dedicated Data Analyst based in Birmingham, UK. I specialise in analysing data, building dashboards, and turning insights into actionable recommendations using tools such as Power BI.
-    </p>
-    <p class="text-center text-gray-700 max-w-3xl mx-auto">
-      I hold a BSc in Information Technology for Business and have completed intensive data analytics training. My goal is to help businesses make data-driven decisions with clarity and precision.
-    </p>
-  </section>
+        <section id="contact" class="contact">
+            <h2>Get in Touch</h2>
+            <p>Email: <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/jeze12" target="_blank">www.linkedin.com/in/jeze12</a></p>
+        </section>
+    </main>
 
-  <!-- Projects Section -->
-  <section id="projects" class="bg-gray-100 py-20">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Projects</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Project Card Example -->
-        <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition">
-          <h3 class="text-xl font-semibold mb-4">Power BI Sales Dashboard</h3>
-          <p class="mb-4">A dynamic dashboard showcasing sales trends and key performance indicators for e-commerce data analysis.</p>
-          <iframe width="100%" height="300px" src="YOUR_POWER_BI_EMBED_LINK_HERE" frameborder="0" allowFullScreen="true"></iframe>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition">
-          <h3 class="text-xl font-semibold mb-4">Customer Feedback Analysis</h3>
-          <p class="mb-4">Analysing sentiment and clustering customer feedback to generate actionable business insights.</p>
-          <iframe width="100%" height="300px" src="YOUR_POWER_BI_EMBED_LINK_HERE" frameborder="0" allowFullScreen="true"></iframe>
-        </div>
-
-        <!-- Add more project cards here -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="max-w-3xl mx-auto py-20 px-4 text-center">
-    <h2 class="text-3xl font-bold mb-6">Contact Me</h2>
-    <p class="mb-6">Get in touch via email or LinkedIn for collaborations, enquiries, or project discussions.</p>
-    <div class="space-x-4">
-      <a href="mailto:Joel.okechu@gmail.com" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition">Email</a>
-      <a href="https://www.linkedin.com/in/jeze12" target="_blank" class="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition">LinkedIn</a>
-    </div>
-    <p class="mt-4 text-gray-500">Based in Birmingham, United Kingdom</p>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-6 text-center">
-    <p>&copy; 2025 Joel Eze. All rights reserved.</p>
-  </footer>
-
-  <!-- JS for mobile menu toggle -->
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  </script>
-
+    <footer>
+        <p>© 2025 Insights by Joel | Designed with ❤️ in Birmingham, UK</p>
+    </footer>
 </body>
 </html>
