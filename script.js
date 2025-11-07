@@ -84,9 +84,10 @@ chatForm.addEventListener("submit", (e) => {
   userInput.value = "";
 
   // === Send message via EmailJS ===
-  emailjs.send("service_71fb2en", "template_56f6p8n", { 
-    user_message: message,
-    user_email: "Joel.okechu@gmail.com"
+  emailjs.send("service_71fb2en", "template_56f6p8n", {
+    from_name: "Website Visitor",
+    from_email: "visitor@insightsbyjoel.com",
+    message: message
   })
   .then(() => {
     addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot");
