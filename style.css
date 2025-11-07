@@ -218,5 +218,33 @@ footer {
   max-width: 460px;  /* Limit card width so they don’t stretch too much on wide screens */
   margin: 0 auto;    /* Center the card clusters */
 }
+/* ❗ Fix for wider screens – limit hero content width */
+@media (min-width: 1200px) {
+  .hero {
+    padding: 5rem 15%;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+  .hero p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+/* ❗ Adjust project grid spread for desktop */
+@media (min-width: 1024px) {
+  .project-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+  .project-card {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+}
+
+
 
 
