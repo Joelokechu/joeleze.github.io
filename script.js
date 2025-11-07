@@ -55,96 +55,57 @@ style.innerHTML = `
   }
 `;
 document.head.appendChild(style);
-// Initialize EmailJS with your public key
+
+// === EmailJS Chat Integration ===
 (function(){
-  emailjs.init("rgJiaabQfCfMpGz3t"); // Your public key
+  emailjs.init("rgJiaabQfCfMpGz3t"); // ✅ Your public key
 })();
 
-// Grab form elements
-const chatForm = document.getElementById("chat-form");
-const chatWindow = document.getElementById("chat-window");
-const userInput = document.getElementById("user-input");
-
-chatForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const message = userInput.value.trim();
-  if (!message) return;
-
-  // Show user message in chat window
-  addMessage(message, "user");
-  userInput.value = "";
-
-  // Send message via EmailJS using your template
-  emailjs.send("YOUR_SERVICE_ID_HERE", "template_56f6p8n", {
-      from_name: "Website Visitor",
-      from_email: "visitor@insightsbyjoel.com", // optional
-      message: message
-  })
-  .then(() => {
-      addMessage("Thanks! Your message has been sent ✅", "bot");
-  }, (error) => {
-      console.error(error);
-      addMessage("Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
-  });
-});
-
-// Function to display messages
-function addMessage(text, sender) {
-  const message = document.createElement("div");
-  message.classList.add("message", sender);
-  message.textContent = text;
-  chatWindow.appendChild(message);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-}
-// Initialize EmailJS with your public key
-(function(){
-  emailjs.init("rgJiaabQfCfMpGz3t"); // Your public key
-})();
-
-const chatForm = document.getElementById("chat-form");
-const chatWindow = document.getElementById("chat-window");
-const userInput = document.getElementById("user-input");
-
-chatForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const message = userInput.value.trim();
-  if (!message) return;
-
-  addMessage(message, "user");
-  userInput.value = "";
-
-  emailjs.send("YOUR_SERVICE_ID_HERE", "template_56f6p8n", {
-      from_name: "Website Visitor",
-      from_email: "visitor@insightsbyjoel.com",
-      message: message
-  })
-  .then(() => {
-      addMessage("Thanks! Your message has been sent ✅", "bot");
-  }, (error) => {
-      console.error(error);
-      addMessage("Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
-  });
-});
-
-function addMessage(text, sender) {
-  const message = document.createElement("div");
-  message.classList.add("message", sender);
-  message.textContent = text;
-  chatWindow.appendChild(message);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-}
-const chatHeader = document.getElementById("chat-header");
+// Grab chat elements
 const chatBubble = document.getElementById("chat-bubble");
+const chatHeader = document.getElementById("chat-header");
+const chatWindow = document.getElementById("chat-window");
+const chatForm = document.getElementById("chat-form");
+const userInput = document.getElementById("user-input");
+const userEmail = document.getElementById("user-email"); // if added for capturing visitor email
 
+// === Toggle Chat Bubble Visibility ===
 chatHeader.addEventListener("click", () => {
-    if(chatWindow.style.display === "none" || chatWindow.style.display === "") {
-        chatWindow.style.display = "block";
-        chatForm.style.display = "flex";
-    } else {
-        chatWindow.style.display = "none";
-        chatForm.style.display = "none";
-    }
+  chatWindow.classList.toggle("hidden");
+  chatForm.classList.toggle("hidden");
 });
 
+// === Handle Chat Form Submission ===
+chatForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const message = userInput.value.trim();
+  const email = userEmail ? userEmail.value.trim() : "visitor@insightsbyjoel.com";
 
+  if (!message) return;
 
+  addMessage(message, "user");
+  userInput.value = "";
+  if (userEmail) userEmail.value = "";
+
+  // === Send message via EmailJS ===
+  emailjs.send("service_rgJiaabQfCfMpGz3t", "template_56f6p8n", {
+    user_message: message,
+    user_email: email
+  })
+  .then(() => {
+    addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot");
+  })
+  .catch((error) => {
+    console.error("EmailJS Error:", error);
+    addMessage("⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
+  });
+});
+
+// === Helper: Display Messages in Chat ===
+function addMessage(text, sender) {
+  const message = document.createElement("div");
+  message.classList.add("message", sender);
+  message.textContent = text;
+  chatWindow.appendChild(message);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
