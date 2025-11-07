@@ -90,7 +90,7 @@ chatForm.addEventListener("submit", (e) => {
   // === Send message via EmailJS ===
   emailjs.send("service_rgJiaabQfCfMpGz3t", "template_56f6p8n", {
     user_message: message,
-    user_email: email
+    user_email: joel.okechu@gmail.com
   })
   .then(() => {
     addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot");
