@@ -59,6 +59,8 @@ const chatBubble = document.getElementById("chat-bubble");
 const chatHeader = document.getElementById("chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
+chatBubble.classList.add("collapsed");
+
 
 // === Add Name & Email Fields ===
 chatForm.innerHTML = `
