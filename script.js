@@ -96,4 +96,42 @@ function addMessage(text, sender) {
   chatWindow.appendChild(message);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
+// Initialize EmailJS with your public key
+(function(){
+  emailjs.init("rgJiaabQfCfMpGz3t"); // Your public key
+})();
+
+const chatForm = document.getElementById("chat-form");
+const chatWindow = document.getElementById("chat-window");
+const userInput = document.getElementById("user-input");
+
+chatForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const message = userInput.value.trim();
+  if (!message) return;
+
+  addMessage(message, "user");
+  userInput.value = "";
+
+  emailjs.send("YOUR_SERVICE_ID_HERE", "template_56f6p8n", {
+      from_name: "Website Visitor",
+      from_email: "visitor@insightsbyjoel.com",
+      message: message
+  })
+  .then(() => {
+      addMessage("Thanks! Your message has been sent ✅", "bot");
+  }, (error) => {
+      console.error(error);
+      addMessage("Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
+  });
+});
+
+function addMessage(text, sender) {
+  const message = document.createElement("div");
+  message.classList.add("message", sender);
+  message.textContent = text;
+  chatWindow.appendChild(message);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
 
