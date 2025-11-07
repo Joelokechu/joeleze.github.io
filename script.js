@@ -58,39 +58,35 @@ document.head.appendChild(style);
 
 // === EmailJS Chat Integration ===
 (function(){
-  emailjs.init("rgJiaabQfCfMpGz3t"); // ✅ Your public key
+  emailjs.init("rgJiaabQfCfMpGz3t"); // ✅ Your EmailJS public key
 })();
 
-// Grab chat elements
+// === Chat Elements ===
 const chatBubble = document.getElementById("chat-bubble");
 const chatHeader = document.getElementById("chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
-const userEmail = document.getElementById("user-email"); // if added for capturing visitor email
 
-// === Toggle Chat Bubble Visibility ===
+// === Toggle Chat Window ===
 chatHeader.addEventListener("click", () => {
   chatWindow.classList.toggle("hidden");
   chatForm.classList.toggle("hidden");
 });
 
-// === Handle Chat Form Submission ===
+// === Chat Form Submission ===
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const message = userInput.value.trim();
-  const email = userEmail ? userEmail.value.trim() : "visitor@insightsbyjoel.com";
-
   if (!message) return;
 
   addMessage(message, "user");
   userInput.value = "";
-  if (userEmail) userEmail.value = "";
 
   // === Send message via EmailJS ===
-  emailjs.send("service_rgJiaabQfCfMpGz3t", "template_56f6p8n", {
+  emailjs.send("service_71fb2en", "template_56f6p8n", { 
     user_message: message,
-    user_email: joel.okechu@gmail.com
+    user_email: "Joel.okechu@gmail.com"
   })
   .then(() => {
     addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot");
@@ -101,7 +97,7 @@ chatForm.addEventListener("submit", (e) => {
   });
 });
 
-// === Helper: Display Messages in Chat ===
+// === Helper Function: Display Messages ===
 function addMessage(text, sender) {
   const message = document.createElement("div");
   message.classList.add("message", sender);
