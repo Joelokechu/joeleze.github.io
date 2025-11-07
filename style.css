@@ -326,3 +326,61 @@ footer {
     font-size: 1.3rem;
   }
 }
+// Initialize EmailJS
+emailjs.init('rgJiaabQfCfMpGz3t'); // Your public key
+
+// Chat Bubble Elements
+const chatBubble = document.getElementById('chat-bubble');
+const chatHeader = document.getElementById('chat-header');
+const chatWindow = document.getElementById('chat-window');
+const chatForm = document.getElementById('chat-form');
+const userInput = document.getElementById('user-input');
+
+// Collapse/Expand Chat Bubble
+chatHeader.addEventListener('click', () => {
+    chatWindow.classList.toggle('hidden');
+    chatForm.classList.toggle('hidden');
+    chatBubble.classList.toggle('collapsed');
+});
+
+// Submit Chat Form
+chatForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    // Display user's message
+    const userMsgDiv = document.createElement('div');
+    userMsgDiv.classList.add('message', 'user');
+    userMsgDiv.textContent = message;
+    chatWindow.appendChild(userMsgDiv);
+
+    // Scroll to bottom
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    // Clear input
+    userInput.value = '';
+
+    // Send Email via EmailJS
+    emailjs.send('service_rgJiaabQfCfMpGz3t', 'template_56f6p8n', { 
+        user_message: message,
+        user_email: 'Joel.okechu@gmail.com', 
+    })
+    .then(() => {
+        // Display bot reply
+        const botMsgDiv = document.createElement('div');
+        botMsgDiv.classList.add('message', 'bot');
+        botMsgDiv.textContent = "✅ Thanks! Your message has been sent. I’ll get back to you soon.";
+        chatWindow.appendChild(botMsgDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    })
+    .catch((error) => {
+        const botMsgDiv = document.createElement('div');
+        botMsgDiv.classList.add('message', 'bot');
+        botMsgDiv.textContent = "⚠️ Oops! Something went wrong. Please try again.";
+        chatWindow.appendChild(botMsgDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        console.error('EmailJS Error:', error);
+    });
+});
+
