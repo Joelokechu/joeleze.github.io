@@ -8,22 +8,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// === Navbar background change on scroll ===
+// === Change Navbar Background on Scroll ===
 const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 80) {
-    navbar.style.background = 'rgba(11,12,16,0.95)';
-    navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.5)';
+    navbar.style.background = 'rgba(11, 12, 16, 0.95)';
+    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.5)';
   } else {
-    navbar.style.background = 'rgba(20,20,20,0.95)';
+    navbar.style.background = 'rgba(20, 20, 20, 0.95)';
     navbar.style.boxShadow = 'none';
   }
 });
 
-// === Fade-in animations ===
+// === Fade-in Animation on Scroll ===
 const faders = document.querySelectorAll('.about, .projects, .contact, .project-card');
-const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
-const appearOnScroll = new IntersectionObserver((entries, observer) => {
+
+const appearOptions = {
+  threshold: 0.2,
+  rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, observer) {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('appear');
@@ -31,8 +36,11 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
   });
 }, appearOptions);
 
-faders.forEach(fader => appearOnScroll.observe(fader));
+faders.forEach(fader => {
+  appearOnScroll.observe(fader);
+});
 
+// === Add Fade-in CSS Dynamically ===
 const style = document.createElement('style');
 style.innerHTML = `
   .about, .projects, .contact, .project-card {
@@ -40,53 +48,59 @@ style.innerHTML = `
     transform: translateY(40px);
     transition: all 0.8s ease-out;
   }
-  .appear { opacity:1; transform: translateY(0); }
+  .appear {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 document.head.appendChild(style);
 
 // === Initialize EmailJS ===
-emailjs.init("rgJiaabQfCfMpGz3t");
+emailjs.init("rgJiaabQfCfMpGz3t"); // Your public key
 
-// === Chat Elements ===
+// === Chat Bubble Elements ===
 const chatBubble = document.getElementById("chat-bubble");
 const chatHeader = document.getElementById("chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 
-// === Toggle Chat visibility ===
+// === Toggle Chat Bubble ===
 chatHeader.addEventListener("click", () => {
+  chatBubble.classList.toggle("expanded");
   chatBubble.classList.toggle("collapsed");
-  chatWindow.classList.toggle("hidden");
-  chatForm.classList.toggle("hidden");
 });
 
-// === Chat form submission ===
+// === Add Message Function ===
+function addMessage(text, sender) {
+  const message = document.createElement("div");
+  message.classList.add("message", sender);
+  message.textContent = text;
+  chatWindow.appendChild(message);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+// === Handle Chat Form Submission ===
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const message = userInput.value.trim();
   if (!message) return;
 
+  // Show user's message
   addMessage(message, "user");
   userInput.value = "";
 
-  emailjs.send("service_71fb2en", "template_56f6p8n", {
-    from_name: "Website Visitor",
-    from_email: "visitor@insightsbyjoel.com",
-    message: message
+  // Send email via EmailJS
+  emailjs.send("service_rgJiaabQfCfMpGz3t", "template_56f6p8n", {
+    user_message: message,
+    user_email: "Joel.okechu@gmail.com"
   })
-  .then(() => addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot"))
-  .catch(err => {
-    console.error(err);
+  .then(() => {
+    addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot");
+  })
+  .catch((error) => {
+    console.error("EmailJS Error:", error);
     addMessage("⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
   });
 });
 
-// === Add message to chat window ===
-function addMessage(text, sender) {
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("message", sender);
-  msgDiv.textContent = text;
-  chatWindow.appendChild(msgDiv);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-}
