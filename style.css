@@ -193,4 +193,30 @@ footer {
     font-size: 2.2rem;
   }
 }
+/* Desktop width adjustments */
+@media (min-width: 1200px) {
+  .about, .projects, .contact {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+  .hero {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+  .hero p {
+    font-size: 1.3rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+/* Project card sizing fix */
+.project-card {
+  max-width: 460px;  /* Limit card width so they don’t stretch too much on wide screens */
+  margin: 0 auto;    /* Center the card clusters */
+}
+
 
