@@ -133,5 +133,18 @@ function addMessage(text, sender) {
   chatWindow.appendChild(message);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
+const chatHeader = document.getElementById("chat-header");
+const chatBubble = document.getElementById("chat-bubble");
+
+chatHeader.addEventListener("click", () => {
+    if(chatWindow.style.display === "none" || chatWindow.style.display === "") {
+        chatWindow.style.display = "block";
+        chatForm.style.display = "flex";
+    } else {
+        chatWindow.style.display = "none";
+        chatForm.style.display = "none";
+    }
+});
+
 
 
