@@ -244,6 +244,27 @@ footer {
     margin: 0 auto;
   }
 }
+@media (min-width: 1200px) {
+  .about, .projects, .contact {
+    padding-left: 12%;
+    padding-right: 12%;
+  }
+  .hero {
+    padding-left: 12%;
+    padding-right: 12%;
+  }
+  .project-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+  .project-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .navbar {
+    padding: 1rem 12%;
+  }
+}
 
 
 
