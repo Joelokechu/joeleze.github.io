@@ -22,9 +22,13 @@ window.addEventListener('scroll', () => {
 
 // === Fade-in Animation on Scroll ===
 const faders = document.querySelectorAll('.about, .projects, .contact, .project-card');
-const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
 
-const appearOnScroll = new IntersectionObserver((entries, observer) => {
+const appearOptions = {
+  threshold: 0.2,
+  rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, observer) {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('appear');
@@ -32,7 +36,9 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
   });
 }, appearOptions);
 
-faders.forEach(fader => appearOnScroll.observe(fader));
+faders.forEach(fader => {
+  appearOnScroll.observe(fader);
+});
 
 // === Add Fade-in CSS Dynamically ===
 const style = document.createElement('style');
@@ -42,69 +48,47 @@ style.innerHTML = `
     transform: translateY(40px);
     transition: all 0.8s ease-out;
   }
+
   .appear {
     opacity: 1;
     transform: translateY(0);
   }
 `;
 document.head.appendChild(style);
-
-// === EmailJS Setup ===
-(function() {
-  emailjs.init("rgJiaabQfCfMpGz3t"); // ✅ Your EmailJS public key
+// Initialize EmailJS with your public key
+(function(){
+  emailjs.init("rgJiaabQfCfMpGz3t"); // Your public key
 })();
 
-// === Chat Elements ===
-const chatBubble = document.getElementById("chat-bubble");
-const chatHeader = document.getElementById("chat-header");
-const chatWindow = document.getElementById("chat-window");
+// Grab form elements
 const chatForm = document.getElementById("chat-form");
-chatBubble.classList.add("collapsed");
+const chatWindow = document.getElementById("chat-window");
+const userInput = document.getElementById("user-input");
 
-
-// === Add Name & Email Fields ===
-chatForm.innerHTML = `
-  <input type="text" id="from_name" placeholder="Your name..." required>
-  <input type="email" id="from_email" placeholder="Your email..." required>
-  <input type="text" id="user_message" placeholder="Type your message..." required>
-  <button type="submit">Send</button>
-`;
-
-// === Toggle Chat Visibility ===
-chatHeader.addEventListener("click", () => {
-  chatWindow.classList.toggle("hidden");
-  chatForm.classList.toggle("hidden");
-});
-
-// === Handle Chat Form Submission ===
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  const message = userInput.value.trim();
+  if (!message) return;
 
-  const fromName = document.getElementById("from_name").value.trim();
-  const fromEmail = document.getElementById("from_email").value.trim();
-  const message = document.getElementById("user_message").value.trim();
+  // Show user message in chat window
+  addMessage(message, "user");
+  userInput.value = "";
 
-  if (!fromName || !fromEmail || !message) return;
-
-  addMessage(`${fromName}: ${message}`, "user");
-
-  // === Send to EmailJS ===
-  emailjs.send("service_71fb2en", "template_56f6p8n", {
-    from_name: fromName,
-    from_email: fromEmail,
-    message: message
+  // Send message via EmailJS using your template
+  emailjs.send("YOUR_SERVICE_ID_HERE", "template_56f6p8n", {
+      from_name: "Website Visitor",
+      from_email: "visitor@insightsbyjoel.com", // optional
+      message: message
   })
   .then(() => {
-    addMessage("✅ Thanks, " + fromName + "! Your message has been sent. I’ll get back to you soon.", "bot");
-    chatForm.reset();
-  })
-  .catch((error) => {
-    console.error("EmailJS Error:", error);
-    addMessage("⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
+      addMessage("Thanks! Your message has been sent ✅", "bot");
+  }, (error) => {
+      console.error(error);
+      addMessage("Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
   });
 });
 
-// === Helper: Add Chat Message ===
+// Function to display messages
 function addMessage(text, sender) {
   const message = document.createElement("div");
   message.classList.add("message", sender);
@@ -112,3 +96,52 @@ function addMessage(text, sender) {
   chatWindow.appendChild(message);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
+// Initialize EmailJS with your public key
+(function(){
+  emailjs.init("rgJiaabQfCfMpGz3t"); // Your public key
+})();
+
+const chatForm = document.getElementById("chat-form");
+const chatWindow = document.getElementById("chat-window");
+const userInput = document.getElementById("user-input");
+
+chatForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const message = userInput.value.trim();
+  if (!message) return;
+
+  addMessage(message, "user");
+  userInput.value = "";
+
+  emailjs.send("YOUR_SERVICE_ID_HERE", "template_56f6p8n", {
+      from_name: "Website Visitor",
+      from_email: "visitor@insightsbyjoel.com",
+      message: message
+  })
+  .then(() => {
+      addMessage("Thanks! Your message has been sent ✅", "bot");
+  }, (error) => {
+      console.error(error);
+      addMessage("Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
+  });
+});
+
+function addMessage(text, sender) {
+  const message = document.createElement("div");
+  message.classList.add("message", sender);
+  message.textContent = text;
+  chatWindow.appendChild(message);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+const chatHeader = document.getElementById("chat-header");
+const chatBubble = document.getElementById("chat-bubble");
+
+chatHeader.addEventListener("click", () => {
+    if(chatWindow.style.display === "none" || chatWindow.style.display === "") {
+        chatWindow.style.display = "block";
+        chatForm.style.display = "flex";
+    } else {
+        chatWindow.style.display = "none";
+        chatForm.style.display = "none";
+    }
+});
