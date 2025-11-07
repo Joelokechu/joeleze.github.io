@@ -22,13 +22,9 @@ window.addEventListener('scroll', () => {
 
 // === Fade-in Animation on Scroll ===
 const faders = document.querySelectorAll('.about, .projects, .contact, .project-card');
+const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
 
-const appearOptions = {
-  threshold: 0.2,
-  rootMargin: "0px 0px -50px 0px"
-};
-
-const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('appear');
@@ -36,9 +32,7 @@ const appearOnScroll = new IntersectionObserver(function(entries, observer) {
   });
 }, appearOptions);
 
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
-});
+faders.forEach(fader => appearOnScroll.observe(fader));
 
 // === Add Fade-in CSS Dynamically ===
 const style = document.createElement('style');
@@ -48,7 +42,6 @@ style.innerHTML = `
     transform: translateY(40px);
     transition: all 0.8s ease-out;
   }
-
   .appear {
     opacity: 1;
     transform: translateY(0);
@@ -56,8 +49,8 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// === EmailJS Chat Integration ===
-(function(){
+// === EmailJS Setup ===
+(function() {
   emailjs.init("rgJiaabQfCfMpGz3t"); // ✅ Your EmailJS public key
 })();
 
@@ -66,31 +59,42 @@ const chatBubble = document.getElementById("chat-bubble");
 const chatHeader = document.getElementById("chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
-const userInput = document.getElementById("user-input");
 
-// === Toggle Chat Window ===
+// === Add Name & Email Fields ===
+chatForm.innerHTML = `
+  <input type="text" id="from_name" placeholder="Your name..." required>
+  <input type="email" id="from_email" placeholder="Your email..." required>
+  <input type="text" id="user_message" placeholder="Type your message..." required>
+  <button type="submit">Send</button>
+`;
+
+// === Toggle Chat Visibility ===
 chatHeader.addEventListener("click", () => {
   chatWindow.classList.toggle("hidden");
   chatForm.classList.toggle("hidden");
 });
 
-// === Chat Form Submission ===
+// === Handle Chat Form Submission ===
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const message = userInput.value.trim();
-  if (!message) return;
 
-  addMessage(message, "user");
-  userInput.value = "";
+  const fromName = document.getElementById("from_name").value.trim();
+  const fromEmail = document.getElementById("from_email").value.trim();
+  const message = document.getElementById("user_message").value.trim();
 
-  // === Send message via EmailJS ===
+  if (!fromName || !fromEmail || !message) return;
+
+  addMessage(`${fromName}: ${message}`, "user");
+
+  // === Send to EmailJS ===
   emailjs.send("service_71fb2en", "template_56f6p8n", {
-    from_name: "Website Visitor",
-    from_email: "visitor@insightsbyjoel.com",
+    from_name: fromName,
+    from_email: fromEmail,
     message: message
   })
   .then(() => {
-    addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot");
+    addMessage("✅ Thanks, " + fromName + "! Your message has been sent. I’ll get back to you soon.", "bot");
+    chatForm.reset();
   })
   .catch((error) => {
     console.error("EmailJS Error:", error);
@@ -98,7 +102,7 @@ chatForm.addEventListener("submit", (e) => {
   });
 });
 
-// === Helper Function: Display Messages ===
+// === Helper: Add Chat Message ===
 function addMessage(text, sender) {
   const message = document.createElement("div");
   message.classList.add("message", sender);
