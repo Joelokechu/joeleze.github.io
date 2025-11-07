@@ -1,41 +1,41 @@
-/* === General Styles === */
+/* 🎨 LIGHT THEME — Insights by Joel */
+
+/* GLOBAL RESETS */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background-color: #f9fafc;
-  color: #2e2e2e;
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
   line-height: 1.6;
-  scroll-behavior: smooth;
 }
 
-/* === Navbar === */
+/* HEADER / NAVBAR */
+header {
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding-bottom: 2rem;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 4rem;
-  background: rgba(255, 255, 255, 0.98);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1rem 8%;
 }
 
 .logo {
   font-size: 1.6rem;
-  color: #0078d4;
-  font-weight: 700;
+  font-weight: 600;
+  color: #333;
 }
 
 .logo span {
-  color: #00aaff;
+  color: #0078d7;
 }
 
 .nav-links {
@@ -45,149 +45,136 @@ body {
 }
 
 .nav-links a {
-  color: #2e2e2e;
   text-decoration: none;
+  color: #333;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.3s;
 }
 
 .nav-links a:hover {
-  color: #0078d4;
+  color: #0078d7;
 }
 
-/* === Hero Section === */
+/* HERO SECTION */
 .hero {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-  padding: 0 2rem;
-  background: linear-gradient(180deg, #ffffff, #f0f4f8);
+  padding: 5rem 10%;
+  background: linear-gradient(135deg, #f4faff, #ffffff);
 }
 
 .hero h1 {
-  font-size: 3rem;
-  color: #1a1a1a;
+  font-size: 2.8rem;
+  color: #111;
   margin-bottom: 1rem;
 }
 
 .hero p {
-  max-width: 700px;
   font-size: 1.1rem;
-  color: #555;
+  margin-bottom: 2rem;
 }
 
 .btn {
-  display: inline-block;
-  margin-top: 1.5rem;
-  background-color: #0078d4;
-  color: #fff;
+  background: #0078d7;
+  color: white;
   padding: 0.8rem 1.6rem;
-  border-radius: 30px;
+  border-radius: 8px;
   text-decoration: none;
-  transition: all 0.3s ease;
-  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #005fa3;
-  transform: translateY(-3px);
+  background: #005fa3;
 }
 
-/* === Section Titles === */
-section h2 {
+/* ABOUT SECTION */
+.about, .projects, .contact {
+  padding: 4rem 10%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* PROJECT GRID */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card h3 {
+  color: #0078d7;
+  margin-bottom: 1rem;
+}
+
+/* POWER BI EMBED */
+.embed-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Keeps 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.embed-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* CONTACT SECTION */
+.contact a {
+  color: #0078d7;
+  text-decoration: none;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}
+
+/* FOOTER */
+footer {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #0078d4;
+  padding: 1.5rem;
+  background: #ffffff;
+  color: #555;
+  margin-top: 2rem;
+  font-size: 0.9rem;
 }
 
-/* ===== Mobile fix & responsive embeds ===== */
-
-/* Reserve space for fixed navbar so content doesn't jump under it */
-main, .hero, section {
-  padding-top: 4.5rem; /* default offset for navbar height on desktop */
-}
-
-/* Better defaults for small screens */
+/* ✅ RESPONSIVE DESIGN (KEEPS ALIGNMENT) */
 @media (max-width: 768px) {
-
-  /* Reduce navbar padding and logo size */
   .navbar {
-    padding: 0.6rem 1rem;
-    border-bottom: 1px solid #e6e6e6;
-  }
-  .logo {
-    font-size: 1.25rem;
-  }
-
-  /* Ensure the content sits below the fixed navbar */
-  main, .hero, section {
-    padding-top: 5.2rem; /* increase slightly to avoid overlap if hero is large */
-  }
-
-  /* Mobile nav links: use the mobile menu container instead of inline links */
-  .nav-links { display: none; } /* hide desktop links on mobile - mobile menu will show */
-
-  /* Mobile menu container */
-  #mobile-menu {
-    display: block;
-    width: 100%;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  }
-  #mobile-menu a {
-    display: block;
-    padding: 0.9rem 1rem;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
-  /* Hero spacing and font shrink */
-  .hero {
-    padding: 3.5rem 1.2rem;
-    min-height: calc(100vh - 5.2rem);
-  }
-  .hero h1 {
-    font-size: 1.8rem;
-    line-height: 1.15;
-  }
-  .hero p {
-    font-size: 0.98rem;
-  }
-
-  /* Project cards full width and tighter */
-  .project-grid {
-    grid-template-columns: 1fr; /* stack as single column */
+    flex-direction: column;
     gap: 1rem;
   }
-  .project-card {
-    padding: 1.2rem;
-    border-radius: 10px;
+
+  .hero h1 {
+    font-size: 2.2rem;
   }
 
-  /* Responsive embed wrapper for Power BI iframes */
-  .embed-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 aspect ratio; use 75% for 4:3 */
-    overflow: hidden;
-    border-radius: 8px;
-    border: 1px solid #ececec;
-    background: #fff;
+  .hero p {
+    font-size: 1rem;
   }
-  .embed-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
+
+  .project-grid {
+    grid-template-columns: 1fr;
   }
 }
-
-
-/* === About Section === */
-.about {
-  padding: 6rem 2rem;
-  background-color: #ff
