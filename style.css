@@ -1,3 +1,186 @@
+/* === General Styles === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #0b0c10;
+  color: #c5c6c7;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* === Navbar === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 12%;
+  background: rgba(20, 20, 20, 0.95);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 1px solid #1f2833;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: #66fcf1;
+  font-weight: 700;
+}
+
+.logo span {
+  color: #45a29e;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: #c5c6c7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #66fcf1;
+}
+
+/* === Hero Section === */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 6rem 12%;
+  background: linear-gradient(180deg, #0b0c10, #1f2833);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  max-width: 700px;
+  font-size: 1.3rem;
+  color: #c5c6c7;
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background-color: #45a29e;
+  color: #0b0c10;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background-color: #66fcf1;
+  transform: translateY(-3px);
+}
+
+/* === Section Titles === */
+section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #66fcf1;
+}
+
+/* === About Section === */
+.about {
+  padding: 6rem 12%;
+  background-color: #1f2833;
+  text-align: center;
+}
+
+.about p {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #c5c6c7;
+  font-size: 1.1rem;
+}
+
+/* === Projects Section === */
+.projects {
+  padding: 6rem 12%;
+  background-color: #0b0c10;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background-color: #1f2833;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(102, 252, 241, 0.2);
+}
+
+.project-card h3 {
+  color: #66fcf1;
+  margin-bottom: 1rem;
+}
+
+.project-card p {
+  color: #c5c6c7;
+}
+
+/* === Contact Section === */
+.contact {
+  padding: 6rem 12%;
+  background-color: #1f2833;
+  text-align: center;
+}
+
+.contact a {
+  color: #66fcf1;
+  text-decoration: none;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}
+
+/* === Footer === */
+footer {
+  text-align: center;
+  padding: 2rem 12%;
+  background-color: #0b0c10;
+  color: #c5c6c7;
+  font-size: 0.9rem;
+  border-top: 1px solid #1f2833;
+}
+
 /* === Floating Chat Bubble === */
 #chat-bubble {
   position: fixed;
@@ -16,24 +199,11 @@
 
 /* Collapsed chat (default) */
 #chat-bubble.collapsed {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
   cursor: pointer;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-  color: #fff;
-  font-size: 26px;
-  box-shadow: 0 8px 20px rgba(31, 94, 255, 0.4);
-}
-
-/* Hover effect for collapsed state */
-#chat-bubble.collapsed:hover {
-  box-shadow: 0 10px 25px rgba(31, 94, 255, 0.6);
-  transform: scale(1.05);
 }
 
 /* Chat header */
@@ -44,6 +214,7 @@
   font-size: 16px;
   text-align: center;
   color: #fff;
+  cursor: pointer;
 }
 
 /* Chat window */
@@ -55,6 +226,7 @@
   transition: all 0.3s ease;
 }
 
+/* Chat messages */
 .message {
   margin: 10px 0;
   padding: 10px 14px;
@@ -124,7 +296,7 @@
   transform: scale(1.03);
 }
 
-/* Scrollbar */
+/* Scrollbar for chat window */
 #chat-window::-webkit-scrollbar {
   width: 6px;
 }
@@ -134,8 +306,26 @@
   border-radius: 4px;
 }
 
-/* Mobile view */
-@media (max-width: 600px) {
+/* === Responsive Styles === */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
   #chat-bubble {
     width: 90%;
     right: 5%;
@@ -143,7 +333,46 @@
   }
 
   #chat-bubble.collapsed {
-    width: 60px;
-    height: 60px;
+    width: 180px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+  .project-card {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .about, .projects, .contact {
+    padding-left: 12%;
+    padding-right: 12%;
+  }
+
+  .hero {
+    padding-left: 12%;
+    padding-right: 12%;
+  }
+
+  .project-grid {
+    gap: 3rem;
+  }
+
+  .project-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero p {
+    font-size: 1.3rem;
   }
 }
