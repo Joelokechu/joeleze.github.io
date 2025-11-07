@@ -5,66 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insights by Joel | Data Analyst Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script defer src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">Insights<span>byJoel</span></div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <section class="hero">
-            <h1>Turning Data into Actionable Insights</h1>
-            <p>Hi, I'm <strong>Joel Eze</strong> — a Data Analyst passionate about uncovering stories behind numbers.</p>
-            <a href="#projects" class="btn">View My Work</a>
-        </section>
-    </header>
 
-    <main>
-        <section id="about" class="about">
-            <h2>About Me</h2>
-            <p>
-                I’m a UK-based Data Analyst skilled in Python, SQL, Excel, and Power BI.
-                I focus on helping businesses make data-driven decisions through analytics, visualisation, and predictive modelling.
-            </p>
-        </section>
+<!-- Navbar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">Insights<span>byJoel</span></div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <section id="projects" class="projects">
-            <h2>Featured Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>Sales Performance Dashboard</h3>
-                    <p>Power BI dashboard showing real-time sales insights and regional breakdowns.</p>
-                    <a href="#" class="btn">View Dashboard</a>
-                </div>
-                <div class="project-card">
-                    <h3>Customer Feedback Analysis</h3>
-                    <p>Text mining and sentiment analysis on customer reviews using Python and Power BI.</p>
-                    <a href="#" class="btn">Explore Insights</a>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Turning Data into Actionable Insights</h1>
+        <p>Hi, I'm <strong>Joel Eze</strong> — a UK-based Data Analyst passionate about uncovering stories behind numbers.</p>
+        <a href="#projects" class="btn">View My Work</a>
+    </section>
+</header>
+
+<!-- Main Content -->
+<main>
+    <!-- About -->
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <p>I’m a UK-based Data Analyst skilled in Python, SQL, Excel, and Power BI. I help businesses make data-driven decisions through analytics, visualisation, and predictive modelling.</p>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="projects">
+        <h2>Featured Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>Sales Performance Dashboard</h3>
+                <p>Power BI dashboard showing real-time sales insights and regional breakdowns.</p>
+                <iframe src="YOUR_POWER_BI_EMBED_LINK" frameborder="0" allowfullscreen loading="lazy"></iframe>
             </div>
-        </section>
+            <div class="project-card">
+                <h3>Customer Feedback Analysis</h3>
+                <p>Text mining and sentiment analysis on customer reviews using Python and Power BI.</p>
+                <iframe src="YOUR_POWER_BI_EMBED_LINK" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
 
-        <section id="contact" class="contact">
-            <h2>Get in Touch</h2>
-            <p>Email: <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/jeze12" target="_blank">www.linkedin.com/in/jeze12</a></p>
-        </section>
-    </main>
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <h2>Get in Touch</h2>
+        <p>Email: <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/jeze12" target="_blank">www.linkedin.com/in/jeze12</a></p>
+    </section>
+</main>
 
-    <footer>
-        <p>© 2025 Insights by Joel | Designed with ❤️ in Birmingham, UK</p>
-    </footer>
-    <!-- Floating Chat Bubble -->
+<!-- Footer -->
+<footer>
+    <p>© 2025 Insights by Joel | Designed with ❤️ in Birmingham, UK</p>
+</footer>
+
+<!-- Floating Collapsible Chat Bubble -->
 <div id="chat-bubble">
     <div id="chat-header">💬 Chat with Joel</div>
     <div id="chat-window">
-        <div class="message bot">Hi there! 👋 Leave me a message, and I’ll get back to you soon.</div>
+        <div class="message bot">Hi there! 👋 Leave me a message and I’ll get back to you soon.</div>
     </div>
     <form id="chat-form">
         <input type="text" id="user-input" placeholder="Type your message..." required>
