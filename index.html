@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insights by Joel | Data Analyst Portfolio</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+
+    <!-- EmailJS Library -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Main JS -->
+    <script defer src="script.js"></script>
 </head>
 <body>
 
@@ -34,7 +40,8 @@
     <!-- About -->
     <section id="about" class="about">
         <h2>About Me</h2>
-        <p>I’m a UK-based Data Analyst skilled in Python, SQL, Excel, and Power BI. I help businesses make data-driven decisions through analytics, visualisation, and predictive modelling.</p>
+        <p>I’m a UK-based Data Analyst skilled in Python, SQL, Excel, and Power BI. 
+        I help businesses make data-driven decisions through analytics, visualisation, and predictive modelling.</p>
     </section>
 
     <!-- Projects -->
@@ -70,10 +77,10 @@
 <!-- Floating Collapsible Chat Bubble -->
 <div id="chat-bubble">
     <div id="chat-header">💬 Chat with Joel</div>
-    <div id="chat-window">
+    <div id="chat-window" class="hidden">
         <div class="message bot">Hi there! 👋 Leave me a message and I’ll get back to you soon.</div>
     </div>
-    <form id="chat-form">
+    <form id="chat-form" class="hidden">
         <input type="text" id="user-input" placeholder="Type your message..." required>
         <button type="submit">Send</button>
     </form>
