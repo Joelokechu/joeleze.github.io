@@ -342,6 +342,38 @@ footer {
 #chat-form button:hover {
     background: #005fa3;
 }
+.hero {
+    text-align: center;
+    padding: 6rem 2rem;
+}
+
+.hero .btn {
+    margin-top: 1.5rem;
+}
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+#chat-bubble {
+    width: 250px;
+    max-height: 350px;
+    bottom: 15px;
+    right: 15px;
+}
+.navbar {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 1rem 10%;
+    z-index: 999;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+footer {
+    padding: 2rem 10%;
+    text-align: center;
+    background: #f8f9fb;
+}
 
 
 
