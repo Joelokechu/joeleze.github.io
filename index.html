@@ -77,10 +77,17 @@
 <!-- Floating Collapsible Chat Bubble -->
 <div id="chat-bubble" class="collapsed">
     <div id="chat-header">💬 Chat with Joel</div>
+    
+    <!-- Chat Window -->
     <div id="chat-window" class="hidden">
         <div class="message bot">Hi there! 👋 Leave me a message and I’ll get back to you soon.</div>
     </div>
+
+    <!-- Chat Form -->
     <form id="chat-form" class="hidden">
+        <!-- These fields will also be validated and sent to EmailJS -->
+        <input type="text" id="user-name" placeholder="Your name" required>
+        <input type="email" id="user-email" placeholder="Your email" required>
         <input type="text" id="user-input" placeholder="Type your message..." required>
         <button type="submit">Send</button>
     </form>
