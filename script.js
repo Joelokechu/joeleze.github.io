@@ -1,99 +1,92 @@
-// === Smooth Scroll for Navigation Links ===
+// === Smooth Scroll ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
-      behavior: 'smooth'
-    });
+    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
   });
 });
 
-// === Change Navbar Background on Scroll ===
+// === Navbar Scroll Effect ===
 const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 80) {
-    navbar.style.background = 'rgba(11, 12, 16, 0.95)';
-    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.5)';
-  } else {
-    navbar.style.background = 'rgba(20, 20, 20, 0.95)';
-    navbar.style.boxShadow = 'none';
-  }
+  navbar.style.background = window.scrollY > 80
+    ? 'rgba(11, 12, 16, 0.95)'
+    : 'rgba(20, 20, 20, 0.95)';
 });
 
-// === Fade-in Animation on Scroll ===
-const faders = document.querySelectorAll('.about, .projects, .contact, .project-card');
-const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
-const appearOnScroll = new IntersectionObserver((entries, observer) => {
+// === Hamburger Menu Toggle ===
+const menuToggle = document.getElementById('menu-toggle');
+const navLinks = document.getElementById('nav-links');
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
+// === Fade-in on Scroll ===
+const fadeSections = document.querySelectorAll('.fade-section');
+const observer = new IntersectionObserver((entries, obs) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('appear');
-    observer.unobserve(entry.target);
+    obs.unobserve(entry.target);
   });
-}, appearOptions);
-faders.forEach(fader => appearOnScroll.observe(fader));
+}, { threshold: 0.2 });
+fadeSections.forEach(s => observer.observe(s));
 
-// === Add Fade-in CSS Dynamically ===
-const style = document.createElement('style');
-style.innerHTML = `
-  .about, .projects, .contact, .project-card {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease-out;
-  }
-  .appear {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-document.head.appendChild(style);
-
-// === Initialize EmailJS ===
+// === EmailJS Init ===
 emailjs.init("rgJiaabQfCfMpGz3t");
 
-// === Chat Bubble Elements ===
+// === Chat Elements ===
 const chatBubble = document.getElementById("chat-bubble");
 const chatHeader = document.getElementById("chat-header");
+const closeChat = document.getElementById("close-chat");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 
-// === Toggle Chat Bubble Visibility ===
+// === Toggle Chat ===
 chatHeader.addEventListener("click", () => {
-  chatWindow.classList.toggle("hidden");
-  chatForm.classList.toggle("hidden");
-  chatBubble.classList.toggle("collapsed");
+  if (chatBubble.classList.contains("collapsed")) {
+    chatBubble.classList.remove("collapsed");
+    chatWindow.classList.remove("hidden");
+    chatForm.classList.remove("hidden");
+    closeChat.classList.remove("hidden");
+  }
 });
 
-// === Handle Chat Form Submission ===
+closeChat.addEventListener("click", (e) => {
+  e.stopPropagation();
+  chatBubble.classList.add("collapsed");
+  chatWindow.classList.add("hidden");
+  chatForm.classList.add("hidden");
+  closeChat.classList.add("hidden");
+});
+
+// === Send Message ===
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const message = userInput.value.trim();
   if (!message) return;
 
-  // Display user's message
   addMessage(message, "user");
   userInput.value = "";
+  addMessage("⏳ Sending...", "bot");
 
-  // Send email via EmailJS
   emailjs.send("service_71fb2en", "template_56f6p8n", {
-      from_name: "Website Visitor",
-      from_email: "visitor@insightsbyjoel.com", // optional placeholder
-      message: message
+    from_name: "Website Visitor",
+    message: message
   })
   .then(() => {
-      addMessage(`✅ Thanks! Your message has been sent. I’ll get back to you soon.`, "bot");
+    addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot");
   })
-  .catch((error) => {
-      console.error("EmailJS Error:", error);
-      addMessage(`⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com`, "bot");
+  .catch(() => {
+    addMessage("⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
   });
 });
 
-// === Helper Function to Display Messages ===
 function addMessage(text, sender) {
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("message", sender);
-  msgDiv.textContent = text;
-  chatWindow.appendChild(msgDiv);
+  const msg = document.createElement("div");
+  msg.classList.add("message", sender);
+  msg.textContent = text;
+  chatWindow.appendChild(msg);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
