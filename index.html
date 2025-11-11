@@ -2,105 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Joel Eze — Data Analyst skilled in Power BI, Python, and data storytelling." />
   <title>Insights by Joel | Data Analyst Portfolio</title>
-
-  <!-- Meta Description & SEO -->
-  <meta name="description" content="Portfolio of Joel Eze – UK-based Data Analyst skilled in Power BI, Python, SQL, and Excel. Discover insights and data-driven projects.">
-  <meta property="og:title" content="Insights by Joel | Data Analyst Portfolio">
-  <meta property="og:description" content="Turning Data into Actionable Insights – explore projects in Power BI, Python, and analytics.">
-  <meta property="og:image" content="preview.jpg">
-  <meta property="og:url" content="https://insightsbyjoel.com">
-  <link rel="icon" href="favicon.ico">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- EmailJS Library -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-  <!-- Main JS -->
-  <script defer src="script.js"></script>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
+
 <body>
+  <!-- Skip to Content -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- Navbar -->
-  <header>
-    <nav class="navbar" role="navigation" aria-label="Main navigation">
-      <div class="logo" aria-hidden="false">Insights<span>byJoel</span></div>
-
-      <ul class="nav-links" id="nav-links" role="menubar">
-        <li role="none"><a role="menuitem" href="#about">About</a></li>
-        <li role="none"><a role="menuitem" href="#projects">Projects</a></li>
-        <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1>Turning Data into Actionable Insights</h1>
-      <p>Hi, I'm <strong>Joel Eze</strong> — a UK-based Data Analyst passionate about uncovering stories behind numbers.</p>
-      <a href="#projects" class="btn">View My Work</a>
-    </section>
+  <header class="navbar">
+    <div class="logo">Insights<span>ByJoel</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </header>
 
-  <!-- Main Content -->
-  <main>
-    <!-- About -->
-    <section id="about" class="about fade-section" aria-labelledby="about-heading">
-      <h2 id="about-heading">About Me</h2>
-      <p>I’m a UK-based Data Analyst skilled in Python, SQL, Excel, and Power BI. I help businesses make data-driven decisions through analytics, visualisation, and predictive modelling.</p>
-      <a class="btn-secondary" href="Joel_Eze_CV.pdf" download>Download CV</a>
-    </section>
+  <!-- Hero Section -->
+  <section class="hero" id="main-content">
+    <h1>Turning Data Into Meaningful Insights</h1>
+    <p>Hi, I’m Joel Eze — a data analyst passionate about uncovering trends, predicting outcomes, and creating impactful data visualizations using Power BI, Python, and Excel.</p>
+    <a href="#projects" class="btn">View My Work</a>
+  </section>
 
-    <!-- Projects -->
-    <section id="projects" class="projects fade-section" aria-labelledby="projects-heading">
-      <h2 id="projects-heading">Featured Projects</h2>
-      <div class="project-grid">
-        <article class="project-card fade-section" aria-labelledby="proj1">
-          <h3 id="proj1">Sales Performance Dashboard</h3>
-          <p>Power BI dashboard showing real-time sales insights and regional breakdowns.</p>
-          <div class="iframe-container" aria-hidden="false">
-            <iframe src="YOUR_POWER_BI_EMBED_LINK" title="Sales Performance Dashboard" frameborder="0" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </article>
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2>About Me</h2>
+    <p>I’m a data-driven problem solver with a strong foundation in data analysis, visualization, and storytelling. With experience in Power BI, Python, and SQL, I love transforming raw datasets into clear, actionable insights that support business growth.</p>
+  </section>
 
-        <article class="project-card fade-section" aria-labelledby="proj2">
-          <h3 id="proj2">Customer Feedback Analysis</h3>
-          <p>Text mining and sentiment analysis on customer reviews using Python and Power BI.</p>
-          <div class="iframe-container" aria-hidden="false">
-            <iframe src="YOUR_POWER_BI_EMBED_LINK" title="Customer Feedback Analysis" frameborder="0" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </article>
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Sales Performance Dashboard</h3>
+        <p>Power BI dashboard analyzing sales trends and performance across multiple categories.</p>
+        <div class="iframe-container">
+          <iframe src="YOUR_POWER_BI_LINK" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
       </div>
-    </section>
 
-    <!-- Contact -->
-    <section id="contact" class="contact fade-section" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Get in Touch</h2>
-      <p>Email: <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/jeze12</a></p>
-    </section>
-  </main>
+      <div class="project-card">
+        <h3>Customer Sentiment Analysis</h3>
+        <p>Python NLP project analyzing customer feedback using sentiment polarity and clustering.</p>
+      </div>
+
+      <div class="project-card">
+        <h3>Delivery Optimization Insights</h3>
+        <p>Power BI visualization showing delivery times and optimization metrics across regions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Get in Touch</h2>
+    <div class="contact-card">
+      <p>I’d love to hear from you! Whether you have a project, question, or just want to connect — let’s talk.</p>
+      <div class="contact-links">
+        <a href="mailto:Joel.okechu@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i> Email Me</a>
+        <a href="https://www.linkedin.com/in/jeze12" target="_blank" class="contact-btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer>
-    <p>© 2025 Insights by Joel | Designed with ❤️ in Birmingham, UK</p>
+    <p>© 2025 Insights by Joel — All Rights Reserved.</p>
   </footer>
 
-  <!-- Floating Collapsible Chat Bubble (starts collapsed) -->
-  <div id="chat-bubble" class="collapsed" aria-live="polite" aria-label="Chat with Joel">
-    <div id="chat-header" class="chat-header">💬 Chat with Joel</div>
-
-    <div id="chat-window" class="hidden" role="log" aria-relevant="additions">
-      <div class="message bot">Hi there! 👋 Leave me a message and I’ll get back to you soon.</div>
-    </div>
-
-    <form id="chat-form" class="hidden" aria-label="Send a message to Joel">
-      <input type="text" id="user-input" name="message" placeholder="Type your message..." aria-label="Type your message" required />
-      <button type="submit" aria-label="Send message">Send</button>
+  <!-- Chat Bubble -->
+  <div id="chat-bubble" class="collapsed">
+    <div id="chat-header"><i class="fas fa-comments"></i> Chat with Joel</div>
+    <div id="chat-window"></div>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Type your message..." required />
+      <button type="submit">Send</button>
     </form>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
