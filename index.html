@@ -28,17 +28,18 @@
   <header>
     <nav class="navbar" role="navigation" aria-label="Main navigation">
       <div class="logo">Insights<span>byJoel</span></div>
-      <ul class="nav-links" role="menubar">
-        <li role="none"><a role="menuitem" href="#about">About</a></li>
-        <li role="none"><a role="menuitem" href="#projects">Projects</a></li>
-        <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
       <h1>Turning Data into Actionable Insights</h1>
-      <p>Hi, I'm <strong>Joel Eze</strong> — a UK-based Data Analyst passionate about uncovering stories behind numbers.</p>
+      <p>Hi, I'm a UK-based Data Analyst passionate about uncovering stories behind numbers.</p>
       <a href="#projects" class="btn">View My Work</a>
     </section>
   </header>
@@ -46,26 +47,26 @@
   <!-- Main Content -->
   <main>
     <!-- About -->
-    <section id="about" class="about fade-section" aria-labelledby="about-heading">
-      <h2 id="about-heading">About Me</h2>
+    <section id="about" class="about fade-section">
+      <h2>About Me</h2>
       <p>I’m a UK-based Data Analyst skilled in Python, SQL, Excel, and Power BI. I help businesses make data-driven decisions through analytics, visualisation, and predictive modelling.</p>
       <a class="btn-secondary" href="Joel_Eze_CV.pdf" download>Download CV</a>
     </section>
 
     <!-- Projects -->
-    <section id="projects" class="projects fade-section" aria-labelledby="projects-heading">
-      <h2 id="projects-heading">Featured Projects</h2>
+    <section id="projects" class="projects fade-section">
+      <h2>Featured Projects</h2>
       <div class="project-grid">
-        <article class="project-card fade-section" aria-labelledby="proj1">
-          <h3 id="proj1">Sales Performance Dashboard</h3>
+        <article class="project-card fade-section">
+          <h3>Sales Performance Dashboard</h3>
           <p>Power BI dashboard showing real-time sales insights and regional breakdowns.</p>
           <div class="iframe-container">
             <iframe src="YOUR_POWER_BI_EMBED_LINK" title="Sales Performance Dashboard" frameborder="0" allowfullscreen loading="lazy"></iframe>
           </div>
         </article>
 
-        <article class="project-card fade-section" aria-labelledby="proj2">
-          <h3 id="proj2">Customer Feedback Analysis</h3>
+        <article class="project-card fade-section">
+          <h3>Customer Feedback Analysis</h3>
           <p>Text mining and sentiment analysis on customer reviews using Python and Power BI.</p>
           <div class="iframe-container">
             <iframe src="YOUR_POWER_BI_EMBED_LINK" title="Customer Feedback Analysis" frameborder="0" allowfullscreen loading="lazy"></iframe>
@@ -75,10 +76,12 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="contact fade-section" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Get in Touch</h2>
-      <p>Email: <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/jeze12</a></p>
+    <section id="contact" class="contact fade-section">
+      <h2>Get in Touch</h2>
+      <div class="contact-card">
+        <p><strong>Email:</strong> <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/jeze12</a></p>
+      </div>
     </section>
   </main>
 
@@ -88,23 +91,19 @@
   </footer>
 
   <!-- Floating Collapsible Chat Bubble -->
-  <div id="chat-bubble" class="collapsed" aria-live="polite" aria-label="Chat with Joel">
-    <!-- Collapsed: avatar + label -->
-    <div class="collapsed-content">
-      <img id="chat-avatar" src="chat-avatar.png" alt="Joel Eze" />
-      <span class="chat-label">Chat</span>
+  <div id="chat-bubble" class="collapsed" aria-live="polite" aria-label="Chat">
+    <div class="chat-icon">
+      <span>💬</span>
+      <span class="chat-text">Chat</span>
     </div>
 
-    <!-- Header when expanded -->
-    <div id="chat-header" class="chat-header">💬 Chat with Joel</div>
-
-    <div id="chat-window" class="hidden" role="log" aria-relevant="additions">
+    <div id="chat-window" class="hidden">
       <div class="message bot">Hi there! 👋 Leave me a message and I’ll get back to you soon.</div>
     </div>
 
-    <form id="chat-form" class="hidden" aria-label="Send a message to Joel">
-      <input type="text" id="user-input" name="message" placeholder="Type your message..." aria-label="Type your message" required />
-      <button type="submit" aria-label="Send message">Send</button>
+    <form id="chat-form" class="hidden">
+      <input type="text" id="user-input" placeholder="Type your message..." required />
+      <button type="submit">Send</button>
     </form>
   </div>
 
