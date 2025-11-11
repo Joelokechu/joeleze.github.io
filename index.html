@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Insights by Joel | Data Analyst Portfolio</title>
 
-  <!-- Meta Description & SEO -->
+  <!-- SEO -->
   <meta name="description" content="Portfolio of Joel Eze – UK-based Data Analyst skilled in Power BI, Python, SQL, and Excel. Discover insights and data-driven projects.">
   <meta property="og:title" content="Insights by Joel | Data Analyst Portfolio">
   <meta property="og:description" content="Turning Data into Actionable Insights – explore projects in Power BI, Python, and analytics.">
   <meta property="og:image" content="preview.jpg">
   <meta property="og:url" content="https://insightsbyjoel.com">
+
+  <!-- Favicon -->
   <link rel="icon" href="favicon.ico">
+
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- EmailJS Library -->
+  <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-  <!-- Main JS -->
+  <!-- JS -->
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -27,20 +32,19 @@
   <!-- Navbar -->
   <header>
     <nav class="navbar" role="navigation" aria-label="Main navigation">
-      <div class="logo" aria-hidden="false">Insights<span>byJoel</span></div>
-
-      <ul class="nav-links" id="nav-links" role="menubar">
+      <div class="logo">Insights<span>byJoel</span></div>
+      <ul class="nav-links" role="menubar">
         <li role="none"><a role="menuitem" href="#about">About</a></li>
         <li role="none"><a role="menuitem" href="#projects">Projects</a></li>
         <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
       </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1>Turning Data into Actionable Insights</h1>
+    <!-- Hero -->
+    <section class="hero fade-section" aria-labelledby="hero-heading">
+      <h1 id="hero-heading">Turning Data into Actionable Insights</h1>
       <p>Hi, I'm <strong>Joel Eze</strong> — a UK-based Data Analyst passionate about uncovering stories behind numbers.</p>
-      <a href="#projects" class="btn">View My Work</a>
+      <a class="btn" href="#projects">View My Work</a>
     </section>
   </header>
 
@@ -78,8 +82,17 @@
     <!-- Contact -->
     <section id="contact" class="contact fade-section" aria-labelledby="contact-heading">
       <h2 id="contact-heading">Get in Touch</h2>
-      <p>Email: <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/jeze12</a></p>
+      <div class="contact-card">
+        <p>I’d love to hear from you — whether it’s a project, a question, or a quick hello.</p>
+        <div class="contact-links">
+          <a class="contact-btn" href="mailto:Joel.okechu@gmail.com">
+            <i class="fas fa-envelope"></i> Email Me
+          </a>
+          <a class="contact-btn" href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -88,14 +101,13 @@
     <p>© 2025 Insights by Joel | Designed with ❤️ in Birmingham, UK</p>
   </footer>
 
-  <!-- Floating Collapsible Chat Bubble (starts collapsed) -->
+  <!-- Floating Collapsible Chat Bubble -->
   <div id="chat-bubble" class="collapsed" aria-live="polite" aria-label="Chat with Joel">
-    <div id="chat-header" class="chat-header">💬 Chat with Joel</div>
-
+    <div class="chat-icon" aria-hidden="true"><i class="fas fa-comments"></i></div>
+    <div class="chat-header" style="display:none;">💬 Chat with Joel</div>
     <div id="chat-window" class="hidden" role="log" aria-relevant="additions">
       <div class="message bot">Hi there! 👋 Leave me a message and I’ll get back to you soon.</div>
     </div>
-
     <form id="chat-form" class="hidden" aria-label="Send a message to Joel">
       <input type="text" id="user-input" name="message" placeholder="Type your message..." aria-label="Type your message" required />
       <button type="submit" aria-label="Send message">Send</button>
