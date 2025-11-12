@@ -38,13 +38,11 @@ emailjs.init("rgJiaabQfCfMpGz3t");
 
 // === Chat Bubble Elements ===
 const chatBubble = document.getElementById("chat-bubble");
+const collapsedContent = chatBubble.querySelector(".collapsed-content");
 const chatHeader = chatBubble.querySelector(".chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
-
-// === Prevent duplicate bot messages ===
-let botTypingTimeout = null;
 
 // === Expand / Collapse Chat ===
 chatBubble.addEventListener('click', (e) => {
@@ -59,12 +57,7 @@ chatBubble.addEventListener('click', (e) => {
     chatHeader.classList.add('hidden');
     chatWindow.classList.add('hidden');
     chatForm.classList.add('hidden');
-
-    // Clear any typing timeout if bubble is collapsed
-    if (botTypingTimeout) {
-      clearTimeout(botTypingTimeout);
-      botTypingTimeout = null;
-    }
+    collapsedContent.classList.remove('hidden');
 
   } else {
     chatBubble.classList.remove('collapsed');
@@ -72,17 +65,17 @@ chatBubble.addEventListener('click', (e) => {
     chatHeader.classList.remove('hidden');
     chatWindow.classList.remove('hidden');
     chatForm.classList.remove('hidden');
+    collapsedContent.classList.add('hidden');
 
-    // Focus the input when expanded
     if (userInput) userInput.focus();
   }
 });
 
-// === Helper to Add Messages with Typing Simulation ===
+// === Helper to Add Messages ===
 function addMessage(text, sender, options = {}) {
   if (!chatWindow) return null;
 
-  // Remove any existing bot "typing" placeholders before adding new messages
+  // Remove existing bot typing placeholders
   if (sender === 'bot') {
     const existingTyping = chatWindow.querySelector('.message.bot[data-typing="true"]');
     if (existingTyping) existingTyping.remove();
@@ -97,11 +90,10 @@ function addMessage(text, sender, options = {}) {
     chatWindow.appendChild(msgDiv);
     chatWindow.scrollTop = chatWindow.scrollHeight;
 
-    botTypingTimeout = setTimeout(() => {
+    setTimeout(() => {
       msgDiv.textContent = text;
       msgDiv.removeAttribute('data-typing');
       chatWindow.scrollTop = chatWindow.scrollHeight;
-      botTypingTimeout = null;
     }, options.delay || 1200);
 
   } else {
@@ -143,7 +135,7 @@ if (chatForm) {
       addMessage('⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot', { delay: 600 });
     });
 
-    // NOTE: Do NOT collapse the chat after sending a message anymore
+    // Bubble stays open — does NOT collapse automatically
   });
 }
 
