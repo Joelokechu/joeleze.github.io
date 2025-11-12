@@ -23,7 +23,10 @@ window.addEventListener('scroll', () => {
 
 // === Fade-in Animation ===
 const fadeSections = document.querySelectorAll('.fade-section');
-const appearOptions = { threshold: 0.18, rootMargin: "0px 0px -40px 0px" };
+const appearOptions = {
+  threshold: 0.18,
+  rootMargin: "0px 0px -40px 0px"
+};
 const appearOnScroll = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
@@ -31,6 +34,7 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
     observer.unobserve(entry.target);
   });
 }, appearOptions);
+
 fadeSections.forEach(section => appearOnScroll.observe(section));
 
 // === Initialize EmailJS ===
@@ -47,9 +51,7 @@ const collapsedContent = chatBubble.querySelector('.collapsed-content');
 // === Chat Toggle Behavior ===
 chatBubble.addEventListener('click', (e) => {
   const isExpanded = chatBubble.classList.contains('expanded');
-  const clickedInsideForm = e.target.closest('#chat-form') !== null;
-
-  // prevent toggle when typing or sending message
+  const clickedInsideForm = e.target.closest('#chat-form') !== null; // prevent toggle when typing or sending message
   if (clickedInsideForm) return;
 
   if (isExpanded) {
@@ -104,10 +106,12 @@ if (chatForm) {
       from_email: "visitor@insightsbyjoel.com",
       message: message
     }).then(() => {
-      if (loadingMsg && loadingMsg.parentNode) loadingMsg.parentNode.removeChild(loadingMsg);
+      if (loadingMsg && loadingMsg.parentNode)
+        loadingMsg.parentNode.removeChild(loadingMsg);
       addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot');
     }).catch((err) => {
-      if (loadingMsg && loadingMsg.parentNode) loadingMsg.parentNode.removeChild(loadingMsg);
+      if (loadingMsg && loadingMsg.parentNode)
+        loadingMsg.parentNode.removeChild(loadingMsg);
       console.error('EmailJS error:', err);
       addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
     });
