@@ -43,21 +43,30 @@ const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 
-// === Chat Toggle Behavior with Click Outside Form ===
+// === Prevent duplicate bot messages ===
+let botTypingTimeout = null;
+
+// === Expand / Collapse Chat ===
 chatBubble.addEventListener('click', (e) => {
-  const isExpanded = chatBubble.classList.contains('expanded');
   const clickedInsideForm = e.target.closest('#chat-form') !== null;
   if (clickedInsideForm) return;
 
+  const isExpanded = chatBubble.classList.contains('expanded');
+
   if (isExpanded) {
-    // Collapse
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
     chatHeader.classList.add('hidden');
     chatWindow.classList.add('hidden');
     chatForm.classList.add('hidden');
+
+    // Clear any typing timeout if bubble is collapsed
+    if (botTypingTimeout) {
+      clearTimeout(botTypingTimeout);
+      botTypingTimeout = null;
+    }
+
   } else {
-    // Expand
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
     chatHeader.classList.remove('hidden');
@@ -67,25 +76,42 @@ chatBubble.addEventListener('click', (e) => {
   }
 });
 
-// === Helper to Add Messages with Optional Typing Animation ===
+// === Helper to Add Messages with Typing Simulation ===
 function addMessage(text, sender, options = {}) {
   if (!chatWindow) return null;
+
+  // Remove any existing bot "typing" placeholders before adding new messages
+  if (sender === 'bot') {
+    const existingTyping = chatWindow.querySelector('.message.bot[data-typing="true"]');
+    if (existingTyping) existingTyping.remove();
+  }
+
   const msgDiv = document.createElement('div');
   msgDiv.classList.add('message', sender);
 
-  if (options.loading) {
-    msgDiv.dataset.loading = 'true';
-    msgDiv.textContent = '⏳ Sending...';
+  if (options.typing) {
+    msgDiv.textContent = '💬 Typing...';
+    msgDiv.dataset.typing = 'true';
+    chatWindow.appendChild(msgDiv);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    botTypingTimeout = setTimeout(() => {
+      msgDiv.textContent = text;
+      msgDiv.removeAttribute('data-typing');
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+      botTypingTimeout = null;
+    }, options.delay || 1200);
+
   } else {
     msgDiv.textContent = text;
+    chatWindow.appendChild(msgDiv);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
   }
 
-  chatWindow.appendChild(msgDiv);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
   return msgDiv;
 }
 
-// === EmailJS Chat Form Submission with Feedback ===
+// === EmailJS Chat Form Submission ===
 if (chatForm) {
   chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -96,8 +122,8 @@ if (chatForm) {
     addMessage(message, 'user');
     userInput.value = '';
 
-    // Show loading
-    const loadingMsg = addMessage('', 'bot', { loading: true });
+    // Show typing animation for bot
+    addMessage('', 'bot', { typing: true });
 
     // Send via EmailJS
     emailjs.send(
@@ -109,17 +135,15 @@ if (chatForm) {
         message: message
       }
     ).then(() => {
-      if (loadingMsg && loadingMsg.parentNode) loadingMsg.parentNode.removeChild(loadingMsg);
-      addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot');
+      addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot', { delay: 600 });
     }).catch((err) => {
-      if (loadingMsg && loadingMsg.parentNode) loadingMsg.parentNode.removeChild(loadingMsg);
       console.error('EmailJS error:', err);
-      addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
+      addMessage('⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot', { delay: 600 });
     });
   });
 }
 
-// === Optional: Small subtle animation on chat bubble hover ===
+// === Hover Animation for Chat Bubble ===
 chatBubble.addEventListener('mouseenter', () => {
   if (!chatBubble.classList.contains('expanded')) {
     chatBubble.style.transform = 'scale(1.05)';
@@ -127,4 +151,12 @@ chatBubble.addEventListener('mouseenter', () => {
 });
 chatBubble.addEventListener('mouseleave', () => {
   chatBubble.style.transform = 'scale(1)';
+});
+
+// === Accessibility: Toggle Chat with Enter Key ===
+chatBubble.setAttribute('tabindex', '0'); // allow focus
+chatBubble.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    chatBubble.click();
+  }
 });
