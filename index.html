@@ -15,4 +15,82 @@
   <nav class="navbar">
     <div class="logo">Insights<span>ByJoel</span></div>
     <ul class="nav-links">
-      <li><a href="#hero">Home<
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- === Hero Section === -->
+  <section id="hero" class="hero fade-section">
+    <h1>Turning Data into Insights</h1>
+    <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
+    <a href="#projects" class="btn">View My Work</a>
+    <a href="Joel_Eze_CV.pdf" class="btn-secondary" download>Download CV</a>
+  </section>
+
+  <!-- === About Section === -->
+  <section id="about" class="about fade-section">
+    <h2>About Me</h2>
+    <p>I’m a Data Analyst with a strong background in data visualisation, analytics, and storytelling. My mission is to bridge the gap between raw information and impactful business insights.</p>
+    <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
+  </section>
+
+  <!-- === Projects Section === -->
+  <section id="projects" class="projects fade-section">
+    <h2>Featured Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Sales Forecast Dashboard</h3>
+        <p>Predicting sales trends using Power BI and regression modelling on e-commerce data.</p>
+      </div>
+      <div class="project-card">
+        <h3>Customer Review Sentiment Analysis</h3>
+        <p>Using Python (NLTK) to analyse and visualise sentiment trends across 10,000+ customer reviews.</p>
+      </div>
+      <div class="project-card">
+        <h3>Delivery Performance Insights</h3>
+        <p>Evaluating logistics efficiency using clustering and time-series metrics for delivery optimisation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- === Contact Section === -->
+  <section id="contact" class="contact fade-section">
+    <div class="contact-card">
+      <h2>Get in Touch</h2>
+      <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
+      <p>
+        <a href="mailto:Joel.okechu@gmail.com">
+          <i class="fas fa-envelope"></i> Joel.okechu@gmail.com
+        </a>
+      </p>
+      <p>
+        <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-linkedin"></i> linkedin.com/in/jeze12
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- === Footer === -->
+  <footer>
+    <p>© 2025 Joel Eze — All Rights Reserved.</p>
+  </footer>
+
+  <!-- === Chat Bubble === -->
+  <div id="chat-bubble" class="collapsed">
+    💬 Chat
+    <div class="chat-header hidden">💬 Chat with me</div>
+    <div id="chat-window" class="hidden"></div>
+    <form id="chat-form" class="hidden">
+      <input type="text" id="user-input" placeholder="Type your message..." aria-label="Message input" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <!-- === Scripts === -->
+  <script src="script.js"></script>
+</body>
+</html>
