@@ -28,7 +28,6 @@
   <header>
     <nav class="navbar" role="navigation" aria-label="Main navigation">
       <div class="logo">Insights<span>byJoel</span></div>
-
       <ul class="nav-links" id="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -39,7 +38,7 @@
     <!-- Hero Section -->
     <section class="hero">
       <h1>Turning Data into Actionable Insights</h1>
-      <p>Hi, I'm a UK-based Data Analyst passionate about uncovering stories behind numbers.</p>
+      <p>Hi, I'm <strong>Joel Eze</strong> — a UK-based Data Analyst passionate about uncovering stories behind numbers.</p>
       <a href="#projects" class="btn">View My Work</a>
     </section>
   </header>
@@ -61,7 +60,7 @@
           <h3>Sales Performance Dashboard</h3>
           <p>Power BI dashboard showing real-time sales insights and regional breakdowns.</p>
           <div class="iframe-container">
-            <iframe src="YOUR_POWER_BI_EMBED_LINK" title="Sales Performance Dashboard" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            <iframe src="YOUR_POWER_BI_EMBED_LINK" title="Sales Performance Dashboard"></iframe>
           </div>
         </article>
 
@@ -69,7 +68,7 @@
           <h3>Customer Feedback Analysis</h3>
           <p>Text mining and sentiment analysis on customer reviews using Python and Power BI.</p>
           <div class="iframe-container">
-            <iframe src="YOUR_POWER_BI_EMBED_LINK" title="Customer Feedback Analysis" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            <iframe src="YOUR_POWER_BI_EMBED_LINK" title="Customer Feedback Analysis"></iframe>
           </div>
         </article>
       </div>
@@ -91,16 +90,19 @@
   </footer>
 
   <!-- Floating Collapsible Chat Bubble -->
-  <div id="chat-bubble" class="collapsed" aria-live="polite" aria-label="Chat">
-    <div class="chat-icon">
-      <span>💬</span>
-      <span class="chat-text">Chat</span>
-    </div>
+  <div id="chat-bubble" class="collapsed" aria-live="polite" aria-label="Chat bubble">
+    <!-- Collapsed bar content -->
+    <div class="collapsed-content">💬 Chat</div>
 
+    <!-- Expanded header -->
+    <div id="chat-header" class="chat-header">Chat with me 💬</div>
+
+    <!-- Chat window -->
     <div id="chat-window" class="hidden">
       <div class="message bot">Hi there! 👋 Leave me a message and I’ll get back to you soon.</div>
     </div>
 
+    <!-- Chat form -->
     <form id="chat-form" class="hidden">
       <input type="text" id="user-input" placeholder="Type your message..." required />
       <button type="submit">Send</button>
