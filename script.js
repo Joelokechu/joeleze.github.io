@@ -72,6 +72,8 @@ chatBubble.addEventListener('click', (e) => {
     chatHeader.classList.remove('hidden');
     chatWindow.classList.remove('hidden');
     chatForm.classList.remove('hidden');
+
+    // Focus the input when expanded
     if (userInput) userInput.focus();
   }
 });
@@ -140,6 +142,8 @@ if (chatForm) {
       console.error('EmailJS error:', err);
       addMessage('⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot', { delay: 600 });
     });
+
+    // NOTE: Do NOT collapse the chat after sending a message anymore
   });
 }
 
