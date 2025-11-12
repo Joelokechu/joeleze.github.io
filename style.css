@@ -38,6 +38,7 @@ body {
   color: #45a29e;
 }
 
+/* Keep full nav visible at all sizes; wrap if necessary */
 .nav-links {
   list-style: none;
   display: flex;
@@ -210,38 +211,45 @@ section h2 {
   transform: translateY(0);
 }
 
-/* === Contact Section === */
+/* === Contact Section (as card) === */
 .contact {
   padding: 4rem 6%;
-  background-color: #1f2833;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #0b0c10;
 }
 
-/* Contact links as cards (added subtle contrast) */
 .contact-card {
-  display: inline-block;
-  background-color: #19232d;
-  padding: 1.2rem 2rem;
+  background: #1f2833;
   border-radius: 12px;
-  margin: 0.4rem 0;
-  transition: background 0.2s ease, transform 0.2s ease;
+  padding: 2rem 3rem;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.contact-card h2 {
+  color: #66fcf1;
+  margin-bottom: 1rem;
+}
+
+.contact-card p {
+  margin: 0.6rem 0;
+  color: #c5c6c7;
 }
 
 .contact-card a {
   color: #66fcf1;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.25s ease;
 }
 
 .contact-card a:hover {
+  color: #45a29e;
   text-decoration: underline;
-  color: #7ef2f0; /* brighter turquoise */
-}
-
-/* Hover effect for card */
-.contact-card:hover {
-  background-color: #22313f;
-  transform: translateY(-2px);
 }
 
 /* === Footer === */
@@ -254,50 +262,46 @@ footer {
   border-top: 1px solid #1f2833;
 }
 
-/* === Chat Bubble === */
+/* === Chat Bubble (collapsed by default) === */
 #chat-bubble {
   position: fixed;
   bottom: 18px;
   right: 18px;
+  width: auto;
   border-radius: 12px;
   overflow: hidden;
   z-index: 999;
   transition: all 0.25s ease;
   font-family: 'Poppins', sans-serif;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.35);
 }
 
-/* Collapsed chat bubble */
+/* Collapsed look */
 #chat-bubble.collapsed {
-  height: 52px;
-  background: linear-gradient(135deg,#1f5eff,#4fc3f7);
+  height: 48px;
+  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(15,23,42,0.35);
-  padding: 0 16px;
-  width: auto;
-  min-width: 90px;
-}
-
-/* Bubble text/icon */
-.chat-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  padding: 0 18px;
   font-weight: 600;
-  color: #fff;
+  font-size: 0.95rem;
 }
-.chat-text { font-size: 1rem; }
 
-/* Expanded chat bubble */
+/* Expanded look */
 #chat-bubble.expanded {
   width: 320px;
   background: #fff;
   color: #333;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: chatBounce 0.25s ease-out;
+}
+
+/* Header when expanded */
+.chat-header {
+  display: none;
 }
 
 #chat-bubble.expanded .chat-header {
@@ -307,6 +311,7 @@ footer {
   padding: 10px 12px;
   font-weight: 600;
   text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 /* Chat window */
@@ -328,9 +333,18 @@ footer {
   font-size: 0.95rem;
 }
 
-.message.bot { background: #e9f3ff; color: #333; }
-.message.user { background: #0078d7; color: white; margin-left: auto; }
+.message.bot {
+  background: #e9f3ff;
+  color: #333;
+}
 
+.message.user {
+  background: #0078d7;
+  color: white;
+  margin-left: auto;
+}
+
+/* Chat form */
 #chat-form {
   display: flex;
   gap: 8px;
@@ -359,10 +373,25 @@ footer {
 }
 #chat-form button:hover { background: #005fa3; }
 
-/* Accessibility focus */
+/* === Accessibility focus states === */
 a:focus, button:focus, input:focus {
   outline: 2px dashed rgba(102,252,241,0.25);
   outline-offset: 3px;
+}
+
+/* === Bounce Animation === */
+@keyframes chatBounce {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  60% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* === Responsive adjustments === */
@@ -371,7 +400,7 @@ a:focus, button:focus, input:focus {
   .hero { padding: 4rem 4%; }
   .about, .projects, .contact { padding: 3rem 4%; }
   .hero h1 { font-size: 1.9rem; }
-  #chat-bubble { right: 12px; bottom: 12px; width: auto; }
+  #chat-bubble { right: 12px; bottom: 12px; }
   #chat-bubble.expanded { width: 300px; }
 }
 
@@ -379,6 +408,5 @@ a:focus, button:focus, input:focus {
   .nav-links { gap: 0.8rem; font-size: 0.95rem; }
   .project-grid { gap: 1rem; }
   .hero h1 { font-size: 1.6rem; }
-  #chat-bubble { width: auto; min-width: 80px; }
   #chat-bubble.expanded { width: 94vw; right: 3%; left: 3%; }
 }
