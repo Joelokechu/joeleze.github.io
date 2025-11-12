@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,144 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Insights by Joel</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-<body>
 
+<body>
   <!-- === Navbar === -->
   <nav class="navbar">
     <div class="logo">Insights<span>ByJoel</span></div>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- === Hero Section === -->
-  <section class="hero fade-section">
-    <h1>Turning Data into Insights</h1>
-    <p>Hi, I'm Joel — a data analyst passionate about transforming raw data into impactful business intelligence that drives smarter decisions.</p>
-    <a href="#projects" class="btn">View My Work</a>
-    <a href="Joel_Eze_CV.pdf" class="btn-secondary" download>Download CV</a>
-  </section>
-
-  <!-- === About Section === -->
-  <section id="about" class="about fade-section">
-    <h2>About Me</h2>
-    <p>I'm a data analyst skilled in SQL, Python, Power BI, and Excel. I specialize in uncovering actionable insights from large datasets, helping teams make informed, data-driven decisions. My background in Information Technology for Business allows me to bridge technical data analysis with strategic impact.</p>
-  </section>
-
-  <!-- === Projects Section === -->
-  <section id="projects" class="projects fade-section">
-    <h2>Featured Projects</h2>
-    <div class="project-grid">
-
-      <div class="project-card">
-        <h3>Olist E-commerce Analysis</h3>
-        <p>Comprehensive data analysis project featuring sales prediction, sentiment analysis, and delivery performance using the Olist dataset.</p>
-        <div class="iframe-container">
-          <iframe src="https://app.powerbi.com/view?r=example_dashboard" title="Olist Power BI Dashboard"></iframe>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <h3>Sales Forecast Dashboard</h3>
-        <p>Developed a forecasting model and Power BI dashboard to predict future sales trends and visualize key metrics across categories.</p>
-      </div>
-
-      <div class="project-card">
-        <h3>Customer Segmentation</h3>
-        <p>Used clustering techniques to segment customers by buying behavior, improving marketing strategy and engagement efficiency.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- === Contact Section === -->
-  <section id="contact" class="contact fade-section">
-    <div class="contact-card">
-      <h2>Contact Me</h2>
-      <p>📍 Birmingham, West Midlands</p>
-      <p>📧 <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
-      <p>📞 <a href="tel:+447723183093">+44 7723183093</a></p>
-      <p>💼 <a href="https://www.linkedin.com/in/jeze12" target="_blank">LinkedIn Profile</a></p>
-    </div>
-  </section>
-
-  <!-- === Footer === -->
-  <footer>
-    <p>&copy; 2025 Insights by Joel. All rights reserved.</p>
-  </footer>
-
-  <!-- === Chat Bubble === -->
-  <div id="chat-bubble" class="collapsed">
-    <span id="chat-label">💬 Chat with me</span>
-
-    <div class="chat-header hidden">💬 Chat with me</div>
-    <div id="chat-window" class="hidden"></div>
-
-    <form id="chat-form" class="hidden">
-      <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" />
-      <button type="submit">Send</button>
-    </form>
-  </div>
-
-  <!-- === Script === -->
-  <script>
-    const chatBubble = document.getElementById('chat-bubble');
-    const chatLabel = document.getElementById('chat-label');
-    const chatHeader = document.querySelector('.chat-header');
-    const chatWindow = document.getElementById('chat-window');
-    const chatForm = document.getElementById('chat-form');
-
-    chatBubble.addEventListener('click', () => {
-      const isCollapsed = chatBubble.classList.contains('collapsed');
-      if (isCollapsed) {
-        chatBubble.classList.remove('collapsed');
-        chatBubble.classList.add('expanded');
-        chatLabel.classList.add('hidden');
-        chatHeader.classList.remove('hidden');
-        chatWindow.classList.remove('hidden');
-        chatForm.classList.remove('hidden');
-      }
-    });
-
-    // Collapse when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!chatBubble.contains(e.target) && chatBubble.classList.contains('expanded')) {
-        chatBubble.classList.remove('expanded');
-        chatBubble.classList.add('collapsed');
-        chatLabel.classList.remove('hidden');
-        chatHeader.classList.add('hidden');
-        chatWindow.classList.add('hidden');
-        chatForm.classList.add('hidden');
-      }
-    });
-
-    // Simple mock chat interaction
-    chatForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const input = document.getElementById('user-input');
-      const message = input.value.trim();
-      if (!message) return;
-
-      const userMsg = document.createElement('div');
-      userMsg.classList.add('message', 'user');
-      userMsg.textContent = message;
-      chatWindow.appendChild(userMsg);
-
-      setTimeout(() => {
-        const botMsg = document.createElement('div');
-        botMsg.classList.add('message', 'bot');
-        botMsg.textContent = "Thanks for your message! I'll get back to you soon.";
-        chatWindow.appendChild(botMsg);
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-      }, 800);
-
-      input.value = '';
-    });
-  </script>
-
-</body>
-</html>
+      <li><a href="#hero">Home<
