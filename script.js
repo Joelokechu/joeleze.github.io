@@ -1,9 +1,8 @@
-
 // === Smooth Scroll for Navigation Links ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
-    if (!href.startsWith('#')) return; // allow external or mailto links
+    if (!href.startsWith('#')) return;
     e.preventDefault();
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -39,37 +38,42 @@ emailjs.init("rgJiaabQfCfMpGz3t");
 
 // === Chat Bubble Elements ===
 const chatBubble = document.getElementById("chat-bubble");
-const chatHeader = document.getElementById("chat-header");
+const chatHeader = chatBubble.querySelector(".chat-header"); // ✅ fixed selector
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 const collapsedContent = chatBubble.querySelector('.collapsed-content');
 
 // === Chat Toggle Behavior ===
+let greeted = false;
 chatBubble.addEventListener('click', (e) => {
   const isExpanded = chatBubble.classList.contains('expanded');
-  const clickedInsideForm = e.target.closest('#chat-form') !== null;
-
-  // prevent toggle when typing or clicking inside form
-  if (clickedInsideForm) return;
+  const clickedInside = e.target.closest('#chat-form, #chat-window') !== null;
+  if (clickedInside) return; // prevent toggle while interacting
 
   if (isExpanded) {
     // Collapse
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
-    if (chatHeader) chatHeader.classList.add('hidden');
-    if (chatWindow) chatWindow.classList.add('hidden');
-    if (chatForm) chatForm.classList.add('hidden');
-    if (collapsedContent) collapsedContent.classList.remove('hidden');
+    chatHeader.classList.add('hidden');
+    chatWindow.classList.add('hidden');
+    chatForm.classList.add('hidden');
+    collapsedContent.classList.remove('hidden');
   } else {
     // Expand
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
-    if (chatHeader) chatHeader.classList.remove('hidden');
-    if (chatWindow) chatWindow.classList.remove('hidden');
-    if (chatForm) chatForm.classList.remove('hidden');
-    if (collapsedContent) collapsedContent.classList.add('hidden');
-    if (userInput) userInput.focus();
+    chatHeader.classList.remove('hidden');
+    chatWindow.classList.remove('hidden');
+    chatForm.classList.remove('hidden');
+    collapsedContent.classList.add('hidden');
+    userInput.focus();
+
+    // Optional greeting (shown only once)
+    if (!greeted) {
+      addMessage("👋 Hi there! I’m Joel’s assistant bot. Type your message below and I’ll make sure Joel sees it.", "bot");
+      greeted = true;
+    }
   }
 });
 
@@ -106,26 +110,23 @@ if (chatForm) {
     const message = userInput.value.trim();
     if (!message) return;
 
-    // Add user's message
     addMessage(message, 'user');
     userInput.value = '';
 
-    // Show typing indicator
     const typingIndicator = showTypingIndicator();
 
-    // Send via EmailJS
     emailjs.send("service_71fb2en", "template_56f6p8n", {
       from_name: "Website Visitor",
       from_email: "visitor@insightsbyjoel.com",
       message: message
     }).then(() => {
       setTimeout(() => {
-        if (typingIndicator && typingIndicator.parentNode) typingIndicator.remove();
+        typingIndicator.remove();
         addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot');
       }, 1000);
     }).catch((err) => {
       console.error('EmailJS error:', err);
-      if (typingIndicator && typingIndicator.parentNode) typingIndicator.remove();
+      typingIndicator.remove();
       addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
     });
   });
