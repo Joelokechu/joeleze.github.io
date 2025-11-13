@@ -62,9 +62,7 @@
       <h2>Get in Touch</h2>
       <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
       <p>
-        <a href="mailto:Joel.okechu@gmail.com">
-          <i class="fas fa-envelope"></i> Joel.okechu@gmail.com
-        </a>
+        <a href="mailto:Joel.okechu@gmail.com"><i class="fas fa-envelope"></i> Joel.okechu@gmail.com</a>
       </p>
       <p>
         <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">
@@ -86,8 +84,10 @@
     <div id="chat-window" class="hidden"></div>
 
     <form id="chat-form" class="hidden">
-      <input type="text" id="user-name" placeholder="Your name" aria-label="Name input" required />
-      <input type="email" id="user-email" placeholder="Your email" aria-label="Email input" required />
+      <div class="form-row">
+        <input type="text" id="user-name" placeholder="Your name" aria-label="Name input" required />
+        <input type="email" id="user-email" placeholder="Your email" aria-label="Email input" required />
+      </div>
       <input type="text" id="user-input" placeholder="Type your message..." aria-label="Message input" required />
       <button type="submit">Send</button>
       <small id="change-info" class="hidden">Change your name or email</small>
