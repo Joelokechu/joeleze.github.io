@@ -2,7 +2,7 @@
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
-    if (!href.startsWith('#')) return; // allow external or mailto links
+    if (!href.startsWith('#')) return;
     e.preventDefault();
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -48,12 +48,9 @@ const collapsedContent = chatBubble.querySelector('.collapsed-content');
 chatBubble.addEventListener('click', (e) => {
   const isExpanded = chatBubble.classList.contains('expanded');
   const clickedInsideForm = e.target.closest('#chat-form') !== null;
-
-  // prevent toggle when typing or clicking inside form
   if (clickedInsideForm) return;
 
   if (isExpanded) {
-    // Collapse
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
     if (chatHeader) chatHeader.classList.add('hidden');
@@ -61,7 +58,6 @@ chatBubble.addEventListener('click', (e) => {
     if (chatForm) chatForm.classList.add('hidden');
     if (collapsedContent) collapsedContent.classList.remove('hidden');
   } else {
-    // Expand
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
     if (chatHeader) chatHeader.classList.remove('hidden');
@@ -98,6 +94,15 @@ function showTypingIndicator() {
   return typingDiv;
 }
 
+// === Fade-out helper ===
+function fadeOutAndRemove(element, duration = 400) {
+  element.style.transition = `opacity ${duration}ms ease`;
+  element.style.opacity = 0;
+  setTimeout(() => {
+    if (element.parentNode) element.remove();
+  }, duration);
+}
+
 // === EmailJS Chat Form Submission ===
 if (chatForm) {
   chatForm.addEventListener('submit', (e) => {
@@ -119,12 +124,12 @@ if (chatForm) {
       message: message
     }).then(() => {
       setTimeout(() => {
-        if (typingIndicator && typingIndicator.parentNode) typingIndicator.remove();
+        fadeOutAndRemove(typingIndicator, 400);
         addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot');
       }, 1000);
     }).catch((err) => {
       console.error('EmailJS error:', err);
-      if (typingIndicator && typingIndicator.parentNode) typingIndicator.remove();
+      fadeOutAndRemove(typingIndicator, 400);
       addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
     });
   });
