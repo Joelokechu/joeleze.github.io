@@ -1,8 +1,9 @@
+
 // === Smooth Scroll for Navigation Links ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
-    if (!href.startsWith('#')) return;
+    if (!href.startsWith('#')) return; // allow external or mailto links
     e.preventDefault();
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -38,36 +39,47 @@ emailjs.init("rgJiaabQfCfMpGz3t");
 
 // === Chat Bubble Elements ===
 const chatBubble = document.getElementById("chat-bubble");
+const chatHeader = document.getElementById("chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
+const collapsedContent = chatBubble.querySelector('.collapsed-content');
 
 // === Chat Toggle Behavior ===
 chatBubble.addEventListener('click', (e) => {
   const isExpanded = chatBubble.classList.contains('expanded');
   const clickedInsideForm = e.target.closest('#chat-form') !== null;
+
+  // prevent toggle when typing or clicking inside form
   if (clickedInsideForm) return;
 
   if (isExpanded) {
+    // Collapse
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
-    chatWindow.classList.add('hidden');
-    chatForm.classList.add('hidden');
+    if (chatHeader) chatHeader.classList.add('hidden');
+    if (chatWindow) chatWindow.classList.add('hidden');
+    if (chatForm) chatForm.classList.add('hidden');
+    if (collapsedContent) collapsedContent.classList.remove('hidden');
   } else {
+    // Expand
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
-    chatWindow.classList.remove('hidden');
-    chatForm.classList.remove('hidden');
+    if (chatHeader) chatHeader.classList.remove('hidden');
+    if (chatWindow) chatWindow.classList.remove('hidden');
+    if (chatForm) chatForm.classList.remove('hidden');
+    if (collapsedContent) collapsedContent.classList.add('hidden');
     if (userInput) userInput.focus();
   }
 });
 
 // === Helper: Add Message ===
-function addMessage(text, sender) {
+function addMessage(text, sender, options = {}) {
   if (!chatWindow) return null;
   const msgDiv = document.createElement('div');
   msgDiv.classList.add('message', sender);
   msgDiv.textContent = text;
+  if (options.loading) msgDiv.dataset.loading = 'true';
   chatWindow.appendChild(msgDiv);
   chatWindow.scrollTop = chatWindow.scrollHeight;
   return msgDiv;
@@ -85,15 +97,6 @@ function showTypingIndicator() {
   chatWindow.appendChild(typingDiv);
   chatWindow.scrollTop = chatWindow.scrollHeight;
   return typingDiv;
-}
-
-// === Fade-out helper ===
-function fadeOutAndRemove(element, duration = 400) {
-  element.style.transition = `opacity ${duration}ms ease`;
-  element.style.opacity = 0;
-  setTimeout(() => {
-    if (element.parentNode) element.remove();
-  }, duration);
 }
 
 // === EmailJS Chat Form Submission ===
@@ -117,12 +120,12 @@ if (chatForm) {
       message: message
     }).then(() => {
       setTimeout(() => {
-        fadeOutAndRemove(typingIndicator, 400);
+        if (typingIndicator && typingIndicator.parentNode) typingIndicator.remove();
         addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot');
       }, 1000);
     }).catch((err) => {
       console.error('EmailJS error:', err);
-      fadeOutAndRemove(typingIndicator, 400);
+      if (typingIndicator && typingIndicator.parentNode) typingIndicator.remove();
       addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
     });
   });
