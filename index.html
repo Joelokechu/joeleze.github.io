@@ -76,24 +76,51 @@
   <footer>
     <p>© 2025 Joel Eze — All Rights Reserved.</p>
   </footer>
+<!-- === Chat Bubble === -->
+<div id="chat-bubble" class="collapsed">
+  <!-- Collapsed view -->
+  <div class="collapsed-content">💬 Chat</div>
 
-  <!-- === Chat Bubble === -->
-  <div id="chat-bubble" class="collapsed">
-    <div class="collapsed-content">💬 Chat</div>
-    <div class="chat-header hidden">💬 Chat with me</div>
-    <div id="chat-window" class="hidden"></div>
+  <!-- Expanded view -->
+  <div class="chat-header hidden">💬 Chat with me</div>
+  <div id="chat-window" class="hidden"></div>
 
-    <form id="chat-form" class="hidden">
-      <div class="form-row">
-        <input type="text" id="user-name" placeholder="Your name" aria-label="Name input" required />
-        <input type="email" id="user-email" placeholder="Your email" aria-label="Email input" required />
-      </div>
-      <input type="text" id="user-input" placeholder="Type your message..." aria-label="Message input" required />
+  <form id="chat-form" class="hidden">
+    <!-- Top Row: Name + Email -->
+    <div class="form-top">
+      <input 
+        type="text" 
+        id="user-name" 
+        placeholder="Your Name" 
+        aria-label="Name input" 
+        required 
+      />
+      <input 
+        type="email" 
+        id="user-email" 
+        placeholder="Your Email" 
+        aria-label="Email input" 
+        required 
+      />
+    </div>
+
+    <!-- Second Row: Message + Send Button -->
+    <div id="message-row">
+      <input 
+        type="text" 
+        id="user-input" 
+        placeholder="Your Message..." 
+        aria-label="Message input" 
+        required 
+      />
       <button type="submit">Send</button>
-      <small id="change-info" class="hidden">Change your name or email</small>
-    </form>
-  </div>
+    </div>
 
+    <!-- Change Info Link -->
+    <small id="change-info" class="hidden">Change your name or email</small>
+  </form>
+</div>
+  
   <script src="script.js"></script>
 </body>
 </html>
