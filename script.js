@@ -45,47 +45,32 @@ const userInput = document.getElementById("user-input");
 const collapsedContent = chatBubble.querySelector('.collapsed-content');
 const changeInfo = document.getElementById("change-info");
 
-// === Chat Toggle Behavior ===
+// === Toggle Chat ===
 chatBubble.addEventListener('click', (e) => {
   const isExpanded = chatBubble.classList.contains('expanded');
   const clickedInsideForm = e.target.closest('#chat-form') !== null;
-
   if (clickedInsideForm) return;
 
   if (isExpanded) {
-    // Collapse chat
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
-
-    // Hide expanded parts
-    document.querySelector('.chat-header').classList.add('hidden');
-    document.getElementById('chat-window').classList.add('hidden');
-    document.getElementById('chat-form').classList.add('hidden');
-
-    // Show collapsed label
-    document.querySelector('.collapsed-content').classList.remove('hidden');
+    chatHeader.classList.add('hidden');
+    chatWindow.classList.add('hidden');
+    chatForm.classList.add('hidden');
+    collapsedContent.classList.remove('hidden');
   } else {
-    // Expand chat
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
-
-    // Show expanded parts
-    document.querySelector('.chat-header').classList.remove('hidden');
-    document.getElementById('chat-window').classList.remove('hidden');
-    document.getElementById('chat-form').classList.remove('hidden');
-
-    // Hide collapsed label
-    document.querySelector('.collapsed-content').classList.add('hidden');
-
-    // Focus input
-    document.getElementById('user-input').focus();
+    chatHeader.classList.remove('hidden');
+    chatWindow.classList.remove('hidden');
+    chatForm.classList.remove('hidden');
+    collapsedContent.classList.add('hidden');
+    userInput.focus();
   }
 });
 
-
-// === Helpers ===
+// === Message Helpers ===
 function addMessage(text, sender) {
-  if (!chatWindow) return null;
   const msgDiv = document.createElement('div');
   msgDiv.classList.add('message', sender);
   msgDiv.textContent = text;
@@ -106,12 +91,11 @@ function showTypingIndicator() {
   return typingDiv;
 }
 
-// === EmailJS Form Logic ===
+// === EmailJS Chat Form ===
 if (chatForm) {
   const nameInput = document.getElementById("user-name");
   const emailInput = document.getElementById("user-email");
 
-  // Load saved info
   const savedName = localStorage.getItem("chatUserName");
   const savedEmail = localStorage.getItem("chatUserEmail");
 
@@ -124,57 +108,4 @@ if (chatForm) {
     setTimeout(() => changeInfo.classList.add("visible"), 50);
   }
 
-  // Reset info when clicking "Change Info"
-  changeInfo.addEventListener('click', () => {
-    localStorage.removeItem("chatUserName");
-    localStorage.removeItem("chatUserEmail");
-    nameInput.value = "";
-    emailInput.value = "";
-    nameInput.style.display = "block";
-    emailInput.style.display = "block";
-    changeInfo.classList.remove("visible");
-    setTimeout(() => changeInfo.classList.add("hidden"), 300);
-    addMessage("✏️ You can now update your name and email.", "bot");
-  });
-
-  chatForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const message = userInput.value.trim();
-
-    if (!name || !email || !message) {
-      addMessage('⚠️ Please fill in your name, email, and message before sending.', 'bot');
-      return;
-    }
-
-    if (!savedName || !savedEmail) {
-      localStorage.setItem("chatUserName", name);
-      localStorage.setItem("chatUserEmail", email);
-      nameInput.style.display = "none";
-      emailInput.style.display = "none";
-      changeInfo.classList.remove("hidden");
-      setTimeout(() => changeInfo.classList.add("visible"), 50);
-    }
-
-    addMessage(message, 'user');
-    userInput.value = '';
-
-    const typingIndicator = showTypingIndicator();
-
-    emailjs.send("service_71fb2en", "template_56f6p8n", {
-      from_name: name,
-      from_email: email,
-      message: message
-    }).then(() => {
-      setTimeout(() => {
-        typingIndicator.remove();
-        addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, 'bot');
-      }, 1000);
-    }).catch((err) => {
-      console.error('EmailJS error:', err);
-      typingIndicator.remove();
-      addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
-    });
-  });
-}
+  change
