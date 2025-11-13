@@ -22,12 +22,21 @@
     </ul>
   </nav>
 
-  <!-- === Hero Section === -->
-  <section id="hero" class="hero fade-section">
-    <h1>Turning Data into Insights</h1>
-    <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
-    <a href="#projects" class="btn">View My Work</a>
-    <a href="Joel_Eze_CV.pdf" class="btn-secondary" download>Download CV</a>
+  <!-- === Hero Section (Updated with Photo on Right) === -->
+  <section id="hero" class="hero fade-section hero-with-photo">
+    <div class="hero-content">
+      <h1>Turning Data into Insights</h1>
+      <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
+
+      <div class="hero-buttons">
+        <a href="#projects" class="btn">View My Work</a>
+        <a href="Joel_Eze_CV.pdf" class="btn-secondary" download>Download CV</a>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <img src="https://via.placeholder.com/350x350.png?text=Your+Photo" alt="Joel Portrait">
+    </div>
   </section>
 
   <!-- === About Section === -->
@@ -84,10 +93,12 @@
         <input type="text" id="user-name" placeholder="Your Name" required />
         <input type="email" id="user-email" placeholder="Your Email" required />
       </div>
+
       <div class="message-row">
         <input type="text" id="user-input" placeholder="Your Message" required />
         <button type="submit">Send</button>
       </div>
+
       <div id="change-info" class="hidden">Change your name or email</div>
     </form>
   </div>
