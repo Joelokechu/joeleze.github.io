@@ -38,21 +38,21 @@ emailjs.init("rgJiaabQfCfMpGz3t");
 
 // === Chat Bubble Elements ===
 const chatBubble = document.getElementById("chat-bubble");
-const chatHeader = chatBubble.querySelector(".chat-header"); // ✅ fixed selector
+const chatHeader = chatBubble.querySelector(".chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 const collapsedContent = chatBubble.querySelector('.collapsed-content');
+const changeInfo = document.getElementById("change-info");
 
 // === Chat Toggle Behavior ===
 let greeted = false;
 chatBubble.addEventListener('click', (e) => {
   const isExpanded = chatBubble.classList.contains('expanded');
   const clickedInside = e.target.closest('#chat-form, #chat-window') !== null;
-  if (clickedInside) return; // prevent toggle while interacting
+  if (clickedInside) return;
 
   if (isExpanded) {
-    // Collapse
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
     chatHeader.classList.add('hidden');
@@ -60,7 +60,6 @@ chatBubble.addEventListener('click', (e) => {
     chatForm.classList.add('hidden');
     collapsedContent.classList.remove('hidden');
   } else {
-    // Expand
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
     chatHeader.classList.remove('hidden');
@@ -69,7 +68,6 @@ chatBubble.addEventListener('click', (e) => {
     collapsedContent.classList.add('hidden');
     userInput.focus();
 
-    // Optional greeting (shown only once)
     if (!greeted) {
       addMessage("👋 Hi there! I’m Joel’s assistant bot. Type your message below and I’ll make sure Joel sees it.", "bot");
       greeted = true;
@@ -83,7 +81,6 @@ function addMessage(text, sender, options = {}) {
   const msgDiv = document.createElement('div');
   msgDiv.classList.add('message', sender);
   msgDiv.textContent = text;
-  if (options.loading) msgDiv.dataset.loading = 'true';
   chatWindow.appendChild(msgDiv);
   chatWindow.scrollTop = chatWindow.scrollHeight;
   return msgDiv;
@@ -105,10 +102,53 @@ function showTypingIndicator() {
 
 // === EmailJS Chat Form Submission ===
 if (chatForm) {
+  const nameInput = document.getElementById("user-name");
+  const emailInput = document.getElementById("user-email");
+
+  // Load saved info if available
+  const savedName = localStorage.getItem("chatUserName");
+  const savedEmail = localStorage.getItem("chatUserEmail");
+
+  if (savedName && savedEmail) {
+    nameInput.value = savedName;
+    emailInput.value = savedEmail;
+    nameInput.style.display = "none";
+    emailInput.style.display = "none";
+    changeInfo.classList.remove("hidden");
+  }
+
+  // === Reset info when clicking "Change Info" ===
+  changeInfo.addEventListener('click', () => {
+    localStorage.removeItem("chatUserName");
+    localStorage.removeItem("chatUserEmail");
+    nameInput.value = "";
+    emailInput.value = "";
+    nameInput.style.display = "block";
+    emailInput.style.display = "block";
+    changeInfo.classList.add("hidden");
+    addMessage("✏️ You can now update your name and email.", "bot");
+  });
+
   chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
     const message = userInput.value.trim();
-    if (!message) return;
+
+    if (!name || !email || !message) {
+      addMessage('⚠️ Please fill in your name, email, and message before sending.', 'bot');
+      return;
+    }
+
+    // Save user details after first submission
+    if (!savedName || !savedEmail) {
+      localStorage.setItem("chatUserName", name);
+      localStorage.setItem("chatUserEmail", email);
+      nameInput.style.display = "none";
+      emailInput.style.display = "none";
+      changeInfo.classList.remove("hidden");
+    }
 
     addMessage(message, 'user');
     userInput.value = '';
@@ -116,13 +156,13 @@ if (chatForm) {
     const typingIndicator = showTypingIndicator();
 
     emailjs.send("service_71fb2en", "template_56f6p8n", {
-      from_name: "Website Visitor",
-      from_email: "visitor@insightsbyjoel.com",
+      from_name: name,
+      from_email: email,
       message: message
     }).then(() => {
       setTimeout(() => {
         typingIndicator.remove();
-        addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot');
+        addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, 'bot');
       }, 1000);
     }).catch((err) => {
       console.error('EmailJS error:', err);
