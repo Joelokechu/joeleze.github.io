@@ -328,7 +328,7 @@ background:#e9f3ff;
 color:#333;
 }
 
-/* === Chat Form Layout (Name + Email side by side, Message below) === */
+/* === Chat Form (Name + Email top, Message full width, Send button right) === */
 #chat-form {
 display: flex;
 flex-direction: column;
@@ -338,12 +338,12 @@ border-top: 1px solid #eee;
 background: #fff;
 }
 
-.form-row {
+.form-top {
 display: flex;
 gap: 8px;
 }
 
-.form-row input {
+.form-top input {
 flex: 1;
 padding: 0.6rem;
 border: 1px solid #ddd;
@@ -352,24 +352,29 @@ font-size: 0.95rem;
 transition: border-color 0.2s ease;
 }
 
-#chat-form input:focus {
-border-color: #0078d7;
-outline: none;
+#message-row {
+display: flex;
+gap: 8px;
 }
 
 #user-input {
+flex: 1;
 padding: 0.6rem;
 border: 1px solid #ddd;
 border-radius: 8px;
 font-size: 0.95rem;
-width: 100%;
+}
+
+#chat-form input:focus {
+border-color: #0078d7;
+outline: none;
 }
 
 #chat-form button {
 background: #0078d7;
 color: white;
 border: none;
-padding: 0.6rem 0.9rem;
+padding: 0.6rem 1rem;
 cursor: pointer;
 border-radius: 8px;
 font-weight: 600;
@@ -456,5 +461,5 @@ animation-delay: 0.4s;
 .project-grid{gap:1rem;}
 .hero h1{font-size:1.6rem;}
 #chat-bubble.expanded{width:94vw;right:3%;left:3%;}
-.form-row { flex-direction: column; }
+.form-top, #message-row { flex-direction: column; }
 }
