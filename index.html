@@ -61,14 +61,8 @@
     <div class="contact-card">
       <h2>Get in Touch</h2>
       <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
-      <p>
-        <a href="mailto:Joel.okechu@gmail.com"><i class="fas fa-envelope"></i> Joel.okechu@gmail.com</a>
-      </p>
-      <p>
-        <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-linkedin"></i> linkedin.com/in/jeze12
-        </a>
-      </p>
+      <p><a href="mailto:Joel.okechu@gmail.com"><i class="fas fa-envelope"></i> Joel.okechu@gmail.com</a></p>
+      <p><a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> linkedin.com/in/jeze12</a></p>
     </div>
   </section>
 
@@ -76,51 +70,28 @@
   <footer>
     <p>© 2025 Joel Eze — All Rights Reserved.</p>
   </footer>
-<!-- === Chat Bubble === -->
-<div id="chat-bubble" class="collapsed">
-  <!-- Collapsed view -->
-  <div class="collapsed-content">💬 Chat</div>
 
-  <!-- Expanded view -->
-  <div class="chat-header hidden">💬 Chat with me</div>
-  <div id="chat-window" class="hidden"></div>
+  <!-- === Chat Bubble === -->
+  <div id="chat-bubble" class="collapsed">
+    <div class="collapsed-content">💬 Chat</div>
 
-  <form id="chat-form" class="hidden">
-    <!-- Top Row: Name + Email -->
-    <div class="form-top">
-      <input 
-        type="text" 
-        id="user-name" 
-        placeholder="Your Name" 
-        aria-label="Name input" 
-        required 
-      />
-      <input 
-        type="email" 
-        id="user-email" 
-        placeholder="Your Email" 
-        aria-label="Email input" 
-        required 
-      />
-    </div>
+    <div class="chat-header hidden">Let's Chat</div>
 
-    <!-- Second Row: Message + Send Button -->
-    <div id="message-row">
-      <input 
-        type="text" 
-        id="user-input" 
-        placeholder="Your Message..." 
-        aria-label="Message input" 
-        required 
-      />
-      <button type="submit">Send</button>
-    </div>
+    <div id="chat-window" class="hidden"></div>
 
-    <!-- Change Info Link -->
-    <small id="change-info" class="hidden">Change your name or email</small>
-  </form>
-</div>
-  
+    <form id="chat-form" class="hidden">
+      <div class="input-row">
+        <input type="text" id="user-name" placeholder="Your Name" required />
+        <input type="email" id="user-email" placeholder="Your Email" required />
+      </div>
+      <div class="message-row">
+        <input type="text" id="user-input" placeholder="Your Message" required />
+        <button type="submit">Send</button>
+      </div>
+      <div id="change-info" class="hidden">Change your name or email</div>
+    </form>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
