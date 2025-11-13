@@ -36,7 +36,7 @@ fadeSections.forEach(section => appearOnScroll.observe(section));
 // === Initialize EmailJS ===
 emailjs.init("rgJiaabQfCfMpGz3t");
 
-// === Chat Bubble Elements ===
+// === Chat Elements ===
 const chatBubble = document.getElementById("chat-bubble");
 const chatHeader = chatBubble.querySelector(".chat-header");
 const chatWindow = document.getElementById("chat-window");
@@ -75,18 +75,16 @@ chatBubble.addEventListener('click', (e) => {
   }
 });
 
-// === Helper: Add Message ===
-function addMessage(text, sender, options = {}) {
+// === Helpers ===
+function addMessage(text, sender) {
   if (!chatWindow) return null;
   const msgDiv = document.createElement('div');
   msgDiv.classList.add('message', sender);
   msgDiv.textContent = text;
   chatWindow.appendChild(msgDiv);
   chatWindow.scrollTop = chatWindow.scrollHeight;
-  return msgDiv;
 }
 
-// === Helper: Bot Typing Animation ===
 function showTypingIndicator() {
   const typingDiv = document.createElement('div');
   typingDiv.classList.add('message', 'bot', 'typing');
@@ -100,12 +98,12 @@ function showTypingIndicator() {
   return typingDiv;
 }
 
-// === EmailJS Chat Form Submission ===
+// === EmailJS Form Logic ===
 if (chatForm) {
   const nameInput = document.getElementById("user-name");
   const emailInput = document.getElementById("user-email");
 
-  // Load saved info if available
+  // Load saved info
   const savedName = localStorage.getItem("chatUserName");
   const savedEmail = localStorage.getItem("chatUserEmail");
 
@@ -115,9 +113,10 @@ if (chatForm) {
     nameInput.style.display = "none";
     emailInput.style.display = "none";
     changeInfo.classList.remove("hidden");
+    setTimeout(() => changeInfo.classList.add("visible"), 50);
   }
 
-  // === Reset info when clicking "Change Info" ===
+  // Reset info when clicking "Change Info"
   changeInfo.addEventListener('click', () => {
     localStorage.removeItem("chatUserName");
     localStorage.removeItem("chatUserEmail");
@@ -125,13 +124,13 @@ if (chatForm) {
     emailInput.value = "";
     nameInput.style.display = "block";
     emailInput.style.display = "block";
-    changeInfo.classList.add("hidden");
+    changeInfo.classList.remove("visible");
+    setTimeout(() => changeInfo.classList.add("hidden"), 300);
     addMessage("✏️ You can now update your name and email.", "bot");
   });
 
   chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
     const message = userInput.value.trim();
@@ -141,13 +140,13 @@ if (chatForm) {
       return;
     }
 
-    // Save user details after first submission
     if (!savedName || !savedEmail) {
       localStorage.setItem("chatUserName", name);
       localStorage.setItem("chatUserEmail", email);
       nameInput.style.display = "none";
       emailInput.style.display = "none";
       changeInfo.classList.remove("hidden");
+      setTimeout(() => changeInfo.classList.add("visible"), 50);
     }
 
     addMessage(message, 'user');
