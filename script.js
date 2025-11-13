@@ -45,9 +45,9 @@ const userInput = document.getElementById("user-input");
 const collapsedContent = chatBubble.querySelector('.collapsed-content');
 const changeInfo = document.getElementById("change-info");
 
-// === Chat Toggle Behavior (Fixed) ===
+// === Chat Toggle Behavior (Always show greeting) ===
 chatBubble.addEventListener('click', (e) => {
-  // Prevent toggle when clicking inside form inputs or buttons
+  // Prevent toggle when clicking inside inputs or button
   const clickedInsideInteractive =
     e.target.closest('#chat-form') ||
     e.target.tagName === 'INPUT' ||
@@ -75,8 +75,10 @@ chatBubble.addEventListener('click', (e) => {
     chatWindow.classList.remove('hidden');
     chatForm.classList.remove('hidden');
     collapsedContent.classList.add('hidden');
-
     userInput.focus();
+
+    // 👋 Always show greeting message every time
+    addMessage("👋 Hi there! I’m Joel’s assistant bot. You can leave your name, email, and message, and Joel will get back to you shortly.", "bot");
   }
 });
 
