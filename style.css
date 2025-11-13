@@ -123,3 +123,25 @@ footer { text-align: center; padding: 2rem 6%; background-color: #0b0c10; color:
 /* === Responsive === */
 @media (max-width:820px) { .navbar{padding:1rem 4%;} .hero{padding:4rem 4%;} .about,.projects,.contact{padding:3rem 4%;} .hero h1{font-size:1.9rem;} #chat-bubble{right:12px;bottom:12px;} #chat-bubble.expanded{width:300px;} }
 @media (max-width:480px) { .nav-links{gap:0.8rem;font-size:0.95rem;} .project-grid{gap:1rem;} .hero h1{font-size:1.6rem;} #chat-bubble.expanded{width:94vw;right:3%;left:3%;} }
+
+#chat-form input[type="text"],
+#chat-form input[type="email"] {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+#change-info {
+  display: block;
+  text-align: center;
+  margin-top: 6px;
+  color: #0078d7;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+#change-info:hover {
+  color: #005fa3;
+  text-decoration: underline;
+}
