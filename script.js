@@ -36,54 +36,59 @@ fadeSections.forEach(section => appearOnScroll.observe(section));
 // === Initialize EmailJS ===
 emailjs.init("rgJiaabQfCfMpGz3t");
 
-// === Chat Bubble Elements ===
+// === Chat Elements ===
 const chatBubble = document.getElementById("chat-bubble");
-const chatHeader = document.getElementById("chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
-const collapsedContent = chatBubble.querySelector('.collapsed-content');
+const collapsedContent = chatBubble.querySelector(".collapsed-content");
+const chatHeader = chatBubble.querySelector(".chat-header");
 
-// === Chat Toggle Behavior ===
-chatBubble.addEventListener('click', (e) => {
-  const isExpanded = chatBubble.classList.contains('expanded');
-  const clickedInsideForm = e.target.closest('#chat-form') !== null;
-  if (clickedInsideForm) return;
+// === Prevent Event Bubbling Inside Chat ===
+if (chatForm) {
+  chatForm.addEventListener("click", e => e.stopPropagation());
+  userInput.addEventListener("click", e => e.stopPropagation());
+}
+
+// === Toggle Chat Open/Close ===
+chatBubble.addEventListener("click", (e) => {
+  const clickedInsideForm = e.target.closest("#chat-form");
+  if (clickedInsideForm) return; // Don’t toggle when clicking inside form
+
+  const isExpanded = chatBubble.classList.contains("expanded");
 
   if (isExpanded) {
-    chatBubble.classList.remove('expanded');
-    chatBubble.classList.add('collapsed');
-    if (chatHeader) chatHeader.classList.add('hidden');
-    if (chatWindow) chatWindow.classList.add('hidden');
-    if (chatForm) chatForm.classList.add('hidden');
-    if (collapsedContent) collapsedContent.classList.remove('hidden');
+    chatBubble.classList.remove("expanded");
+    chatBubble.classList.add("collapsed");
+    chatWindow.classList.add("hidden");
+    chatForm.classList.add("hidden");
+    chatHeader.classList.add("hidden");
+    collapsedContent.classList.remove("hidden");
   } else {
-    chatBubble.classList.remove('collapsed');
-    chatBubble.classList.add('expanded');
-    if (chatHeader) chatHeader.classList.remove('hidden');
-    if (chatWindow) chatWindow.classList.remove('hidden');
-    if (chatForm) chatForm.classList.remove('hidden');
-    if (collapsedContent) collapsedContent.classList.add('hidden');
-    if (userInput) userInput.focus();
+    chatBubble.classList.remove("collapsed");
+    chatBubble.classList.add("expanded");
+    chatWindow.classList.remove("hidden");
+    chatForm.classList.remove("hidden");
+    chatHeader.classList.remove("hidden");
+    collapsedContent.classList.add("hidden");
+    userInput.focus();
   }
 });
 
-// === Helper: Add Message ===
-function addMessage(text, sender, options = {}) {
-  if (!chatWindow) return null;
-  const msgDiv = document.createElement('div');
-  msgDiv.classList.add('message', sender);
-  msgDiv.textContent = text;
-  if (options.loading) msgDiv.dataset.loading = 'true';
-  chatWindow.appendChild(msgDiv);
+// === Add Message Helper ===
+function addMessage(text, sender) {
+  const msg = document.createElement("div");
+  msg.classList.add("message", sender);
+  msg.textContent = text;
+  chatWindow.appendChild(msg);
   chatWindow.scrollTop = chatWindow.scrollHeight;
-  return msgDiv;
+  return msg;
 }
 
-// === Helper: Bot Typing Animation ===
+// === Typing Indicator ===
 function showTypingIndicator() {
-  const typingDiv = document.createElement('div');
-  typingDiv.classList.add('message', 'bot', 'typing');
+  const typingDiv = document.createElement("div");
+  typingDiv.classList.add("message", "bot", "typing");
   typingDiv.innerHTML = `
     <span class="typing-dot"></span>
     <span class="typing-dot"></span>
@@ -94,43 +99,43 @@ function showTypingIndicator() {
   return typingDiv;
 }
 
-// === Fade-out helper ===
-function fadeOutAndRemove(element, duration = 400) {
-  element.style.transition = `opacity ${duration}ms ease`;
-  element.style.opacity = 0;
-  setTimeout(() => {
-    if (element.parentNode) element.remove();
-  }, duration);
+// === Remove Element Smoothly ===
+function fadeOutAndRemove(el, duration = 400) {
+  el.style.transition = `opacity ${duration}ms ease`;
+  el.style.opacity = 0;
+  setTimeout(() => el.remove(), duration);
 }
 
-// === EmailJS Chat Form Submission ===
+// === EmailJS Submission ===
 if (chatForm) {
-  chatForm.addEventListener('submit', (e) => {
+  chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    e.stopPropagation(); // Prevent closing
+
     const message = userInput.value.trim();
     if (!message) return;
 
-    // Add user's message
-    addMessage(message, 'user');
-    userInput.value = '';
+    // Add user message
+    addMessage(message, "user");
+    userInput.value = "";
 
-    // Show typing indicator
+    // Typing indicator
     const typingIndicator = showTypingIndicator();
 
-    // Send via EmailJS
+    // Send message via EmailJS
     emailjs.send("service_71fb2en", "template_56f6p8n", {
       from_name: "Website Visitor",
       from_email: "visitor@insightsbyjoel.com",
       message: message
     }).then(() => {
       setTimeout(() => {
-        fadeOutAndRemove(typingIndicator, 400);
-        addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot');
+        fadeOutAndRemove(typingIndicator);
+        addMessage("✅ Thanks! Your message has been sent. I’ll get back to you soon.", "bot");
       }, 1000);
-    }).catch((err) => {
-      console.error('EmailJS error:', err);
-      fadeOutAndRemove(typingIndicator, 400);
-      addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
+    }).catch(err => {
+      console.error("EmailJS error:", err);
+      fadeOutAndRemove(typingIndicator);
+      addMessage("⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
     });
   });
 }
