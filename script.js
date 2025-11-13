@@ -46,34 +46,42 @@ const collapsedContent = chatBubble.querySelector('.collapsed-content');
 const changeInfo = document.getElementById("change-info");
 
 // === Chat Toggle Behavior ===
-let greeted = false;
 chatBubble.addEventListener('click', (e) => {
   const isExpanded = chatBubble.classList.contains('expanded');
-  const clickedInside = e.target.closest('#chat-form, #chat-window') !== null;
-  if (clickedInside) return;
+  const clickedInsideForm = e.target.closest('#chat-form') !== null;
+
+  if (clickedInsideForm) return;
 
   if (isExpanded) {
+    // Collapse chat
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
-    chatHeader.classList.add('hidden');
-    chatWindow.classList.add('hidden');
-    chatForm.classList.add('hidden');
-    collapsedContent.classList.remove('hidden');
+
+    // Hide expanded parts
+    document.querySelector('.chat-header').classList.add('hidden');
+    document.getElementById('chat-window').classList.add('hidden');
+    document.getElementById('chat-form').classList.add('hidden');
+
+    // Show collapsed label
+    document.querySelector('.collapsed-content').classList.remove('hidden');
   } else {
+    // Expand chat
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
-    chatHeader.classList.remove('hidden');
-    chatWindow.classList.remove('hidden');
-    chatForm.classList.remove('hidden');
-    collapsedContent.classList.add('hidden');
-    userInput.focus();
 
-    if (!greeted) {
-      addMessage("👋 Hi there! I’m Joel’s assistant bot. Type your message below and I’ll make sure Joel sees it.", "bot");
-      greeted = true;
-    }
+    // Show expanded parts
+    document.querySelector('.chat-header').classList.remove('hidden');
+    document.getElementById('chat-window').classList.remove('hidden');
+    document.getElementById('chat-form').classList.remove('hidden');
+
+    // Hide collapsed label
+    document.querySelector('.collapsed-content').classList.add('hidden');
+
+    // Focus input
+    document.getElementById('user-input').focus();
   }
 });
+
 
 // === Helpers ===
 function addMessage(text, sender) {
