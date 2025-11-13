@@ -45,31 +45,42 @@ const userInput = document.getElementById("user-input");
 const collapsedContent = chatBubble.querySelector('.collapsed-content');
 const changeInfo = document.getElementById("change-info");
 
-// === Toggle Chat ===
+// === Chat Toggle Behavior (Fixed) ===
 chatBubble.addEventListener('click', (e) => {
+  // Prevent toggle when clicking inside form inputs or buttons
+  const clickedInsideInteractive =
+    e.target.closest('#chat-form') ||
+    e.target.tagName === 'INPUT' ||
+    e.target.tagName === 'BUTTON';
+
+  if (clickedInsideInteractive) return;
+
   const isExpanded = chatBubble.classList.contains('expanded');
-  const clickedInsideForm = e.target.closest('#chat-form') !== null;
-  if (clickedInsideForm) return;
 
   if (isExpanded) {
+    // Collapse chat
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
+
     chatHeader.classList.add('hidden');
     chatWindow.classList.add('hidden');
     chatForm.classList.add('hidden');
     collapsedContent.classList.remove('hidden');
   } else {
+    // Expand chat
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
+
     chatHeader.classList.remove('hidden');
     chatWindow.classList.remove('hidden');
     chatForm.classList.remove('hidden');
     collapsedContent.classList.add('hidden');
+
     userInput.focus();
   }
 });
 
-// === Message Helpers ===
+// === Helper: Add Message ===
 function addMessage(text, sender) {
   const msgDiv = document.createElement('div');
   msgDiv.classList.add('message', sender);
@@ -78,6 +89,7 @@ function addMessage(text, sender) {
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
+// === Helper: Bot Typing Animation ===
 function showTypingIndicator() {
   const typingDiv = document.createElement('div');
   typingDiv.classList.add('message', 'bot', 'typing');
@@ -96,6 +108,7 @@ if (chatForm) {
   const nameInput = document.getElementById("user-name");
   const emailInput = document.getElementById("user-email");
 
+  // Load saved info if present
   const savedName = localStorage.getItem("chatUserName");
   const savedEmail = localStorage.getItem("chatUserEmail");
 
@@ -108,4 +121,60 @@ if (chatForm) {
     setTimeout(() => changeInfo.classList.add("visible"), 50);
   }
 
-  change
+  // Allow user to reset their info
+  changeInfo.addEventListener('click', () => {
+    localStorage.removeItem("chatUserName");
+    localStorage.removeItem("chatUserEmail");
+    nameInput.value = "";
+    emailInput.value = "";
+    nameInput.style.display = "block";
+    emailInput.style.display = "block";
+    changeInfo.classList.remove("visible");
+    setTimeout(() => changeInfo.classList.add("hidden"), 300);
+    addMessage("✏️ You can now update your name and email.", "bot");
+  });
+
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = userInput.value.trim();
+
+    if (!name || !email || !message) {
+      addMessage('⚠️ Please fill in your name, email, and message.', 'bot');
+      return;
+    }
+
+    // Save user info if not already stored
+    if (!localStorage.getItem("chatUserName") || !localStorage.getItem("chatUserEmail")) {
+      localStorage.setItem("chatUserName", name);
+      localStorage.setItem("chatUserEmail", email);
+      nameInput.style.display = "none";
+      emailInput.style.display = "none";
+      changeInfo.classList.remove("hidden");
+      setTimeout(() => changeInfo.classList.add("visible"), 50);
+    }
+
+    // Show user's message
+    addMessage(message, 'user');
+    userInput.value = '';
+
+    // Show typing indicator
+    const typingIndicator = showTypingIndicator();
+
+    // Send via EmailJS
+    emailjs.send("service_71fb2en", "template_56f6p8n", {
+      from_name: name,
+      from_email: email,
+      message: message
+    }).then(() => {
+      setTimeout(() => {
+        typingIndicator.remove();
+        addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll reply to ${email} soon.`, 'bot');
+      }, 1000);
+    }).catch(() => {
+      typingIndicator.remove();
+      addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
+    });
+  });
+}
