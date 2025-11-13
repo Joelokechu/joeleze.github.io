@@ -9,8 +9,8 @@
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-<body>
 
+<body>
   <!-- === Navbar === -->
   <nav class="navbar">
     <div class="logo">Insights<span>ByJoel</span></div>
@@ -84,9 +84,13 @@
     <div class="collapsed-content">💬 Chat</div>
     <div class="chat-header hidden">💬 Chat with me</div>
     <div id="chat-window" class="hidden"></div>
+
     <form id="chat-form" class="hidden">
-      <input type="text" id="user-input" placeholder="Type your message..." aria-label="Message input" />
+      <input type="text" id="user-name" placeholder="Your name" aria-label="Name input" required />
+      <input type="email" id="user-email" placeholder="Your email" aria-label="Email input" required />
+      <input type="text" id="user-input" placeholder="Type your message..." aria-label="Message input" required />
       <button type="submit">Send</button>
+      <small id="change-info" class="hidden">Change your name or email</small>
     </form>
   </div>
 
