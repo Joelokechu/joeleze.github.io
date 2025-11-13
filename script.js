@@ -21,7 +21,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// === Fade-in Animation for Sections ===
+// === Fade-in Animation ===
 const fadeSections = document.querySelectorAll('.fade-section');
 const appearOptions = { threshold: 0.18, rootMargin: "0px 0px -40px 0px" };
 const appearOnScroll = new IntersectionObserver((entries, observer) => {
@@ -38,71 +38,64 @@ emailjs.init("rgJiaabQfCfMpGz3t");
 
 // === Chat Bubble Elements ===
 const chatBubble = document.getElementById("chat-bubble");
-const collapsedContent = chatBubble.querySelector(".collapsed-content");
-const chatHeader = chatBubble.querySelector(".chat-header");
+const chatHeader = document.getElementById("chat-header");
 const chatWindow = document.getElementById("chat-window");
 const chatForm = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
+const collapsedContent = chatBubble.querySelector('.collapsed-content');
 
-// === Expand / Collapse Chat ===
+// === Chat Toggle Behavior ===
 chatBubble.addEventListener('click', (e) => {
+  const isExpanded = chatBubble.classList.contains('expanded');
   const clickedInsideForm = e.target.closest('#chat-form') !== null;
+
+  // prevent toggle when typing or clicking inside form
   if (clickedInsideForm) return;
 
-  const isExpanded = chatBubble.classList.contains('expanded');
-
   if (isExpanded) {
+    // Collapse
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
-    chatHeader.classList.add('hidden');
-    chatWindow.classList.add('hidden');
-    chatForm.classList.add('hidden');
-    collapsedContent.classList.remove('hidden');
-
+    if (chatHeader) chatHeader.classList.add('hidden');
+    if (chatWindow) chatWindow.classList.add('hidden');
+    if (chatForm) chatForm.classList.add('hidden');
+    if (collapsedContent) collapsedContent.classList.remove('hidden');
   } else {
+    // Expand
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
-    chatHeader.classList.remove('hidden');
-    chatWindow.classList.remove('hidden');
-    chatForm.classList.remove('hidden');
-    collapsedContent.classList.add('hidden');
-
+    if (chatHeader) chatHeader.classList.remove('hidden');
+    if (chatWindow) chatWindow.classList.remove('hidden');
+    if (chatForm) chatForm.classList.remove('hidden');
+    if (collapsedContent) collapsedContent.classList.add('hidden');
     if (userInput) userInput.focus();
   }
 });
 
-// === Helper to Add Messages ===
+// === Helper: Add Message ===
 function addMessage(text, sender, options = {}) {
   if (!chatWindow) return null;
-
-  // Remove existing bot typing placeholders
-  if (sender === 'bot') {
-    const existingTyping = chatWindow.querySelector('.message.bot[data-typing="true"]');
-    if (existingTyping) existingTyping.remove();
-  }
-
   const msgDiv = document.createElement('div');
   msgDiv.classList.add('message', sender);
-
-  if (options.typing) {
-    msgDiv.textContent = '💬 Typing...';
-    msgDiv.dataset.typing = 'true';
-    chatWindow.appendChild(msgDiv);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-
-    setTimeout(() => {
-      msgDiv.textContent = text;
-      msgDiv.removeAttribute('data-typing');
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }, options.delay || 1200);
-
-  } else {
-    msgDiv.textContent = text;
-    chatWindow.appendChild(msgDiv);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-  }
-
+  msgDiv.textContent = text;
+  if (options.loading) msgDiv.dataset.loading = 'true';
+  chatWindow.appendChild(msgDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
   return msgDiv;
+}
+
+// === Helper: Bot Typing Animation ===
+function showTypingIndicator() {
+  const typingDiv = document.createElement('div');
+  typingDiv.classList.add('message', 'bot', 'typing');
+  typingDiv.innerHTML = `
+    <span class="typing-dot"></span>
+    <span class="typing-dot"></span>
+    <span class="typing-dot"></span>
+  `;
+  chatWindow.appendChild(typingDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+  return typingDiv;
 }
 
 // === EmailJS Chat Form Submission ===
@@ -112,47 +105,27 @@ if (chatForm) {
     const message = userInput.value.trim();
     if (!message) return;
 
-    // Show user's message
+    // Add user's message
     addMessage(message, 'user');
     userInput.value = '';
 
-    // Show typing animation for bot
-    addMessage('', 'bot', { typing: true });
+    // Show typing indicator
+    const typingIndicator = showTypingIndicator();
 
     // Send via EmailJS
-    emailjs.send(
-      "service_71fb2en",
-      "template_56f6p8n",
-      {
-        from_name: "Website Visitor",
-        from_email: "visitor@insightsbyjoel.com",
-        message: message
-      }
-    ).then(() => {
-      addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot', { delay: 600 });
+    emailjs.send("service_71fb2en", "template_56f6p8n", {
+      from_name: "Website Visitor",
+      from_email: "visitor@insightsbyjoel.com",
+      message: message
+    }).then(() => {
+      setTimeout(() => {
+        if (typingIndicator && typingIndicator.parentNode) typingIndicator.remove();
+        addMessage('✅ Thanks! Your message has been sent. I’ll get back to you soon.', 'bot');
+      }, 1000);
     }).catch((err) => {
       console.error('EmailJS error:', err);
-      addMessage('⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot', { delay: 600 });
+      if (typingIndicator && typingIndicator.parentNode) typingIndicator.remove();
+      addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
     });
-
-    // Bubble stays open — does NOT collapse automatically
   });
 }
-
-// === Hover Animation for Chat Bubble ===
-chatBubble.addEventListener('mouseenter', () => {
-  if (!chatBubble.classList.contains('expanded')) {
-    chatBubble.style.transform = 'scale(1.05)';
-  }
-});
-chatBubble.addEventListener('mouseleave', () => {
-  chatBubble.style.transform = 'scale(1)';
-});
-
-// === Accessibility: Toggle Chat with Enter Key ===
-chatBubble.setAttribute('tabindex', '0'); // allow focus
-chatBubble.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    chatBubble.click();
-  }
-});
