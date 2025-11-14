@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel – Insights by Joel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="admin.css">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+
+</head>
+<body>
+
+<div id="login-screen" class="center">
+  <h1>Admin Login</h1>
+  <p>Sign in with your Google account</p>
+  <button id="login-btn">Sign in with Google</button>
+</div>
+
+<div id="admin-panel" class="hidden">
+  <header>
+    <h1>📁 Firebase Storage Files</h1>
+    <button id="logout-btn">Logout</button>
+  </header>
+
+  <div id="file-list" class="file-list">
+    <p class="loading">Loading files...</p>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
