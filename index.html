@@ -4,14 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Insights by Joel</title>
+
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="favicon.png" />
+
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <!-- === Parallax Background Layer === -->
+  <!-- === Background === -->
   <div class="parallax-bg"></div>
 
   <!-- === Navbar === -->
@@ -23,15 +25,15 @@
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
-
-      <!-- Hamburger Icon -->
-      <li class="hamburger">
-        <i class="fas fa-bars"></i>
-      </li>
     </ul>
 
-    <!-- Admin Dropdown -->
-    <div class="admin-dropdown hidden">
+    <!-- === HAMBURGER BUTTON === -->
+    <button class="hamburger" id="hamburger-btn">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- === HAMBURGER DROPDOWN MENU === -->
+    <div id="hamburger-menu" class="hamburger-menu hidden">
       <a href="admin.html">Admin Login</a>
     </div>
   </nav>
@@ -70,7 +72,7 @@
       </div>
       <div class="project-card">
         <h3>Customer Review Sentiment Analysis</h3>
-        <<p>Using Python (NLTK) to analyse and visualise sentiment trends across 10,000+ customer reviews.</p>
+        <p>Using Python (NLTK) to analyse and visualise sentiment trends across 10,000+ customer reviews.</p>
       </div>
       <div class="project-card">
         <h3>Delivery Performance Insights</h3>
@@ -85,7 +87,7 @@
       <h2>Get in Touch</h2>
       <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
       <p><a href="mailto:Joel.okechu@gmail.com"><i class="fas fa-envelope"></i> Joel.okechu@gmail.com</a></p>
-      <p><a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> linkedin.com/in/jeze12</a></p>
+      <p><a href="https://www.linkedin.com/in/jeze12" target="_blank"><i class="fab fa-linkedin"></i> linkedin.com/in/jeze12</a></p>
     </div>
   </section>
 
@@ -117,6 +119,7 @@
     </form>
   </div>
 
+  <!-- === Scripts === -->
   <script src="script.js"></script>
 </body>
 </html>
