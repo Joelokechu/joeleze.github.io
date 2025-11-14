@@ -79,7 +79,6 @@ body {
   background: transparent;
 }
 
-/* HERO WITH PHOTO */
 .hero-with-photo {
   display: flex;
   justify-content: space-between;
@@ -141,7 +140,6 @@ body {
     height: 260px;
   }
 }
-
 /* === Buttons === */
 .btn {
   background: #45a29e;
@@ -248,7 +246,7 @@ footer {
   border-top: 1px solid #1f2833;
 }
 
-/* === Chat Bubble (unchanged structurally) === */
+/* === Chat Bubble === */
 #chat-bubble {
   position: fixed;
   bottom: 18px;
@@ -352,6 +350,8 @@ input {
 }
 #change-info.visible { opacity: 1; }
 
+.hidden { display: none !important; }
+
 /* Animation */
 @keyframes chatBounce {
   0% { transform: scale(0.95); opacity: 0.7; }
@@ -359,13 +359,99 @@ input {
   100% { transform: scale(1); }
 }
 
-.hidden { display: none !important; }
-
 /* Mobile chat */
 @media (max-width: 480px) {
   #chat-bubble.expanded {
     width: 92vw;
     left: 4vw;
     right: 4vw;
+  }
+}
+/* === HAMBURGER MENU BUTTON === */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  margin-left: 20px;
+  z-index: 1100;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: #c5c6c7;
+  transition: 0.3s;
+  border-radius: 3px;
+}
+
+/* Hamburger Animation (X shape when active) */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* === MOBILE NAV MENU === */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  right: 6%;
+  background: #1f2833;
+  width: 200px;
+  border-radius: 10px;
+  padding: 10px 0;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  overflow: hidden;
+  animation: fadeSlide 0.25s ease-out;
+  z-index: 999;
+}
+
+.mobile-menu a {
+  padding: 12px 18px;
+  text-decoration: none;
+  color: #c5c6c7;
+  font-weight: 600;
+  display: block;
+  transition: 0.25s;
+}
+.mobile-menu a:hover {
+  background: rgba(102,252,241,0.08);
+  color: #66fcf1;
+}
+
+/* Admin Section */
+.mobile-menu .admin-link {
+  margin-top: 8px;
+  padding: 12px 18px;
+  color: #45a29e;
+  font-weight: bold;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.mobile-menu .admin-link:hover {
+  background: rgba(102,252,241,0.1);
+  color: #66fcf1;
+}
+
+/* Slide animation */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === MEDIA QUERIES FOR MOBILE NAV === */
+@media (max-width: 900px) {
+  .nav-links {
+    display: none; /* hide desktop menu */
+  }
+
+  .hamburger {
+    display: flex; /* show hamburger */
   }
 }
