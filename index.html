@@ -1,75 +1,123 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Insights By Joel</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insights by Joel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
+  <!-- === Parallax Background Layer === -->
+  <div class="parallax-bg"></div>
 
-<header>
-    <div class="logo">InsightsByJoel</div>
+  <!-- === Navbar === -->
+  <nav class="navbar">
+    <div class="logo">Insights<span>ByJoel</span></div>
 
-    <nav class="nav-links">
-        <a href="#">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-    </nav>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
 
-    <!-- Hamburger Button -->
-    <button id="hamburger" class="hamburger">☰</button>
-
-    <!-- Desktop Dropdown Under Hamburger -->
-    <div id="adminDropdown" class="admin-dropdown">
-        <a href="admin.html">Admin Login</a>
-    </div>
-</header>
-
-<!-- Mobile Menu -->
-<div id="mobileMenu" class="mobile-menu">
-    <a href="#">Home</a>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-    <a href="admin.html" class="admin-mobile">Admin Login</a>
-</div>
-
-<!-- HERO SECTION -->
-<section class="hero">
-    <h1>Turning Data into Insights</h1>
-    <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories.</p>
-    <a class="cta" href="#projects">View My Work</a>
-    <a class="cta secondary" href="Joel_Eze_CV.pdf">Download CV</a>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="section">
-    <h2>About Me</h2>
-    <p>
-        I'm a Data Analyst with experience in Power BI, SQL, Python, and analytics storytelling.
-        I uncover trends that drive smarter decisions.
-    </p>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="section">
-    <h2>Featured Projects</h2>
-    <ul>
-        <li>Sales Forecast Dashboard</li>
-        <li>Customer Sentiment Analysis</li>
-        <li>Delivery Performance Insights</li>
+      <!-- Hamburger Icon -->
+      <li class="hamburger">
+        <i class="fas fa-bars"></i>
+      </li>
     </ul>
-</section>
 
-<!-- CONTACT -->
-<section id="contact" class="section">
-    <h2>Get in Touch</h2>
-    <p>Email: <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/jeze12">linkedin.com/in/jeze12</a></p>
-</section>
+    <!-- Admin Dropdown -->
+    <div class="admin-dropdown hidden">
+      <a href="admin.html">Admin Login</a>
+    </div>
+  </nav>
 
-<script src="script.js"></script>
+  <!-- === Hero Section === -->
+  <section id="hero" class="hero fade-section hero-with-photo">
+    <div class="hero-content">
+      <h1>Turning Data into Insights</h1>
+      <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
+
+      <div class="hero-buttons">
+        <a href="#projects" class="btn">View My Work</a>
+        <a href="Joel_Eze_CV.pdf" class="btn-secondary" download>Download CV</a>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <img src="https://via.placeholder.com/350x350.png?text=Your+Photo" alt="Joel Portrait">
+    </div>
+  </section>
+
+  <!-- === About Section === -->
+  <section id="about" class="about fade-section">
+    <h2>About Me</h2>
+    <p>I’m a Data Analyst with a strong background in data visualisation, analytics, and storytelling. My mission is to bridge the gap between raw information and impactful business insights.</p>
+    <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
+  </section>
+
+  <!-- === Projects Section === -->
+  <section id="projects" class="projects fade-section">
+    <h2>Featured Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Sales Forecast Dashboard</h3>
+        <p>Predicting sales trends using Power BI and regression modelling on e-commerce data.</p>
+      </div>
+      <div class="project-card">
+        <h3>Customer Review Sentiment Analysis</h3>
+        <<p>Using Python (NLTK) to analyse and visualise sentiment trends across 10,000+ customer reviews.</p>
+      </div>
+      <div class="project-card">
+        <h3>Delivery Performance Insights</h3>
+        <p>Evaluating logistics efficiency using clustering and time-series metrics for delivery optimisation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- === Contact Section === -->
+  <section id="contact" class="contact fade-section">
+    <div class="contact-card">
+      <h2>Get in Touch</h2>
+      <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
+      <p><a href="mailto:Joel.okechu@gmail.com"><i class="fas fa-envelope"></i> Joel.okechu@gmail.com</a></p>
+      <p><a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> linkedin.com/in/jeze12</a></p>
+    </div>
+  </section>
+
+  <!-- === Footer === -->
+  <footer>
+    <p>© 2025 Joel Eze — All Rights Reserved.</p>
+  </footer>
+
+  <!-- === Chat Bubble === -->
+  <div id="chat-bubble" class="collapsed">
+    <div class="collapsed-content">💬 Chat</div>
+
+    <div class="chat-header hidden">💬 Chat With Me</div>
+
+    <div id="chat-window" class="hidden"></div>
+
+    <form id="chat-form" class="hidden">
+      <div class="input-row">
+        <input type="text" id="user-name" placeholder="Your Name" required />
+        <input type="email" id="user-email" placeholder="Your Email" required />
+      </div>
+
+      <div class="message-row">
+        <input type="text" id="user-input" placeholder="Your Message" required />
+        <button type="submit">Send</button>
+      </div>
+
+      <div id="change-info" class="hidden">Change your name or email</div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
