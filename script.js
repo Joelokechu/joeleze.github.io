@@ -1,200 +1,216 @@
-/* ============================
-   Smooth Scroll for Navigation
-============================= */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (!href.startsWith('#')) return;
-    e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-/* ============================
-   Navbar Background on Scroll
-============================= */
-const navbar = document.querySelector('.navbar');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 80) {
-    navbar.style.background = 'rgba(11, 12, 16, 0.95)';
-    navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.5)';
-  } else {
-    navbar.style.background = 'rgba(20,20,20,0.95)';
-    navbar.style.boxShadow = 'none';
-  }
-});
-
-/* ============================
-   Fade-in Section Animation
-============================= */
-const fadeSections = document.querySelectorAll('.fade-section');
-const appearObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('appear');
-      appearObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.2 });
-
-fadeSections.forEach(section => appearObserver.observe(section));
-
-/* ============================
-   EmailJS Initialization
-============================= */
-emailjs.init("rgJiaabQfCfMpGz3t");
-
-/* ============================
-   Hamburger Menu Logic (Admin)
-============================= */
-const hamburger = document.querySelector(".hamburger");
-const menu = document.getElementById("hamburger-menu");
-
-if (hamburger && menu) {
-  hamburger.addEventListener("click", (e) => {
-    e.stopPropagation(); // Prevent closing immediately
-    menu.classList.toggle("show");
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
-      menu.classList.remove("show");
-    }
-  });
+/* === Global Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* ============================
-   Chat Widget Logic
-============================= */
-const chatBubble = document.getElementById("chat-bubble");
-const chatHeader = chatBubble.querySelector(".chat-header");
-const chatWindow = document.getElementById("chat-window");
-const chatForm = document.getElementById("chat-form");
-const userInput = document.getElementById("user-input");
-const collapsedContent = chatBubble.querySelector(".collapsed-content");
-const changeInfo = document.getElementById("change-info");
-
-function addMessage(text, sender) {
-  const msg = document.createElement("div");
-  msg.classList.add("message", sender);
-  msg.textContent = text;
-  chatWindow.appendChild(msg);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
+body {
+  background-color: #0b0c10;
+  color: #c5c6c7;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-function showTypingIndicator() {
-  const typing = document.createElement("div");
-  typing.classList.add("message", "bot", "typing");
-  typing.innerHTML = `
-    <span class="typing-dot"></span>
-    <span class="typing-dot"></span>
-    <span class="typing-dot"></span>
-  `;
-  chatWindow.appendChild(typing);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-  return typing;
+/* === Parallax Background === */
+.parallax-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120vh;
+  background: radial-gradient(circle at 30% 20%, rgba(102, 252, 241, 0.06), transparent),
+              radial-gradient(circle at 70% 80%, rgba(69, 162, 158, 0.06), transparent);
+  z-index: -1;
+  animation: parallaxMove 18s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
-chatBubble.addEventListener("click", (e) => {
-  const interactive = e.target.closest("#chat-form") ||
-    e.target.tagName === "INPUT" ||
-    e.target.tagName === "BUTTON";
+@keyframes parallaxMove {
+  from { transform: translateY(-18px); }
+  to   { transform: translateY(18px); }
+}
 
-  if (interactive) return;
+/* === Navbar === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 6%;
+  background: rgba(20, 20, 20, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #1f2833;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
 
-  const expanded = chatBubble.classList.contains("expanded");
+.logo {
+  font-size: 1.4rem;
+  color: #66fcf1;
+  font-weight: 700;
+}
+.logo span {
+  color: #45a29e;
+}
 
-  if (expanded) {
-    chatBubble.classList.remove("expanded");
-    chatBubble.classList.add("collapsed");
-    chatHeader.classList.add("hidden");
-    chatWindow.classList.add("hidden");
-    chatForm.classList.add("hidden");
-    collapsedContent.classList.remove("hidden");
-  } else {
-    chatBubble.classList.remove("collapsed");
-    chatBubble.classList.add("expanded");
-    chatHeader.classList.remove("hidden");
-    chatWindow.classList.remove("hidden");
-    chatForm.classList.remove("hidden");
-    collapsedContent.classList.add("hidden");
-    userInput.focus();
+/* === Nav Links === */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.4rem;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #c5c6c7;
+  font-weight: 600;
+  transition: 0.25s;
+}
+.nav-links a:hover {
+  color: #66fcf1;
+}
 
-    if (chatWindow.children.length === 0) {
-      addMessage("👋 Hi there! I’m Joel’s assistant bot. You can leave your name, email, and message, and Joel will get back to you shortly.", "bot");
-    }
+/* ===========================================================
+   HAMBURGER BUTTON (Right of CONTACT)
+   =========================================================== */
+.hamburger {
+  background: none;
+  border: none;
+  color: #c5c6c7;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: 0.25s;
+}
+
+.hamburger:hover {
+  color: #66fcf1;
+}
+
+/* ===========================================================
+   HAMBURGER DROPDOWN MENU
+   =========================================================== */
+.hamburger-menu {
+  position: absolute;
+  top: 70px;
+  right: 6%;
+  background: #1f2833;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.6rem 0;
+  border-radius: 8px;
+  min-width: 150px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: 0.25s ease;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.hamburger-menu.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.hamburger-menu a {
+  display: block;
+  padding: 0.7rem 1rem;
+  color: #66fcf1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.25s;
+}
+
+.hamburger-menu a:hover {
+  background: rgba(102,252,241,0.1);
+}
+
+/* === Hero Section === */
+.hero {
+  min-height: 80vh;
+  padding: 6rem 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-with-photo {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  color: #fff;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.hero-photo img {
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #66fcf1;
+  box-shadow: 0 0 25px rgba(102, 252, 241, 0.35);
+  transition: 0.4s ease;
+}
+
+.hero-photo img:hover {
+  box-shadow: 0 0 40px rgba(102, 252, 241, 0.55);
+  transform: scale(1.02);
+}
+
+/* === Sections === */
+section h2 {
+  text-align: center;
+  color: #66fcf1;
+  margin-bottom: 1rem;
+}
+
+/* === Contact Card === */
+.contact-card {
+  background: #1f2833;
+  padding: 2.2rem 3rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* === Footer === */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: #c5c6c7;
+}
+
+/* === Chat Bubble === */
+#chat-bubble {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 999;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========== MOBILE RESPONSIVE =========== */
+@media (max-width: 900px) {
+  .hero-with-photo {
+    flex-direction: column-reverse;
+    text-align: center;
   }
-});
 
-if (chatForm) {
-  const nameInput = document.getElementById("user-name");
-  const emailInput = document.getElementById("user-email");
-
-  const savedName = localStorage.getItem("chatUserName");
-  const savedEmail = localStorage.getItem("chatUserEmail");
-
-  if (savedName && savedEmail) {
-    nameInput.value = savedName;
-    emailInput.value = savedEmail;
-    nameInput.style.display = "none";
-    emailInput.style.display = "none";
-    changeInfo.classList.remove("hidden");
-    setTimeout(() => changeInfo.classList.add("visible"), 40);
+  .hero-photo img {
+    width: 260px;
+    height: 260px;
   }
-
-  changeInfo.addEventListener("click", () => {
-    localStorage.removeItem("chatUserName");
-    localStorage.removeItem("chatUserEmail");
-
-    nameInput.style.display = "block";
-    emailInput.style.display = "block";
-
-    changeInfo.classList.remove("visible");
-    setTimeout(() => changeInfo.classList.add("hidden"), 250);
-
-    addMessage("✏️ You can now update your name and email.", "bot");
-  });
-
-  chatForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const msg = userInput.value.trim();
-
-    if (!name || !email || !msg) {
-      addMessage("⚠️ Please fill in your name, email, and message before sending.", "bot");
-      return;
-    }
-
-    localStorage.setItem("chatUserName", name);
-    localStorage.setItem("chatUserEmail", email);
-
-    nameInput.style.display = "none";
-    emailInput.style.display = "none";
-    changeInfo.classList.remove("hidden");
-    setTimeout(() => changeInfo.classList.add("visible"), 40);
-
-    addMessage(msg, "user");
-    userInput.value = "";
-
-    const typing = showTypingIndicator();
-
-    emailjs.send("service_71fb2en", "template_56f6p8n", {
-      from_name: name,
-      from_email: email,
-      message: msg,
-    })
-      .then(() => {
-        setTimeout(() => {
-          typing.remove();
-          addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, "bot");
-        }, 900);
-      })
-      .catch(() => {
-        typing.remove();
-        addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
-      });
-  });
 }
