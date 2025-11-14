@@ -33,41 +33,84 @@ body {
   to   { transform: translateY(18px); }
 }
 
-/* === Navbar === */
+/* === NAVBAR === */
+
 .navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 6%;
-  background: rgba(20, 20, 20, 0.95);
-  position: sticky;
-  top: 0;
+  padding: 15px 40px;
   z-index: 1000;
-  border-bottom: 1px solid #1f2833;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .logo {
-  font-size: 1.4rem;
-  color: #66fcf1;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
 }
+
 .logo span {
-  color: #45a29e;
+  color: #00bcd4;
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 1.4rem;
+  gap: 28px;
+  align-items: center;
 }
+
+.nav-links li {
+  list-style: none;
+}
+
 .nav-links a {
+  color: white;
   text-decoration: none;
-  color: #c5c6c7;
-  font-weight: 600;
-  transition: 0.25s;
+  font-size: 17px;
+  transition: 0.3s;
 }
-.nav-links a:hover { color: #66fcf1; }
+
+.nav-links a:hover {
+  color: #00bcd4;
+}
+
+/* === HAMBURGER === */
+.hamburger {
+  display: flex;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.hamburger i {
+  color: white;
+}
+
+/* === ADMIN DROPDOWN === */
+.admin-dropdown {
+  position: absolute;
+  top: 70px;
+  right: 40px;
+  background: #111;
+  padding: 12px 18px;
+  border-radius: 6px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  z-index: 9999;
+}
+
+.admin-dropdown a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.admin-dropdown.hidden {
+  display: none;
+}
 
 /* === Hero Section === */
 .hero {
