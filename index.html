@@ -18,6 +18,7 @@
   <nav class="navbar">
     <div class="logo">Insights<span>ByJoel</span></div>
 
+    <!-- Desktop Navigation -->
     <ul class="nav-links">
       <li><a href="#hero">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -25,22 +26,24 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
 
-    <!-- HAMBURGER ICON -->
-    <div class="hamburger">
+    <!-- Hamburger Button (mobile only) -->
+    <div id="hamburger" class="hamburger">
       <span></span>
       <span></span>
       <span></span>
     </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <a href="admin.html" class="admin-link">Admin Login</a>
+    </div>
   </nav>
 
-  <!-- === SLIDE-OUT MENU === -->
-  <div id="mobile-menu" class="mobile-menu hidden">
-    <ul>
-      <li><a href="admin-login.html">Admin Login</a></li>
-    </ul>
-  </div>
-
-  <!-- === Hero Section (Updated with Photo on Right) === -->
+  <!-- === Hero Section === -->
   <section id="hero" class="hero fade-section hero-with-photo">
     <div class="hero-content">
       <h1>Turning Data into Insights</h1>
