@@ -1,4 +1,6 @@
-// === Smooth Scroll for Navigation Links ===
+// ============================
+// SMOOTH SCROLL FOR NAV LINKS
+// ============================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
@@ -9,7 +11,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// === Navbar Background Change on Scroll ===
+// ============================
+// NAVBAR SCROLL EFFECT
+// ============================
 const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 80) {
@@ -21,7 +25,9 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// === Fade-in Animation ===
+// ============================
+// SECTION FADE-IN
+// ============================
 const fadeSections = document.querySelectorAll('.fade-section');
 const appearOptions = { threshold: 0.18, rootMargin: "0px 0px -40px 0px" };
 const appearOnScroll = new IntersectionObserver((entries, observer) => {
@@ -33,10 +39,39 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
 }, appearOptions);
 fadeSections.forEach(section => appearOnScroll.observe(section));
 
-// === Initialize EmailJS ===
+// ============================
+// HAMBURGER MENU LOGIC
+// ============================
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobile-menu");
+
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  mobileMenu.classList.toggle("open");
+});
+
+// Close menu when clicking any link
+document.querySelectorAll("#mobile-menu a").forEach(link => {
+  link.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    mobileMenu.classList.remove("open");
+  });
+});
+
+// Close menu if clicking outside
+document.addEventListener("click", (e) => {
+  if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+    hamburger.classList.remove("active");
+    mobileMenu.classList.remove("open");
+  }
+});
+
+// ============================
+// EMAILJS INITIALISATION
+// ============================
 emailjs.init("rgJiaabQfCfMpGz3t");
 
-// === Chat Elements ===
+// CHAT ELEMENTS
 const chatBubble = document.getElementById("chat-bubble");
 const chatHeader = chatBubble.querySelector(".chat-header");
 const chatWindow = document.getElementById("chat-window");
@@ -45,7 +80,7 @@ const userInput = document.getElementById("user-input");
 const collapsedContent = chatBubble.querySelector('.collapsed-content');
 const changeInfo = document.getElementById("change-info");
 
-// === Helper: Add Message ===
+// HELPER: Add Message
 function addMessage(text, sender) {
   if (!chatWindow) return null;
   const msgDiv = document.createElement('div');
@@ -55,7 +90,7 @@ function addMessage(text, sender) {
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-// === Helper: Bot Typing Indicator ===
+// HELPER: Bot Typing Indicator
 function showTypingIndicator() {
   const typingDiv = document.createElement('div');
   typingDiv.classList.add('message', 'bot', 'typing');
@@ -69,9 +104,9 @@ function showTypingIndicator() {
   return typingDiv;
 }
 
-// === Chat Toggle Behavior ===
+// CHAT TOGGLE
 chatBubble.addEventListener('click', (e) => {
-  // Prevent toggle when clicking inside form or inputs
+  // Prevent toggle when typing
   const clickedInsideInteractive =
     e.target.closest('#chat-form') ||
     e.target.tagName === 'INPUT' ||
@@ -81,7 +116,7 @@ chatBubble.addEventListener('click', (e) => {
   const isExpanded = chatBubble.classList.contains('expanded');
 
   if (isExpanded) {
-    // Collapse chat
+    // Collapse
     chatBubble.classList.remove('expanded');
     chatBubble.classList.add('collapsed');
     chatHeader.classList.add('hidden');
@@ -89,7 +124,7 @@ chatBubble.addEventListener('click', (e) => {
     chatForm.classList.add('hidden');
     collapsedContent.classList.remove('hidden');
   } else {
-    // Expand chat
+    // Expand
     chatBubble.classList.remove('collapsed');
     chatBubble.classList.add('expanded');
     chatHeader.classList.remove('hidden');
@@ -98,14 +133,14 @@ chatBubble.addEventListener('click', (e) => {
     collapsedContent.classList.add('hidden');
     userInput.focus();
 
-    // 👋 Show greeting only the first time (if empty)
+    // First-time greeting
     if (chatWindow.children.length === 0) {
-      addMessage("👋 Hi there! I’m Joel’s assistant bot. You can leave your name, email, and message, and Joel will get back to you shortly.", "bot");
+      addMessage("👋 Hi there! I’m Joel’s assistant bot. Leave a message and Joel will get back to you shortly.", "bot");
     }
   }
 });
 
-// === EmailJS Chat Form Logic ===
+// EMAILJS SEND LOGIC
 if (chatForm) {
   const nameInput = document.getElementById("user-name");
   const emailInput = document.getElementById("user-email");
@@ -123,7 +158,7 @@ if (chatForm) {
     setTimeout(() => changeInfo.classList.add("visible"), 50);
   }
 
-  // Allow info reset
+  // Reset saved info
   changeInfo.addEventListener('click', () => {
     localStorage.removeItem("chatUserName");
     localStorage.removeItem("chatUserEmail");
@@ -136,6 +171,7 @@ if (chatForm) {
     addMessage("✏️ You can now update your name and email.", "bot");
   });
 
+  // SEND FORM
   chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = nameInput.value.trim();
@@ -147,7 +183,7 @@ if (chatForm) {
       return;
     }
 
-    // Save info if not already
+    // Save info
     if (!savedName || !savedEmail) {
       localStorage.setItem("chatUserName", name);
       localStorage.setItem("chatUserEmail", email);
@@ -170,11 +206,11 @@ if (chatForm) {
       setTimeout(() => {
         typingIndicator.remove();
         addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, 'bot');
-      }, 1000);
+      }, 900);
     }).catch((err) => {
       console.error('EmailJS error:', err);
       typingIndicator.remove();
-      addMessage('⚠️ Oops! Something went wrong. Please email me directly at Joel.okechu@gmail.com', 'bot');
+      addMessage('⚠️ Something went wrong. Please email me at Joel.okechu@gmail.com.', 'bot');
     });
   });
 }
