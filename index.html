@@ -4,13 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Insights by Joel</title>
+
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
   <div class="parallax-bg"></div>
 
   <!-- === Navbar === -->
@@ -24,27 +31,23 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
 
-      <!-- Desktop Hamburger (Admin dropdown trigger) -->
+      <!-- Desktop Hamburger -->
       <li class="hamburger desktop-hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </li>
     </ul>
 
-    <!-- Desktop Admin Dropdown -->
+    <!-- Desktop Admin dropdown -->
     <div class="admin-dropdown hidden">
       <a href="admin.html">Admin Login</a>
     </div>
 
     <!-- Mobile Hamburger -->
     <div class="hamburger mobile-hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
 
-    <!-- Mobile Dropdown Menu -->
+    <!-- Mobile Menu -->
     <div class="mobile-menu hidden">
       <a href="#hero">Home</a>
       <a href="#about">About</a>
@@ -52,18 +55,20 @@
       <a href="#contact">Contact</a>
       <a href="admin.html">Admin</a>
     </div>
+
+    <!-- Dark / Light toggle -->
+    <button id="theme-toggle">🌙</button>
   </nav>
 
   <!-- === Hero Section === -->
   <section id="hero" class="hero fade-section hero-with-photo">
     <div class="hero-content fade-in-hero">
-      <h1>Turning Data into Insights</h1>
+      <h1 class="hero-title">Turning Data into Insights</h1>
       <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
 
       <div class="hero-buttons">
         <a href="#projects" class="btn">View My Work</a>
 
-        <!-- UPDATED CV BUTTON -->
         <a href="https://github.com/Joelokechu/joeleze.github.io/raw/refs/heads/main/Joel%20Eze-%20CV.docx"
            class="btn-cv"
            download>
@@ -72,7 +77,7 @@
       </div>
     </div>
 
-    <div class="hero-photo">
+    <div class="hero-photo fade-in-hero">
       <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg"
            alt="Joel Portrait" />
     </div>
@@ -81,7 +86,7 @@
   <!-- === About Section === -->
   <section id="about" class="about fade-section">
     <h2>About Me</h2>
-    <p>I’m a Data Analyst with a strong background in data visualisation, analytics, and storytelling. My mission is to bridge the gap between raw information and impactful business insights.</p>
+    <p>I’m a Data Analyst with a strong background in data visualisation, analytics, and storytelling.</p>
     <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
   </section>
 
@@ -91,17 +96,17 @@
     <div class="project-grid">
       <div class="project-card">
         <h3>Sales Forecast Dashboard</h3>
-        <p>Predicting sales trends using Power BI and regression modelling on e-commerce data.</p>
+        <p>Predicting sales trends using Power BI and regression modelling.</p>
       </div>
 
       <div class="project-card">
         <h3>Customer Review Sentiment Analysis</h3>
-        <p>Using Python (NLTK) to analyse and visualise sentiment trends across 10,000+ customer reviews.</p>
+        <p>Using Python (NLTK) to analyse sentiment across thousands of reviews.</p>
       </div>
 
       <div class="project-card">
         <h3>Delivery Performance Insights</h3>
-        <p>Evaluating logistics efficiency using clustering and time-series metrics for delivery optimisation.</p>
+        <p>Evaluating logistics efficiency using clustering and time-series metrics.</p>
       </div>
     </div>
   </section>
@@ -110,10 +115,11 @@
   <section id="contact" class="contact fade-section">
     <div class="contact-card">
       <h2>Get in Touch</h2>
-      <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
+      <p>I’d love to hear from you! Reach out any time.</p>
 
       <p><a href="mailto:Joel.okechu@gmail.com"><i class="fas fa-envelope"></i> Joel.okechu@gmail.com</a></p>
-      <p><a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> linkedin.com/in/jeze12</a></p>
+      <p><a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-linkedin"></i> linkedin.com/in/jeze12</a></p>
     </div>
   </section>
 
@@ -127,7 +133,6 @@
     <div class="collapsed-content">💬 Chat</div>
 
     <div class="chat-header hidden">💬 Chat With Me</div>
-
     <div id="chat-window" class="hidden"></div>
 
     <form id="chat-form" class="hidden">
