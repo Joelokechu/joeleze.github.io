@@ -16,7 +16,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 80) {
-    navbar.style.background = 'rgba(11, 12, 16, 0.95)';
+    navbar.style.background = 'rgba(11,12,16,0.95)';
     navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.5)';
   } else {
     navbar.style.background = 'rgba(20,20,20,0.95)';
@@ -45,25 +45,19 @@ fadeSections.forEach(section => appearObserver.observe(section));
 emailjs.init("rgJiaabQfCfMpGz3t");
 
 /* ============================
-   New Hamburger Menu Logic
+   Hamburger Menu Logic
 ============================= */
-
-// Desktop elements
 const desktopHamburger = document.querySelector(".desktop-hamburger");
 const adminDropdown = document.querySelector(".admin-dropdown");
-
-// Mobile elements
 const mobileHamburger = document.querySelector(".mobile-hamburger");
 const mobileMenu = document.querySelector(".mobile-menu");
 
-// Desktop hamburger
 desktopHamburger.addEventListener("click", (e) => {
   e.stopPropagation();
   desktopHamburger.classList.toggle("active");
   adminDropdown.classList.toggle("hidden");
 });
 
-// Close desktop admin when clicking outside
 document.addEventListener("click", (e) => {
   if (!adminDropdown.contains(e.target) && !desktopHamburger.contains(e.target)) {
     adminDropdown.classList.add("hidden");
@@ -71,13 +65,11 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Mobile hamburger
 mobileHamburger.addEventListener("click", () => {
   mobileHamburger.classList.toggle("active");
   mobileMenu.classList.toggle("hidden");
 });
 
-// Close mobile menu when clicking link
 mobileMenu.querySelectorAll("a").forEach(link => {
   link.addEventListener("click", () => {
     mobileMenu.classList.add("hidden");
@@ -119,8 +111,8 @@ function showTypingIndicator() {
 
 chatBubble.addEventListener("click", (e) => {
   const interactive = e.target.closest("#chat-form") ||
-    e.target.tagName === "INPUT" ||
-    e.target.tagName === "BUTTON";
+                      e.target.tagName === "INPUT" ||
+                      e.target.tagName === "BUTTON";
 
   if (interactive) return;
 
@@ -143,7 +135,7 @@ chatBubble.addEventListener("click", (e) => {
     userInput.focus();
 
     if (chatWindow.children.length === 0) {
-      addMessage("👋 Hi there! I’m Joel’s assistant bot. You can leave your name, email, and message, and Joel will get back to you shortly.", "bot");
+      addMessage("👋 Hi there! Leave your name, email, and message and Joel will get back to you.", "bot");
     }
   }
 });
@@ -185,7 +177,7 @@ if (chatForm) {
     const msg = userInput.value.trim();
 
     if (!name || !email || !msg) {
-      addMessage("⚠️ Please fill in your name, email, and message before sending.", "bot");
+      addMessage("⚠️ Please fill in your name, email, and message.", "bot");
       return;
     }
 
@@ -210,40 +202,39 @@ if (chatForm) {
       .then(() => {
         setTimeout(() => {
           typing.remove();
-          addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, "bot");
+          addMessage(`✅ Thanks ${name}! Your message has been sent.`, "bot");
         }, 900);
       })
       .catch(() => {
         typing.remove();
-        addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
+        addMessage("⚠️ Something went wrong. Email me at Joel.okechu@gmail.com", "bot");
       });
   });
 }
 
 /* ============================
-   DARK / LIGHT MODE TOGGLE
+   DARK / LIGHT MODE MAIN LOGIC
 ============================= */
-const toggle = document.getElementById("dark-toggle");
+const toggleInput = document.getElementById("dark-toggle");
+const body = document.body;
 
-// Load saved theme
 const savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "dark") {
-  document.body.classList.add("dark");
-  toggle.checked = true;
+  body.classList.add("dark");
+  toggleInput.checked = true;
 } else {
-  document.body.classList.add("light");
+  body.classList.add("light");
 }
 
-// Toggle mode
-toggle.addEventListener("change", () => {
-  if (toggle.checked) {
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
+toggleInput.addEventListener("change", () => {
+  if (toggleInput.checked) {
+    body.classList.remove("light");
+    body.classList.add("dark");
     localStorage.setItem("theme", "dark");
   } else {
-    document.body.classList.remove("dark");
-    document.body.classList.add("light");
+    body.classList.remove("dark");
+    body.classList.add("light");
     localStorage.setItem("theme", "light");
   }
 });
@@ -252,24 +243,18 @@ toggle.addEventListener("change", () => {
    FADE & RIPPLE EFFECTS
 ============================= */
 document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("dark-toggle");
-
-  // Create fade overlay
   const fade = document.createElement("div");
   fade.className = "page-fade";
   document.body.appendChild(fade);
 
-  // Create ripple flash element
   const ripple = document.createElement("div");
   ripple.className = "ripple";
   document.body.appendChild(ripple);
 
-  toggle.addEventListener("change", (e) => {
-    // Fade overlay
+  toggleInput.addEventListener("change", (e) => {
     fade.style.opacity = "1";
     setTimeout(() => (fade.style.opacity = "0"), 300);
 
-    // Ripple animation
     const rect = e.target.getBoundingClientRect();
     ripple.style.left = rect.left + rect.width / 2 + "px";
     ripple.style.top = rect.top + rect.height / 2 + "px";
@@ -277,4 +262,55 @@ document.addEventListener("DOMContentLoaded", () => {
     ripple.classList.add("active");
     setTimeout(() => ripple.classList.remove("active"), 600);
   });
+});
+
+/* ============================
+   PREMIUM TOGGLE INTERACTIONS
+============================= */
+const label = document.querySelector(".toggle-label");
+const ball = document.querySelector(".toggle-ball");
+
+/* ---- Magnetic Hover ---- */
+label.addEventListener("mousemove", (e) => {
+  const rect = label.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const percent = Math.min(Math.max(x / rect.width, 0), 1);
+
+  const pull = (percent - 0.5) * 10; 
+  ball.style.transform = `translateX(${toggleInput.checked ? 30 + pull : pull}px)`;
+});
+
+label.addEventListener("mouseleave", () => {
+  ball.style.transform = `translateX(${toggleInput.checked ? 30 : 0}px)`;
+});
+
+/* ---- Glow Follows Ball ---- */
+function updateGlow() {
+  const ballRect = ball.getBoundingClientRect();
+  const labelRect = label.getBoundingClientRect();
+  const ballX = ballRect.left - labelRect.left;
+  ball.style.setProperty("--glow-x", `${ballX}px`);
+}
+
+updateGlow();
+
+toggleInput.addEventListener("change", () => {
+  setTimeout(updateGlow, 160);
+});
+
+label.addEventListener("mousemove", updateGlow);
+label.addEventListener("mouseleave", updateGlow);
+
+/* ---- 3D Tilt Tracking ---- */
+const track3D = (e) => {
+  const rect = label.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const pct = Math.min(Math.max(x / rect.width, 0), 1);
+
+  ball.style.setProperty("--tilt", pct);
+};
+
+label.addEventListener("mousemove", track3D);
+label.addEventListener("mouseleave", () => {
+  ball.style.setProperty("--tilt", 0.5);
 });
