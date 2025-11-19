@@ -1,5 +1,6 @@
-
-/* === Global Reset === */
+/* ============================
+   GLOBAL RESET
+============================= */
 * {
   margin: 0;
   padding: 0;
@@ -14,15 +15,17 @@ body {
   overflow-x: hidden;
 }
 
-/* === Parallax Background === */
+/* ============================
+   PARALLAX BACKGROUND
+============================= */
 .parallax-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 120vh;
-  background: radial-gradient(circle at 30% 20%, rgba(102, 252, 241, 0.06), transparent),
-              radial-gradient(circle at 70% 80%, rgba(69, 162, 158, 0.06), transparent);
+  background: radial-gradient(circle at 30% 20%, rgba(102,252,241,0.06), transparent),
+              radial-gradient(circle at 70% 80%, rgba(69,162,158,0.06), transparent);
   z-index: -1;
   transform: translateY(0);
   animation: parallaxMove 18s ease-in-out infinite alternate;
@@ -34,8 +37,9 @@ body {
   to   { transform: translateY(18px); }
 }
 
-/* === NAVBAR === */
-
+/* ============================
+   NAVBAR
+============================= */
 .navbar {
   position: fixed;
   top: 0;
@@ -59,6 +63,7 @@ body {
   color: #00bcd4;
 }
 
+/* Desktop nav links */
 .nav-links {
   display: flex;
   gap: 28px;
@@ -80,7 +85,51 @@ body {
   color: #00bcd4;
 }
 
-/* === ADMIN DROPDOWN === */
+/* ============================
+   HAMBURGERS
+============================= */
+
+/* Base hamburger */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: #c5c6c7;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+/* Hamburger animation ("X" shape) */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Desktop hamburger ALWAYS visible on desktop */
+.desktop-hamburger {
+  display: flex;
+}
+
+/* Mobile hamburger hidden on desktop */
+.mobile-hamburger {
+  display: none;
+}
+
+/* ============================
+   ADMIN DROPDOWN (DESKTOP)
+============================= */
 .admin-dropdown {
   position: absolute;
   top: 70px;
@@ -102,7 +151,76 @@ body {
   display: none;
 }
 
-/* === Hero Section === */
+/* ============================
+   MOBILE MENU
+============================= */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  right: 6%;
+  background: #1f2833;
+  width: 200px;
+  border-radius: 10px;
+  padding: 10px 0;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  animation: fadeSlide 0.25s ease-out;
+  z-index: 999;
+}
+
+.mobile-menu a {
+  padding: 12px 18px;
+  text-decoration: none;
+  color: #c5c6c7;
+  font-weight: 600;
+  display: block;
+  transition: 0.25s;
+}
+
+.mobile-menu a:hover {
+  background: rgba(102,252,241,0.08);
+  color: #66fcf1;
+}
+
+.mobile-menu .admin-link {
+  margin-top: 8px;
+  padding: 12px 18px;
+  color: #45a29e;
+  font-weight: bold;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Mobile animation */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================
+   RESPONSIVE NAVIGATION
+============================= */
+@media (max-width: 900px) {
+
+  /* Hide desktop menu */
+  .nav-links {
+    display: none;
+  }
+
+  /* Hide desktop hamburger */
+  .desktop-hamburger {
+    display: none;
+  }
+
+  /* Show mobile hamburger */
+  .mobile-hamburger {
+    display: flex;
+  }
+}
+
+/* ============================
+   HERO SECTION
+============================= */
 .hero {
   min-height: 80vh;
   padding: 6rem 6%;
@@ -116,10 +234,6 @@ body {
   display: flex;
   justify-content: space-between;
   gap: 4rem;
-}
-
-.hero-content {
-  flex: 1.1;
 }
 
 .hero-content h1 {
@@ -139,41 +253,30 @@ body {
   gap: 1rem;
 }
 
-/* Hero Photo */
-.hero-photo {
-  flex: 0 0 350px;
-  display: flex;
-  justify-content: center;
-}
+/* Portrait */
 .hero-photo img {
   width: 350px;
   height: 350px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #66fcf1;
-  box-shadow: 0 0 25px rgba(102, 252, 241, 0.35);
-  transition: 0.4s ease;
-}
-.hero-photo img:hover {
-  box-shadow: 0 0 40px rgba(102, 252, 241, 0.55);
-  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(102,252,241,0.35);
+  transition: 0.4s;
 }
 
-/* Responsive Hero */
+/* Mobile hero adjustments */
 @media (max-width: 900px) {
   .hero-with-photo {
     flex-direction: column-reverse;
     text-align: center;
   }
-  .hero-buttons {
-    justify-content: center;
-  }
-  .hero-photo img {
-    width: 260px;
-    height: 260px;
-  }
+  .hero-buttons { justify-content: center; }
+  .hero-photo img { width: 260px; height: 260px; }
 }
-/* === Buttons === */
+
+/* ============================
+   BUTTONS
+============================= */
 .btn {
   background: #45a29e;
   color: #0b0c10;
@@ -201,7 +304,9 @@ body {
   transform: translateY(-2px);
 }
 
-/* === Sections === */
+/* ============================
+   SECTIONS
+============================= */
 section h2 {
   text-align: center;
   color: #66fcf1;
@@ -216,6 +321,7 @@ section h2 {
   background: #1f2833;
   text-align: center;
 }
+
 .about p {
   max-width: 800px;
   margin: 0.75rem auto;
@@ -226,7 +332,6 @@ section h2 {
 }
 
 .project-grid {
-  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
   gap: 1.6rem;
@@ -236,19 +341,16 @@ section h2 {
   background: #1f2833;
   padding: 1.6rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: 0.3s ease;
-}
-.project-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 18px rgba(102,252,241,0.15);
-}
-.project-card h3 {
-  color: #66fcf1;
-  margin-bottom: 0.6rem;
+  transition: 0.3s;
 }
 
-/* === Contact Section === */
+.project-card:hover {
+  transform: translateY(-6px);
+}
+
+/* ============================
+   CONTACT
+============================= */
 .contact {
   padding: 4rem 6%;
   background: #0b0c10;
@@ -260,33 +362,28 @@ section h2 {
   background: #1f2833;
   padding: 2.2rem 3rem;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
   text-align: center;
-  max-width: 500px;
-}
-.contact-card a {
-  color: #66fcf1;
-  font-weight: 600;
-  text-decoration: none;
 }
 
-/* === Footer === */
+/* ============================
+   FOOTER
+============================= */
 footer {
   text-align: center;
   padding: 2rem;
-  color: #c5c6c7;
   font-size: 0.9rem;
-  border-top: 1px solid #1f2833;
 }
 
-/* === Chat Bubble === */
+/* ============================
+   CHAT WIDGET
+============================= */
 #chat-bubble {
   position: fixed;
   bottom: 18px;
   right: 18px;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(15,23,42,0.35);
-  transition: all 0.25s;
+  transition: 0.25s;
   z-index: 999;
   overflow: hidden;
 }
@@ -298,9 +395,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
   cursor: pointer;
-  padding: 0 18px;
 }
 
 #chat-bubble.expanded {
@@ -308,15 +403,13 @@ footer {
   background: white;
   display: flex;
   flex-direction: column;
-  animation: chatBounce 0.25s ease-out;
 }
 
 .chat-header {
   background: linear-gradient(135deg, #1f5eff, #4fc3f7);
   color: white;
-  padding: 10px;
-  font-weight: 600;
   text-align: center;
+  padding: 10px;
 }
 
 #chat-window {
@@ -324,9 +417,6 @@ footer {
   max-height: 260px;
   overflow-y: auto;
   background: #f8f9fb;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
 /* Chat messages */
@@ -334,7 +424,6 @@ footer {
   padding: 0.6rem 0.9rem;
   border-radius: 12px;
   max-width: 85%;
-  font-size: 0.95rem;
 }
 .message.user {
   background: #0078d7;
@@ -346,172 +435,6 @@ footer {
   color: #333;
 }
 
-/* Form */
-#chat-form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 10px;
-  border-top: 1px solid #eee;
+.hidden {
+  display: none !important;
 }
-.input-row, .message-row {
-  display: flex;
-  gap: 8px;
-}
-input {
-  flex: 1;
-  padding: 0.6rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-.message-row button {
-  background: #0078d7;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.message-row button:hover { background: #005fa3; }
-
-#change-info {
-  font-size: 0.85rem;
-  color: #0078d7;
-  text-align: right;
-  opacity: 0;
-  transition: 0.3s;
-}
-#change-info.visible { opacity: 1; }
-
-.hidden { display: none !important; }
-
-/* Animation */
-@keyframes chatBounce {
-  0% { transform: scale(0.95); opacity: 0.7; }
-  60% { transform: scale(1.03); opacity: 1; }
-  100% { transform: scale(1); }
-}
-
-/* Mobile chat */
-@media (max-width: 480px) {
-  #chat-bubble.expanded {
-    width: 92vw;
-    left: 4vw;
-    right: 4vw;
-  }
-}
-/* === HAMBURGER MENU BUTTON === */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-  margin-left: 20px;
-  z-index: 1100;
-}
-
-.hamburger span {
-  width: 26px;
-  height: 3px;
-  background: #c5c6c7;
-  transition: 0.3s;
-  border-radius: 3px;
-}
-
-/* Hamburger Animation (X shape when active) */
-.hamburger.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-/* === MOBILE NAV MENU === */
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  top: 70px;
-  right: 6%;
-  background: #1f2833;
-  width: 200px;
-  border-radius: 10px;
-  padding: 10px 0;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-  overflow: hidden;
-  animation: fadeSlide 0.25s ease-out;
-  z-index: 999;
-}
-
-.mobile-menu a {
-  padding: 12px 18px;
-  text-decoration: none;
-  color: #c5c6c7;
-  font-weight: 600;
-  display: block;
-  transition: 0.25s;
-}
-.mobile-menu a:hover {
-  background: rgba(102,252,241,0.08);
-  color: #66fcf1;
-}
-
-/* Admin Section */
-.mobile-menu .admin-link {
-  margin-top: 8px;
-  padding: 12px 18px;
-  color: #45a29e;
-  font-weight: bold;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-.mobile-menu .admin-link:hover {
-  background: rgba(102,252,241,0.1);
-  color: #66fcf1;
-}
-
-/* Slide animation */
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* === MEDIA QUERIES FOR MOBILE NAV === */
-@media (max-width: 900px) {
-  .nav-links {
-    display: none; /* hide desktop menu */
-  }
-
-  .hamburger {
-    display: flex; /* show hamburger */
-  }
-}
-
-/* Hide mobile hamburger on desktop */
-.mobile-hamburger {
-  display: none;
-}
-
-/* Show mobile hamburger on screens <900px */
-@media (max-width: 900px) {
-  .mobile-hamburger {
-    display: flex;
-  }
-  .desktop-hamburger {
-    display: none;
-  }
-}
-
-/* Style fix for animated hamburger bars */
-.hamburger span {
-  display: block;
-  width: 26px;
-  height: 3px;
-  background: #c5c6c7;
-  margin: 4px 0;
-  border-radius: 3px;
-  transition: 0.3s ease;
-}
-
