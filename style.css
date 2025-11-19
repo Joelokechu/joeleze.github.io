@@ -552,3 +552,79 @@ body.light #chat-bubble.collapsed {
 body.light .project-card:hover {
   box-shadow: 0 0 12px rgba(0,0,0,0.12);
 }
+
+/* --- Light Mode Gradient Enhancements --- */
+body.light {
+  background: linear-gradient(135deg, #f7f9fc, #eef3f8);
+}
+
+body.light .about,
+body.light .contact-card {
+  background: linear-gradient(135deg, #ffffff, #f2f5f9);
+}
+
+body.light .project-card {
+  background: linear-gradient(145deg, #ffffff, #f4f7fa);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+body.light footer {
+  background: linear-gradient(135deg, #e8edf5, #f9fbfd);
+}
+
+/* Smooth icon transition */
+.toggle-label .icon {
+  transition: 0.35s ease, transform 0.45s ease;
+}
+
+/* Sun fades + moves slightly */
+#dark-toggle:checked + .toggle-label .sun {
+  opacity: 0;
+  transform: translateX(-6px);
+}
+
+/* Moon fades in + rises slightly */
+#dark-toggle:checked + .toggle-label .moon {
+  opacity: 1;
+  transform: translateX(6px);
+}
+
+/* Default moon hidden */
+.icon.moon {
+  opacity: 0;
+}
+
+/* Soft fade overlay */
+.page-fade {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.6);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  z-index: 99999;
+}
+
+body.dark .page-fade {
+  background: rgba(0,0,0,0.4);
+}
+
+/* Ripple container */
+.ripple {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(79,195,247,0.4);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0);
+  z-index: 99998;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.ripple.active {
+  opacity: 1;
+  transform: scale(40);
+}
+
