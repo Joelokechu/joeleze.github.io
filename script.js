@@ -1,4 +1,3 @@
-
 /* ============================
    Smooth Scroll for Navigation
 ============================= */
@@ -57,14 +56,14 @@ const adminDropdown = document.querySelector(".admin-dropdown");
 const mobileHamburger = document.querySelector(".mobile-hamburger");
 const mobileMenu = document.querySelector(".mobile-menu");
 
-// ----- Desktop Hamburger: Admin Only -----
+// Desktop hamburger
 desktopHamburger.addEventListener("click", (e) => {
   e.stopPropagation();
   desktopHamburger.classList.toggle("active");
   adminDropdown.classList.toggle("hidden");
 });
 
-// Close desktop admin menu when clicking outside
+// Close desktop admin when clicking outside
 document.addEventListener("click", (e) => {
   if (!adminDropdown.contains(e.target) && !desktopHamburger.contains(e.target)) {
     adminDropdown.classList.add("hidden");
@@ -72,20 +71,19 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// ----- Mobile Hamburger -----
+// Mobile hamburger
 mobileHamburger.addEventListener("click", () => {
   mobileHamburger.classList.toggle("active");
   mobileMenu.classList.toggle("hidden");
 });
 
-// Close mobile menu after clicking a link
+// Close mobile menu when clicking link
 mobileMenu.querySelectorAll("a").forEach(link => {
   link.addEventListener("click", () => {
     mobileMenu.classList.add("hidden");
     mobileHamburger.classList.remove("active");
   });
 });
-
 
 /* ============================
    Chat Widget Logic
@@ -222,10 +220,9 @@ if (chatForm) {
   });
 }
 
-// ============================
-// DARK / LIGHT MODE TOGGLE
-// ============================
-
+/* ============================
+   DARK / LIGHT MODE TOGGLE
+============================= */
 const toggle = document.getElementById("dark-toggle");
 
 // Load saved theme
@@ -251,3 +248,33 @@ toggle.addEventListener("change", () => {
   }
 });
 
+/* ============================
+   FADE & RIPPLE EFFECTS
+============================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("dark-toggle");
+
+  // Create fade overlay
+  const fade = document.createElement("div");
+  fade.className = "page-fade";
+  document.body.appendChild(fade);
+
+  // Create ripple flash element
+  const ripple = document.createElement("div");
+  ripple.className = "ripple";
+  document.body.appendChild(ripple);
+
+  toggle.addEventListener("change", (e) => {
+    // Fade overlay
+    fade.style.opacity = "1";
+    setTimeout(() => (fade.style.opacity = "0"), 300);
+
+    // Ripple animation
+    const rect = e.target.getBoundingClientRect();
+    ripple.style.left = rect.left + rect.width / 2 + "px";
+    ripple.style.top = rect.top + rect.height / 2 + "px";
+
+    ripple.classList.add("active");
+    setTimeout(() => ripple.classList.remove("active"), 600);
+  });
+});
