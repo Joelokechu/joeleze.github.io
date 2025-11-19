@@ -80,17 +80,6 @@ body {
   color: #00bcd4;
 }
 
-/* === HAMBURGER === */
-.hamburger {
-  display: flex;
-  cursor: pointer;
-  font-size: 24px;
-}
-
-.hamburger i {
-  color: white;
-}
-
 /* === ADMIN DROPDOWN === */
 .admin-dropdown {
   position: absolute;
