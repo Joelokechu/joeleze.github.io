@@ -495,7 +495,7 @@ footer {
 }
 
 /* ============================
-   LIGHT MODE OVERRIDES ONLY
+   LIGHT MODE OVERRIDES
 ============================= */
 
 body.light {
@@ -503,7 +503,6 @@ body.light {
   color: #10151c;
 }
 
-/* Navbar */
 body.light .navbar {
   background: rgba(255,255,255,0.85) !important;
 }
@@ -513,11 +512,9 @@ body.light .logo {
   color: #10151c;
 }
 
-/* Hero */
 body.light .hero-content h1 { color: #0a0d13; }
 body.light .hero-content p { color: #1a1f27; }
 
-/* Sections */
 body.light .about,
 body.light .project-card,
 body.light .contact-card {
@@ -529,7 +526,6 @@ body.light section h2 {
   color: #1f5eff;
 }
 
-/* Buttons */
 body.light .btn {
   background: #1f5eff;
   color: #fff;
@@ -543,17 +539,15 @@ body.light .btn-cv {
   background: linear-gradient(135deg, #1f5eff, #4fc3f7);
 }
 
-/* Chat Bubble */
 body.light #chat-bubble.collapsed {
   background: linear-gradient(135deg, #1f5eff, #4fc3f7);
 }
 
-/* Fix project hover shadow */
 body.light .project-card:hover {
   box-shadow: 0 0 12px rgba(0,0,0,0.12);
 }
 
-/* --- Light Mode Gradient Enhancements --- */
+/* --- Light Mode Gradients --- */
 body.light {
   background: linear-gradient(135deg, #f7f9fc, #eef3f8);
 }
@@ -572,29 +566,26 @@ body.light footer {
   background: linear-gradient(135deg, #e8edf5, #f9fbfd);
 }
 
-/* Smooth icon transition */
+/* Icon transition */
 .toggle-label .icon {
   transition: 0.35s ease, transform 0.45s ease;
 }
 
-/* Sun fades + moves slightly */
 #dark-toggle:checked + .toggle-label .sun {
   opacity: 0;
   transform: translateX(-6px);
 }
 
-/* Moon fades in + rises slightly */
 #dark-toggle:checked + .toggle-label .moon {
   opacity: 1;
   transform: translateX(6px);
 }
 
-/* Default moon hidden */
 .icon.moon {
   opacity: 0;
 }
 
-/* Soft fade overlay */
+/* Fade overlay */
 .page-fade {
   position: fixed;
   inset: 0;
@@ -609,7 +600,7 @@ body.dark .page-fade {
   background: rgba(0,0,0,0.4);
 }
 
-/* Ripple container */
+/* Ripple */
 .ripple {
   position: fixed;
   width: 20px;
@@ -628,3 +619,22 @@ body.dark .page-fade {
   transform: scale(40);
 }
 
+/* ============================
+   💡 DARK MODE IMAGE IMPROVEMENTS
+============================= */
+
+/* Auto-adjust ALL images in dark mode */
+body.dark img {
+  filter: brightness(0.85) contrast(1.1);
+  transition: filter 0.4s ease;
+}
+
+/* STRONGER correction for hero portrait */
+body.dark .hero-photo img {
+  filter: brightness(0.78) contrast(1.15);
+}
+
+/* Hover restores full brightness */
+body.dark img:hover {
+  filter: brightness(1) contrast(1);
+}
