@@ -88,8 +88,6 @@ body {
 /* ============================
    HAMBURGERS
 ============================= */
-
-/* Base hamburger */
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -106,7 +104,7 @@ body {
   transition: 0.3s;
 }
 
-/* Hamburger animation ("X" shape) */
+/* X-animation */
 .hamburger.active span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -117,7 +115,7 @@ body {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Desktop hamburger ALWAYS visible on desktop */
+/* Desktop hamburger */
 .desktop-hamburger {
   display: flex;
 }
@@ -152,10 +150,10 @@ body {
 }
 
 /* ============================
-   MOBILE MENU
+   MOBILE MENU (FINAL FIXED VERSION)
 ============================= */
 .mobile-menu {
-  display: none;
+  display: none; /* default hidden */
   flex-direction: column;
   position: absolute;
   top: 70px;
@@ -167,6 +165,17 @@ body {
   box-shadow: 0 5px 20px rgba(0,0,0,0.4);
   animation: fadeSlide 0.25s ease-out;
   z-index: 999;
+}
+
+/* Hide when JS adds .hidden */
+.mobile-menu.hidden {
+  display: none !important;
+}
+
+/* Show when .hidden is removed */
+.mobile-menu:not(.hidden) {
+  display: flex !important;
+  flex-direction: column;
 }
 
 .mobile-menu a {
@@ -191,7 +200,6 @@ body {
   border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Mobile animation */
 @keyframes fadeSlide {
   from { opacity: 0; transform: translateY(-10px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -201,21 +209,9 @@ body {
    RESPONSIVE NAVIGATION
 ============================= */
 @media (max-width: 900px) {
-
-  /* Hide desktop menu */
-  .nav-links {
-    display: none;
-  }
-
-  /* Hide desktop hamburger */
-  .desktop-hamburger {
-    display: none;
-  }
-
-  /* Show mobile hamburger */
-  .mobile-hamburger {
-    display: flex;
-  }
+  .nav-links { display: none; }
+  .desktop-hamburger { display: none; }
+  .mobile-hamburger { display: flex; }
 }
 
 /* ============================
@@ -227,7 +223,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
 }
 
 .hero-with-photo {
@@ -253,7 +248,6 @@ body {
   gap: 1rem;
 }
 
-/* Portrait */
 .hero-photo img {
   width: 350px;
   height: 350px;
@@ -264,7 +258,6 @@ body {
   transition: 0.4s;
 }
 
-/* Mobile hero adjustments */
 @media (max-width: 900px) {
   .hero-with-photo {
     flex-direction: column-reverse;
@@ -438,19 +431,3 @@ footer {
 .hidden {
   display: none !important;
 }
-
-/* === FIX MOBILE MENU VISIBILITY === */
-.mobile-menu {
-  display: none; /* hidden by default */
-}
-
-.mobile-menu.hidden {
-  display: none !important;
-}
-
-/* When menu is NOT hidden (hamburger clicked) */
-.mobile-menu:not(.hidden) {
-  display: flex !important;
-  flex-direction: column;
-}
-
