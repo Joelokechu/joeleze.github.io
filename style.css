@@ -126,7 +126,7 @@ body {
 }
 
 /* ============================
-   ADMIN DROPDOWN (DESKTOP)
+   ADMIN DROPDOWN
 ============================= */
 .admin-dropdown {
   position: absolute;
@@ -150,10 +150,10 @@ body {
 }
 
 /* ============================
-   MOBILE MENU (FINAL FIXED VERSION)
+   MOBILE MENU
 ============================= */
 .mobile-menu {
-  display: none; /* default hidden */
+  display: none;
   flex-direction: column;
   position: absolute;
   top: 70px;
@@ -167,12 +167,10 @@ body {
   z-index: 999;
 }
 
-/* Hide when JS adds .hidden */
 .mobile-menu.hidden {
   display: none !important;
 }
 
-/* Show when .hidden is removed */
 .mobile-menu:not(.hidden) {
   display: flex !important;
   flex-direction: column;
@@ -205,9 +203,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================
-   RESPONSIVE NAVIGATION
-============================= */
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .desktop-hamburger { display: none; }
@@ -215,7 +210,7 @@ body {
 }
 
 /* ============================
-   HERO SECTION
+   HERO SECTION + NEW ANIMATIONS
 ============================= */
 .hero {
   min-height: 80vh;
@@ -231,6 +226,18 @@ body {
   gap: 4rem;
 }
 
+.hero-content {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroReveal 1.2s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(25px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .hero-content h1 {
   font-size: 2.8rem;
   color: white;
@@ -243,28 +250,71 @@ body {
   margin-bottom: 1rem;
 }
 
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
+/* CV Button Upgrade */
+.btn-cv {
+  background: linear-gradient(135deg, #45a29e, #66fcf1);
+  color: #0b0c10;
+  padding: 0.75rem 1.4rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 252, 241, 0.25);
+}
+.btn-cv:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 252, 241, 0.45);
 }
 
+/* Portrait Glow + Hover Lift */
 .hero-photo img {
   width: 350px;
   height: 350px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #66fcf1;
-  box-shadow: 0 0 25px rgba(102,252,241,0.35);
-  transition: 0.4s;
+  border: 5px solid rgba(102, 252, 241, 0.6);
+  box-shadow: 0 0 35px rgba(102, 252, 241, 0.45);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.hero-photo img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 45px rgba(102, 252, 241, 0.7);
 }
 
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Mobile Hero Fixes */
 @media (max-width: 900px) {
-  .hero-with-photo {
-    flex-direction: column-reverse;
+  .hero {
+    padding-top: 7rem;
     text-align: center;
   }
-  .hero-buttons { justify-content: center; }
-  .hero-photo img { width: 260px; height: 260px; }
+  .hero-with-photo {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 0 1rem;
+  }
+  .hero-content h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+  .hero-content p {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .hero-photo img {
+    width: 240px;
+    height: 240px;
+  }
 }
 
 /* ============================
@@ -330,15 +380,19 @@ section h2 {
   gap: 1.6rem;
 }
 
+/* ============================
+   PROJECT CARD HOVER UPGRADE
+============================= */
 .project-card {
   background: #1f2833;
   padding: 1.6rem;
   border-radius: 12px;
-  transition: 0.3s;
+  transition: 0.35s ease;
+  transform: translateY(0);
 }
-
 .project-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(102,252,241,0.15);
 }
 
 /* ============================
