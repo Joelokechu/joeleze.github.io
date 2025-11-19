@@ -46,24 +46,46 @@ fadeSections.forEach(section => appearObserver.observe(section));
 emailjs.init("rgJiaabQfCfMpGz3t");
 
 /* ============================
-   Hamburger Menu Logic (Admin)
+   New Hamburger Menu Logic
 ============================= */
-const hamburger = document.querySelector(".hamburger");
-const menu = document.getElementById("hamburger-menu");
 
-if (hamburger && menu) {
-  hamburger.addEventListener("click", (e) => {
-    e.stopPropagation(); // Prevent closing immediately
-    menu.classList.toggle("show");
-  });
+// Desktop elements
+const desktopHamburger = document.querySelector(".desktop-hamburger");
+const adminDropdown = document.querySelector(".admin-dropdown");
 
-  // Close menu when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
-      menu.classList.remove("show");
-    }
+// Mobile elements
+const mobileHamburger = document.querySelector(".mobile-hamburger");
+const mobileMenu = document.querySelector(".mobile-menu");
+
+// ----- Desktop Hamburger: Admin Only -----
+desktopHamburger.addEventListener("click", (e) => {
+  e.stopPropagation();
+  desktopHamburger.classList.toggle("active");
+  adminDropdown.classList.toggle("hidden");
+});
+
+// Close desktop admin menu when clicking outside
+document.addEventListener("click", (e) => {
+  if (!adminDropdown.contains(e.target) && !desktopHamburger.contains(e.target)) {
+    adminDropdown.classList.add("hidden");
+    desktopHamburger.classList.remove("active");
+  }
+});
+
+// ----- Mobile Hamburger -----
+mobileHamburger.addEventListener("click", () => {
+  mobileHamburger.classList.toggle("active");
+  mobileMenu.classList.toggle("hidden");
+});
+
+// Close mobile menu after clicking a link
+mobileMenu.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    mobileMenu.classList.add("hidden");
+    mobileHamburger.classList.remove("active");
   });
-}
+});
+
 
 /* ============================
    Chat Widget Logic
