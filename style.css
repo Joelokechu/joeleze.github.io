@@ -7,12 +7,64 @@
   box-sizing: border-box;
 }
 
+/* ============================
+   THEME VARIABLES (LIGHT + DARK)
+============================= */
+:root {
+  --bg: #0b0c10;
+  --bg2: #1f2833;
+  --text: #c5c6c7;
+  --accent: #66fcf1;
+  --accent2: #45a29e;
+  --card-bg: #1f2833;
+  --card-hover: rgba(102, 252, 241, 0.12);
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg2: #f2f6f8;
+  --text: #222;
+  --card-bg: #ffffff;
+  --card-hover: rgba(0, 0, 0, 0.07);
+  --accent: #00bcd4;
+  --accent2: #008c9e;
+}
+
 body {
-  background-color: #0b0c10;
-  color: #c5c6c7;
+  background-color: var(--bg);
+  color: var(--text);
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ============================
+   PAGE FADE-IN ANIMATIONS
+============================= */
+.fade-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================
+   SCROLL PROGRESS BAR
+============================= */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 2000;
+  transition: width 0.15s ease-out;
 }
 
 /* ============================
@@ -55,11 +107,11 @@ body {
 .logo {
   font-size: 24px;
   font-weight: bold;
-  color: white;
+  color: var(--text);
 }
 
 .logo span {
-  color: #00bcd4;
+  color: var(--accent);
 }
 
 .nav-links {
@@ -69,14 +121,14 @@ body {
 }
 
 .nav-links a {
-  color: white;
+  color: var(--text);
   text-decoration: none;
   font-size: 17px;
   transition: 0.3s;
 }
 
 .nav-links a:hover {
-  color: #00bcd4;
+  color: var(--accent);
 }
 
 /* ============================
@@ -92,7 +144,7 @@ body {
 .hamburger span {
   width: 26px;
   height: 3px;
-  background: #c5c6c7;
+  background: var(--text);
   border-radius: 3px;
   transition: 0.3s;
 }
@@ -118,7 +170,7 @@ body {
   position: absolute;
   top: 70px;
   right: 40px;
-  background: #111;
+  background: var(--card-bg);
   padding: 12px 18px;
   border-radius: 6px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.3);
@@ -136,7 +188,7 @@ body {
   position: absolute;
   top: 70px;
   right: 6%;
-  background: #1f2833;
+  background: var(--card-bg);
   width: 200px;
   border-radius: 10px;
   padding: 10px 0;
@@ -150,14 +202,14 @@ body {
 .mobile-menu a {
   padding: 12px 18px;
   text-decoration: none;
-  color: #c5c6c7;
+  color: var(--text);
   font-weight: 600;
   transition: 0.25s;
 }
 
 .mobile-menu a:hover {
-  background: rgba(102,252,241,0.08);
-  color: #66fcf1;
+  background: var(--card-hover);
+  color: var(--accent);
 }
 
 @keyframes fadeSlide {
@@ -211,6 +263,7 @@ body {
   letter-spacing: 0.5px;
   color: white;
   margin-bottom: 1rem;
+  text-shadow: 0 0 12px rgba(0,0,0,0.4);
 }
 
 .hero-content p {
@@ -261,7 +314,7 @@ body {
    BUTTONS
 ============================= */
 .btn {
-  background: #45a29e;
+  background: var(--accent2);
   color: #0b0c10;
   padding: 0.7rem 1.2rem;
   border-radius: 30px;
@@ -271,7 +324,7 @@ body {
 }
 
 .btn:hover {
-  background: #66fcf1;
+  background: var(--accent);
   transform: translateY(-3px);
 }
 
@@ -296,7 +349,7 @@ body {
 ============================= */
 section h2 {
   text-align: center;
-  color: #66fcf1;
+  color: var(--accent);
   margin-bottom: 1.2rem;
 }
 
@@ -305,7 +358,7 @@ section h2 {
 }
 
 .about {
-  background: #1f2833;
+  background: var(--bg2);
   text-align: center;
 }
 
@@ -314,8 +367,11 @@ section h2 {
   margin: 0.75rem auto;
 }
 
-.projects { background: #0b0c10; }
+.projects { background: var(--bg); }
 
+/* ============================
+   PROJECT CARDS
+============================= */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
@@ -323,14 +379,17 @@ section h2 {
 }
 
 .project-card {
-  background: #1f2833;
+  background: var(--card-bg);
   padding: 1.6rem;
   border-radius: 12px;
-  transition: 0.3s ease;
+  transition: 0.35s ease;
+  box-shadow: 0 0 0 rgba(102,252,241,0);
 }
 
 .project-card:hover {
   transform: translateY(-6px);
+  background: var(--card-hover);
+  box-shadow: 0 0 25px rgba(102,252,241,0.14);
 }
 
 /* ============================
@@ -338,13 +397,13 @@ section h2 {
 ============================= */
 .contact {
   padding: 4rem 6%;
-  background: #0b0c10;
+  background: var(--bg);
   display: flex;
   justify-content: center;
 }
 
 .contact-card {
-  background: #1f2833;
+  background: var(--card-bg);
   padding: 2.2rem 3rem;
   border-radius: 12px;
   text-align: center;
