@@ -27,7 +27,6 @@ body {
   background: radial-gradient(circle at 30% 20%, rgba(102,252,241,0.06), transparent),
               radial-gradient(circle at 70% 80%, rgba(69,162,158,0.06), transparent);
   z-index: -1;
-  transform: translateY(0);
   animation: parallaxMove 18s ease-in-out infinite alternate;
   pointer-events: none;
 }
@@ -63,15 +62,10 @@ body {
   color: #00bcd4;
 }
 
-/* Desktop nav links */
 .nav-links {
   display: flex;
   gap: 28px;
   align-items: center;
-}
-
-.nav-links li {
-  list-style: none;
 }
 
 .nav-links a {
@@ -86,14 +80,13 @@ body {
 }
 
 /* ============================
-   HAMBURGERS
+   HAMBURGER
 ============================= */
 .hamburger {
   display: flex;
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  z-index: 1100;
 }
 
 .hamburger span {
@@ -104,7 +97,7 @@ body {
   transition: 0.3s;
 }
 
-/* X-animation */
+/* X animation */
 .hamburger.active span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -115,15 +108,8 @@ body {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Desktop hamburger */
-.desktop-hamburger {
-  display: flex;
-}
-
-/* Mobile hamburger hidden on desktop */
-.mobile-hamburger {
-  display: none;
-}
+.desktop-hamburger { display: flex; }
+.mobile-hamburger { display: none; }
 
 /* ============================
    ADMIN DROPDOWN
@@ -139,15 +125,7 @@ body {
   z-index: 9999;
 }
 
-.admin-dropdown a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-.admin-dropdown.hidden {
-  display: none;
-}
+.admin-dropdown.hidden { display: none; }
 
 /* ============================
    MOBILE MENU
@@ -164,24 +142,16 @@ body {
   padding: 10px 0;
   box-shadow: 0 5px 20px rgba(0,0,0,0.4);
   animation: fadeSlide 0.25s ease-out;
-  z-index: 999;
 }
 
-.mobile-menu.hidden {
-  display: none !important;
-}
-
-.mobile-menu:not(.hidden) {
-  display: flex !important;
-  flex-direction: column;
-}
+.mobile-menu.hidden { display: none !important; }
+.mobile-menu:not(.hidden) { display: flex !important; }
 
 .mobile-menu a {
   padding: 12px 18px;
   text-decoration: none;
   color: #c5c6c7;
   font-weight: 600;
-  display: block;
   transition: 0.25s;
 }
 
@@ -190,19 +160,14 @@ body {
   color: #66fcf1;
 }
 
-.mobile-menu .admin-link {
-  margin-top: 8px;
-  padding: 12px 18px;
-  color: #45a29e;
-  font-weight: bold;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
 @keyframes fadeSlide {
   from { opacity: 0; transform: translateY(-10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ============================
+   RESPONSIVE NAV
+============================= */
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .desktop-hamburger { display: none; }
@@ -210,7 +175,7 @@ body {
 }
 
 /* ============================
-   HERO SECTION + NEW ANIMATIONS
+   HERO SECTION + ANIMATION
 ============================= */
 .hero {
   min-height: 80vh;
@@ -226,7 +191,8 @@ body {
   gap: 4rem;
 }
 
-.hero-content {
+/* Soft Fade-In */
+.fade-in-hero {
   opacity: 0;
   transform: translateY(20px);
   animation: heroReveal 1.2s ease-out forwards;
@@ -238,36 +204,29 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Hero Typography */
 .hero-content h1 {
-  font-size: 2.8rem;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   color: white;
   margin-bottom: 1rem;
 }
 
 .hero-content p {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   max-width: 650px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.3rem;
 }
 
-/* CV Button Upgrade */
-.btn-cv {
-  background: linear-gradient(135deg, #45a29e, #66fcf1);
-  color: #0b0c10;
-  padding: 0.75rem 1.4rem;
-  font-weight: 600;
-  border-radius: 12px;
-  text-decoration: none;
-  display: inline-block;
-  transition: 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 252, 241, 0.25);
-}
-.btn-cv:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(102, 252, 241, 0.45);
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
 }
 
-/* Portrait Glow + Hover Lift */
+/* ============================
+   PORTRAIT GLOW (Option A)
+============================= */
 .hero-photo img {
   width: 350px;
   height: 350px;
@@ -277,17 +236,13 @@ body {
   box-shadow: 0 0 35px rgba(102, 252, 241, 0.45);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+
 .hero-photo img:hover {
   transform: scale(1.04);
   box-shadow: 0 0 45px rgba(102, 252, 241, 0.7);
 }
 
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-}
-
-/* Mobile Hero Fixes */
+/* Mobile hero */
 @media (max-width: 900px) {
   .hero {
     padding-top: 7rem;
@@ -297,24 +252,9 @@ body {
     flex-direction: column-reverse;
     align-items: center;
     gap: 2.5rem;
-    padding: 0 1rem;
   }
-  .hero-content h1 {
-    font-size: 2.2rem;
-    line-height: 1.2;
-  }
-  .hero-content p {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-  }
-  .hero-buttons {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  .hero-photo img {
-    width: 240px;
-    height: 240px;
-  }
+  .hero-content h1 { font-size: 2.2rem; }
+  .hero-photo img { width: 240px; height: 240px; }
 }
 
 /* ============================
@@ -329,22 +269,26 @@ body {
   text-decoration: none;
   transition: 0.25s;
 }
+
 .btn:hover {
   background: #66fcf1;
   transform: translateY(-3px);
 }
 
-.btn-secondary {
-  border: 1px solid rgba(102,252,241,0.3);
-  color: #66fcf1;
-  padding: 0.6rem 1.1rem;
-  border-radius: 10px;
+.btn-cv {
+  background: linear-gradient(135deg, #45a29e, #66fcf1);
+  color: #0b0c10;
+  padding: 0.75rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 600;
   text-decoration: none;
-  transition: 0.25s;
+  box-shadow: 0 4px 15px rgba(102, 252, 241, 0.25);
+  transition: 0.3s ease;
 }
-.btn-secondary:hover {
-  background: rgba(102,252,241,0.07);
-  transform: translateY(-2px);
+
+.btn-cv:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 252, 241, 0.45);
 }
 
 /* ============================
@@ -370,9 +314,7 @@ section h2 {
   margin: 0.75rem auto;
 }
 
-.projects {
-  background: #0b0c10;
-}
+.projects { background: #0b0c10; }
 
 .project-grid {
   display: grid;
@@ -380,19 +322,15 @@ section h2 {
   gap: 1.6rem;
 }
 
-/* ============================
-   PROJECT CARD HOVER UPGRADE
-============================= */
 .project-card {
   background: #1f2833;
   padding: 1.6rem;
   border-radius: 12px;
-  transition: 0.35s ease;
-  transform: translateY(0);
+  transition: 0.3s ease;
 }
+
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(102,252,241,0.15);
+  transform: translateY(-6px);
 }
 
 /* ============================
@@ -432,7 +370,6 @@ footer {
   box-shadow: 0 8px 24px rgba(15,23,42,0.35);
   transition: 0.25s;
   z-index: 999;
-  overflow: hidden;
 }
 
 #chat-bubble.collapsed {
@@ -455,8 +392,8 @@ footer {
 .chat-header {
   background: linear-gradient(135deg, #1f5eff, #4fc3f7);
   color: white;
-  text-align: center;
   padding: 10px;
+  text-align: center;
 }
 
 #chat-window {
@@ -466,22 +403,21 @@ footer {
   background: #f8f9fb;
 }
 
-/* Chat messages */
 .message {
   padding: 0.6rem 0.9rem;
   border-radius: 12px;
   max-width: 85%;
 }
+
 .message.user {
   background: #0078d7;
   color: white;
   margin-left: auto;
 }
+
 .message.bot {
   background: #e9f3ff;
   color: #333;
 }
 
-.hidden {
-  display: none !important;
-}
+.hidden { display: none !important; }
