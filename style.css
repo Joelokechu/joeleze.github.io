@@ -438,3 +438,19 @@ footer {
 .hidden {
   display: none !important;
 }
+
+/* === FIX MOBILE MENU VISIBILITY === */
+.mobile-menu {
+  display: none; /* hidden by default */
+}
+
+.mobile-menu.hidden {
+  display: none !important;
+}
+
+/* When menu is NOT hidden (hamburger clicked) */
+.mobile-menu:not(.hidden) {
+  display: flex !important;
+  flex-direction: column;
+}
+
