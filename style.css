@@ -1,4 +1,3 @@
-
 /* ============================
    GLOBAL RESET
 ============================= */
@@ -14,6 +13,15 @@ body {
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+
+  /* === (3) Smooth Fade Transition === */
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+body * {
+  transition: background-color 0.4s ease, 
+              color 0.4s ease, 
+              border-color 0.4s ease;
 }
 
 /* ============================
@@ -192,7 +200,6 @@ body {
   gap: 4rem;
 }
 
-/* Soft Fade-In */
 .fade-in-hero {
   opacity: 0;
   transform: translateY(20px);
@@ -205,7 +212,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Hero Typography */
 .hero-content h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -226,7 +232,7 @@ body {
 }
 
 /* ============================
-   PORTRAIT GLOW (Option A)
+   PORTRAIT GLOW
 ============================= */
 .hero-photo img {
   width: 350px;
@@ -243,7 +249,6 @@ body {
   box-shadow: 0 0 45px rgba(102, 252, 241, 0.7);
 }
 
-/* Mobile hero */
 @media (max-width: 900px) {
   .hero {
     padding-top: 7rem;
@@ -424,7 +429,7 @@ footer {
 .hidden { display: none !important; }
 
 /* ============================
-   DARK MODE TOGGLE
+   DARK MODE TOGGLE (Original)
 ============================= */
 .theme-toggle {
   margin-left: 20px;
@@ -466,7 +471,7 @@ footer {
 }
 
 /* ============================
-   DARK MODE THEME
+   DARK MODE THEME (existing)
 ============================= */
 
 body.dark {
@@ -515,7 +520,7 @@ body.dark #chat-bubble.collapsed {
 }
 
 /* ============================
-   BEAUTIFUL GLOW TOGGLE
+   BEAUTIFUL GLOW TOGGLE (Enhanced)
 ============================= */
 
 .theme-toggle {
@@ -562,7 +567,6 @@ body.dark #chat-bubble.collapsed {
   display: none;
 }
 
-/* ACTIVE: Dark Mode */
 #dark-toggle:checked + .toggle-label {
   background: linear-gradient(135deg, #1f5eff, #4fc3f7);
   box-shadow: 0 0 12px rgba(79,195,247,0.8),
@@ -582,3 +586,62 @@ body.dark #chat-bubble.collapsed {
   opacity: 1;
 }
 
+/* ============================
+   (4) LIGHT MODE FIX THEME — FINAL
+============================= */
+
+body.light {
+  background: #f4f7fa;
+  color: #10151c;
+}
+
+/* Navbar */
+body.light .navbar {
+  background: rgba(255,255,255,0.85) !important;
+}
+
+body.light .logo,
+body.light .nav-links a {
+  color: #10151c;
+}
+
+/* Sections */
+body.light .about,
+body.light .project-card,
+body.light .contact-card {
+  background: #ffffff;
+  color: #10151c;
+}
+
+body.light section h2 {
+  color: #1f5eff;
+}
+
+/* Buttons */
+body.light .btn {
+  background: #1f5eff;
+  color: #fff;
+}
+
+body.light .btn:hover {
+  background: #4fc3f7;
+}
+
+body.light .btn-cv {
+  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
+}
+
+/* Chat */
+body.light #chat-bubble.collapsed {
+  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
+}
+
+/* Hero Title */
+body.light .hero-content h1 {
+  color: #0a0d13;
+}
+
+/* Hero Paragraph */
+body.light .hero-content p {
+  color: #1a1f27;
+}
