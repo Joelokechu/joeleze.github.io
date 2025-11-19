@@ -1,617 +1,430 @@
 /* ============================
-   GLOBAL RESET
+   PREMIUM TOGGLE (72×36)
 ============================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body {
-  background-color: #0b0c10;
-  color: #c5c6c7;
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.6;
-  overflow-x: hidden;
-  transition: background 0.5s ease, color 0.5s ease;
-}
-
-body * {
-  transition: background-color 0.4s ease,
-              color 0.4s ease,
-              border-color 0.4s ease;
-}
-
-/* ============================
-   PARALLAX BACKGROUND
-============================= */
-.parallax-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120vh;
-  background: radial-gradient(circle at 30% 20%, rgba(102,252,241,0.06), transparent),
-              radial-gradient(circle at 70% 80%, rgba(69,162,158,0.06), transparent);
-  z-index: -1;
-  animation: parallaxMove 18s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes parallaxMove {
-  from { transform: translateY(-18px); }
-  to   { transform: translateY(18px); }
-}
-
-/* ============================
-   NAVBAR
-============================= */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(6px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 40px;
-  z-index: 1000;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-}
-
-.logo span {
-  color: #00bcd4;
-}
-
-.nav-links {
-  display: flex;
-  gap: 28px;
-  align-items: center;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 17px;
-  transition: 0.3s;
-}
-
-.nav-links a:hover {
-  color: #00bcd4;
-}
-
-/* ============================
-   HAMBURGER
-============================= */
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.hamburger span {
-  width: 26px;
-  height: 3px;
-  background: #c5c6c7;
-  border-radius: 3px;
-  transition: 0.3s;
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-.desktop-hamburger { display: flex; }
-.mobile-hamburger { display: none; }
-
-/* ============================
-   ADMIN DROPDOWN
-============================= */
-.admin-dropdown {
-  position: absolute;
-  top: 70px;
-  right: 40px;
-  background: #111;
-  padding: 12px 18px;
-  border-radius: 6px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-  z-index: 9999;
-}
-
-.admin-dropdown.hidden { display: none; }
-
-/* ============================
-   MOBILE MENU
-============================= */
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  top: 70px;
-  right: 6%;
-  background: #1f2833;
-  width: 200px;
-  border-radius: 10px;
-  padding: 10px 0;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-  animation: fadeSlide 0.25s ease-out;
-}
-
-.mobile-menu.hidden { display: none !important; }
-.mobile-menu:not(.hidden) { display: flex !important; }
-
-.mobile-menu a {
-  padding: 12px 18px;
-  text-decoration: none;
-  color: #c5c6c7;
-  font-weight: 600;
-  transition: 0.25s;
-}
-
-.mobile-menu a:hover {
-  background: rgba(102,252,241,0.08);
-  color: #66fcf1;
-}
-
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ============================
-   RESPONSIVE NAV
-============================= */
-@media (max-width: 900px) {
-  .nav-links { display: none; }
-  .desktop-hamburger { display: none; }
-  .mobile-hamburger { display: flex; }
-}
-
-/* ============================
-   HERO
-============================= */
-.hero {
-  min-height: 80vh;
-  padding: 6rem 6%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-with-photo {
-  display: flex;
-  justify-content: space-between;
-  gap: 4rem;
-}
-
-.fade-in-hero {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: heroReveal 1.2s ease-out forwards;
-  animation-delay: 0.2s;
-}
-
-@keyframes heroReveal {
-  from { opacity: 0; transform: translateY(25px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.hero-content h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.hero-content p {
-  font-size: 1.1rem;
-  max-width: 650px;
-  margin-bottom: 1.3rem;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-}
-
-/* ============================
-   PORTRAIT
-============================= */
-.hero-photo img {
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid rgba(102, 252, 241, 0.6);
-  box-shadow: 0 0 35px rgba(102, 252, 241, 0.45);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.hero-photo img:hover {
-  transform: scale(1.04);
-  box-shadow: 0 0 45px rgba(102, 252, 241, 0.7);
-}
-
-@media (max-width: 900px) {
-  .hero {
-    padding-top: 7rem;
-    text-align: center;
-  }
-  .hero-with-photo {
-    flex-direction: column-reverse;
-    align-items: center;
-    gap: 2.5rem;
-  }
-  .hero-content h1 { font-size: 2.2rem; }
-  .hero-photo img { width: 240px; height: 240px; }
-}
-
-/* ============================
-   BUTTONS
-============================= */
-.btn {
-  background: #45a29e;
-  color: #0b0c10;
-  padding: 0.7rem 1.2rem;
-  border-radius: 30px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.25s;
-}
-
-.btn:hover {
-  background: #66fcf1;
-  transform: translateY(-3px);
-}
-
-.btn-cv {
-  background: linear-gradient(135deg, #45a29e, #66fcf1);
-  color: #0b0c10;
-  padding: 0.75rem 1.4rem;
-  border-radius: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 4px 15px rgba(102, 252, 241, 0.25);
-  transition: 0.3s ease;
-}
-
-.btn-cv:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(102, 252, 241, 0.45);
-}
-
-/* ============================
-   SECTIONS
-============================= */
-section h2 {
-  text-align: center;
-  color: #66fcf1;
-  margin-bottom: 1.2rem;
-}
-
-.about, .projects {
-  padding: 4rem 6%;
-}
-
-.about {
-  background: #1f2833;
-  text-align: center;
-}
-
-.about p {
-  max-width: 800px;
-  margin: 0.75rem auto;
-}
-
-.projects { background: #0b0c10; }
-
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-  gap: 1.6rem;
-}
-
-.project-card {
-  background: #1f2833;
-  padding: 1.6rem;
-  border-radius: 12px;
-  transition: 0.3s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-6px);
-}
-
-/* ============================
-   CONTACT
-============================= */
-.contact {
-  padding: 4rem 6%;
-  background: #0b0c10;
-  display: flex;
-  justify-content: center;
-}
-
-.contact-card {
-  background: #1f2833;
-  padding: 2.2rem 3rem;
-  border-radius: 12px;
-  text-align: center;
-}
-
-/* ============================
-   FOOTER
-============================= */
-footer {
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.9rem;
-}
-
-/* ============================
-   CHAT WIDGET
-============================= */
-#chat-bubble {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(15,23,42,0.35);
-  transition: 0.25s;
-  z-index: 999;
-}
-
-#chat-bubble.collapsed {
-  height: 48px;
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-#chat-bubble.expanded {
-  width: 340px;
-  background: white;
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-header {
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-#chat-window {
-  padding: 12px;
-  max-height: 260px;
-  overflow-y: auto;
-  background: #f8f9fb;
-}
-
-.message {
-  padding: 0.6rem 0.9rem;
-  border-radius: 12px;
-  max-width: 85%;
-}
-
-.message.user {
-  background: #0078d7;
-  color: white;
-  margin-left: auto;
-}
-
-.message.bot {
-  background: #e9f3ff;
-  color: #333;
-}
-
-.hidden { display: none !important; }
-
-/* ============================
-   GLOWING THEME TOGGLE (UPDATED)
-============================= */
 .theme-toggle {
   margin-left: 18px;
   display: flex;
   align-items: center;
 }
 
-/* Toggle body */
 .toggle-label {
-  width: 60px;
-  height: 30px;
-  background: linear-gradient(135deg, #9ea4ad, #cfd3d8);
+  width: 72px;
+  height: 36px;
+  background: linear-gradient(145deg, #bfc3c7, #d9dde2);
   border-radius: 50px;
   position: relative;
   cursor: pointer;
-  transition: 0.4s ease;
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.25);
+  transition: 0.45s ease;
+  box-shadow:
+      inset 0 2px 4px rgba(0,0,0,0.25),
+      inset 0 -2px 4px rgba(255,255,255,0.15);
 }
 
-/* Icons — updated to 17px & perfectly centered */
+/* Icons (fixed position, fade only) */
 .toggle-label .icon {
   position: absolute;
-  font-size: 17px;
+  font-size: 18px;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.65;
-  z-index: 3;
-  pointer-events: none;
+  opacity: 0.55;
   transition: opacity 0.35s ease;
+  z-index: 4;
 }
 
-/* Fixed icon positions */
-.icon.sun { left: 9px; }
-.icon.moon { right: 9px; opacity: 0; }
+.icon.sun { left: 10px; }
+.icon.moon { right: 10px; opacity: 0; }
 
-/* Toggle Ball — updated to 20px */
+/* Ball */
 .toggle-ball {
-  width: 20px;
-  height: 20px;
-  background: white;
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
   border-radius: 50%;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 3px;
+  left: 3px;
   transition: 0.35s ease;
-  box-shadow: 0 0 10px rgba(255,255,255,0.9);
+  box-shadow:
+      0 2px 4px rgba(0,0,0,0.22),
+      0 1px 2px rgba(0,0,0,0.15);
+  z-index: 3;
 }
 
 #dark-toggle {
   display: none;
 }
 
-/* ACTIVE (Dark Mode) */
+/* Active (dark mode) */
 #dark-toggle:checked + .toggle-label {
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-  box-shadow: 0 0 12px rgba(79,195,247,0.8),
-              0 0 25px rgba(31,94,255,0.55);
+  background: linear-gradient(135deg, #1a1a1d, #2a2d32);
+  box-shadow:
+      inset 0 2px 4px rgba(0,0,0,0.35),
+      inset 0 -2px 4px rgba(255,255,255,0.1);
 }
 
 #dark-toggle:checked + .toggle-label .toggle-ball {
-  transform: translateX(30px);
-  box-shadow: 0 0 18px rgba(79,195,247,1);
+  transform: translateX(36px);
+  box-shadow:
+      0 2px 6px rgba(0,0,0,0.3),
+      0 1px 2px rgba(0,0,0,0.2);
 }
 
-/* ICON FADE (no sideways shifting) */
-#dark-toggle:checked + .toggle-label .sun {
-  opacity: 0;
+#dark-toggle:checked + .toggle-label .sun { opacity: 0; }
+#dark-toggle:checked + .toggle-label .moon { opacity: 1; }
+
+/* ============================
+   PREMIUM AURA + SHADOW + PRESS EFFECT
+============================= */
+
+/* --- White Aura when toggling or hovering --- */
+.toggle-label:hover .toggle-ball,
+#dark-toggle:checked + .toggle-label .toggle-ball {
+  box-shadow:
+      0 0 12px rgba(255,255,255,0.55),
+      0 0 20px rgba(255,255,255,0.25),
+      0 2px 4px rgba(0,0,0,0.22);
 }
 
-#dark-toggle:checked + .toggle-label .moon {
-  opacity: 1;
+/* --- Press (active state): ball compresses & glow tightens --- */
+.toggle-label:active .toggle-ball {
+  transform: scale(0.94);
+  box-shadow:
+      0 0 8px rgba(255,255,255,0.45),
+      0 2px 3px rgba(0,0,0,0.25);
+}
+
+/* --- Micro-shadow beneath the ball (realism) --- */
+.toggle-label::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 66px;
+  height: 30px;
+  border-radius: 50px;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.22);
+  transition: 0.35s ease;
+}
+
+/* Dark mode version of the shadow */
+#dark-toggle:checked + .toggle-label::after {
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.1),
+              inset 0 -1px 3px rgba(0,0,0,0.35);
+}
+
+/* --- Subtle highlight shimmer on track --- */
+.toggle-label::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 66px;
+  height: 30px;
+  border-radius: 50px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.28),
+      rgba(255,255,255,0.05)
+  );
+  transition: 0.45s ease;
+}
+
+/* Dark mode highlight softens */
+#dark-toggle:checked + .toggle-label::before {
+  background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.12),
+      rgba(255,255,255,0.02)
+  );
 }
 
 /* ============================
-   LIGHT MODE OVERRIDES UPDATED
+   PREMIUM AMBIENT PAGE GLOW
 ============================= */
-body.light {
-  background: linear-gradient(135deg, #f7f9fc, #eef3f8);
-  color: #10151c;
-}
 
-body.light .navbar {
-  background: rgba(255,255,255,0.85) !important;
-}
-
-body.light .nav-links a,
-body.light .logo {
-  color: #10151c;
-}
-
-body.light .hero-content h1 { color: #0a0d13; }
-body.light .hero-content p { color: #1a1f27; }
-
-body.light .about,
-body.light .project-card,
-body.light .contact-card {
-  background: #ffffff;
-  color: #10151c;
-}
-
-body.light section h2 {
-  color: #1f5eff;
-}
-
-body.light .btn {
-  background: #1f5eff;
-  color: #fff;
-}
-
-body.light .btn:hover {
-  background: #4fc3f7;
-}
-
-body.light .btn-cv {
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-}
-
-body.light #chat-bubble.collapsed {
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-}
-
-/* Light mode card + footer gradients */
-body.light .about,
-body.light .contact-card {
-  background: linear-gradient(135deg, #ffffff, #f2f5f9);
-}
-
-body.light .project-card {
-  background: linear-gradient(145deg, #ffffff, #f4f7fa);
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-body.light footer {
-  background: linear-gradient(135deg, #e8edf5, #f9fbfd);
-}
-
-/* ============================
-   PAGE FADE TRANSITION
-============================= */
+/* Base glow element (already created in JS, now enhancing it) */
 .page-fade {
-  position: fixed;
-  inset: 0;
-  background: rgba(255,255,255,0.6);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.55s ease;
-  z-index: 99999;
+  mix-blend-mode: screen;
+  backdrop-filter: blur(12px);
+  transition: opacity 0.45s ease, backdrop-filter 0.45s ease;
 }
 
+/* Light mode glow flash */
+body.light .page-fade {
+  background: rgba(255,255,255,0.55);
+}
+
+/* Dark mode glow flash */
 body.dark .page-fade {
-  background: rgba(0,0,0,0.4);
+  background: rgba(80,120,255,0.25);
+  mix-blend-mode: lighten;
 }
 
-/* ============================
-   RIPPLE FLASH EFFECT
-============================= */
-.ripple {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(79,195,247,0.4);
+/* Enhance flash: soft radial center glow */
+.page-fade::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255,255,255,0.7),
+    transparent 70%
+  );
+  opacity: 0.35;
   pointer-events: none;
-  opacity: 0;
-  transform: scale(0);
-  z-index: 99998;
-  transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
-.ripple.active {
-  opacity: 1;
-  transform: scale(40);
+/* Dark mode radial variant */
+body.dark .page-fade::before {
+  background: radial-gradient(
+    circle at center,
+    rgba(120,150,255,0.45),
+    transparent 70%
+  );
+  opacity: 0.25;
 }
 
-/* ============================
-   DARK MODE IMAGE FIXES
-============================= */
-body.dark img {
-  filter: brightness(0.85) contrast(1.1);
-  transition: filter 0.4s ease;
+/* Slight zoom-out effect during transition */
+body.theme-transitioning {
+  transform: scale(0.995);
+  transition: transform 0.35s ease;
+}
+/* =========================================
+   PART 4 — SUBTLE BREATHING GLOW (IDLE)
+========================================= */
+
+/* Light mode idle breathing */
+body.light .toggle-track {
+  animation: toggle-breath-light 6s ease-in-out infinite;
 }
 
-body.dark .hero-photo img {
-  filter: brightness(0.78) contrast(1.15);
+@keyframes toggle-breath-light {
+  0% {
+    box-shadow: 0 0 6px rgba(255, 200, 100, 0.25),
+                inset 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(255, 220, 150, 0.45),
+                inset 0 0 14px rgba(255, 255, 255, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(255, 200, 100, 0.25),
+                inset 0 0 8px rgba(255, 255, 255, 0.4);
+  }
 }
 
-body.dark img:hover {
-  filter: brightness(1) contrast(1);
+/* Dark mode idle breathing */
+body.dark .toggle-track {
+  animation: toggle-breath-dark 6s ease-in-out infinite;
+}
+
+@keyframes toggle-breath-dark {
+  0% {
+    box-shadow: 0 0 8px rgba(120, 150, 255, 0.25),
+                inset 0 0 12px rgba(120, 150, 255, 0.30);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(120, 150, 255, 0.45),
+                inset 0 0 20px rgba(120, 150, 255, 0.40);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(120, 150, 255, 0.25),
+                inset 0 0 12px rgba(120, 150, 255, 0.30);
+  }
+}
+/* =========================================
+   PART 5 — DARK MODE NEON HALO EFFECT
+   (Soft outer glow around the entire toggle)
+========================================= */
+
+body.dark .toggle-label {
+  filter: drop-shadow(0 0 6px rgba(100, 140, 255, 0.25))
+          drop-shadow(0 0 12px rgba(100, 140, 255, 0.20))
+          drop-shadow(0 0 18px rgba(100, 140, 255, 0.15));
+  transition: filter 0.4s ease-in-out;
+}
+
+/* Stronger halo when hovered (dark mode only) */
+body.dark .toggle-label:hover {
+  filter: drop-shadow(0 0 10px rgba(120, 160, 255, 0.30))
+          drop-shadow(0 0 18px rgba(120, 160, 255, 0.22))
+          drop-shadow(0 0 26px rgba(120, 160, 255, 0.18));
+}
+
+/* =========================================
+   PART 6 — MAGNETIC HOVER EFFECT
+   (Ball slightly tracks the mouse on hover)
+========================================= */
+
+/* Create a container for hover movement */
+.toggle-label {
+  position: relative;
+  overflow: visible;
+  --magnet-strength: 4px; /* lower = more subtle */
+}
+
+/* Apply movement to the ball */
+.toggle-label:hover .toggle-ball {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* JS will update these values dynamically */
+.toggle-label.magnetic .toggle-ball {
+  transition: transform 0.15s ease-out;
+}
+/* =========================================
+   PART 7 — MICRO-BOUNCE ANIMATION
+   (Ball gives a soft bounce when toggled)
+========================================= */
+
+@keyframes ballBounce {
+  0%   { transform: scale(1) translateX(0); }
+  50%  { transform: scale(1.12) translateX(1px); }
+  100% { transform: scale(1) translateX(0); }
+}
+
+.toggle-ball.bounce {
+  animation: ballBounce 0.25s ease-out;
+}
+
+/* =========================================
+   PART 8 — AMBIENT GLOW THAT FOLLOWS THE BALL
+   (Soft gradient aura behind the ball)
+========================================= */
+
+.toggle-ball {
+  position: relative;
+  z-index: 2;
+}
+
+/* Glow element behind the ball */
+.toggle-ball::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  filter: blur(10px);
+  opacity: 0.7;
+  transition: all 0.35s ease;
+  z-index: -1;
+}
+
+/* Light mode color — warm glow */
+body:not(.dark) .toggle-ball::before {
+  background: radial-gradient(
+    circle,
+    rgba(255, 200, 150, 0.6),
+    rgba(255, 170, 100, 0.15),
+    transparent
+  );
+}
+
+/* Dark mode color — cool neon glow */
+body.dark .toggle-ball::before {
+  background: radial-gradient(
+    circle,
+    rgba(120, 160, 255, 0.6),
+    rgba(70, 110, 255, 0.2),
+    transparent
+  );
+}
+
+/* =========================================
+   PART 9 — GLASS REFLECTION + LENS FLARE
+========================================= */
+
+.toggle-ball {
+  position: relative;
+  overflow: visible;
+}
+
+/* Glossy reflection strip */
+.toggle-ball::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 70%;
+  height: 55%;
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0.1)
+  );
+  filter: blur(1.2px);
+  opacity: 0.9;
+  pointer-events: none;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  transform: translateY(0);
+}
+
+/* Shrink and move reflection slightly in dark mode */
+body.dark .toggle-ball::after {
+  opacity: 0.75;
+  transform: translateY(1px);
+}
+
+/* Micro Lens Flare (dot) */
+.toggle-ball .lens-flare {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Dark mode tint on the lens flare */
+body.dark .toggle-ball .lens-flare {
+  opacity: 0.6;
+  background: #bcd6ff;
+}
+
+/* =========================================
+   PART 10 — TRUE 3D BALL MOTION + PARALLAX
+========================================= */
+
+/* Inner shading for spherical depth */
+.toggle-ball::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.45), rgba(0,0,0,0.15));
+  filter: blur(1px);
+  transition: transform 0.35s ease;
+  pointer-events: none;
+}
+
+/* Tilt ball slightly when hovered */
+.toggle-label:hover .toggle-ball {
+  transform: translateX(var(--toggle-x, 0)) rotateX(6deg) rotateY(-6deg);
+}
+
+/* Soft tilt correction when in dark mode */
+body.dark .toggle-label:hover .toggle-ball {
+  transform: translateX(var(--toggle-x, 0)) rotateX(-5deg) rotateY(5deg);
+}
+
+/* Parallax movement of inner shading */
+.toggle-label:hover .toggle-ball::before {
+  transform: scale(1.03) translate(-2px, -2px);
+}
+
+/* Extra shadow when ball is pressed */
+.toggle-label:active .toggle-ball {
+  box-shadow: 0 2px 3px rgba(0,0,0,0.25),
+              0 0 22px rgba(79,195,247,0.9);
+  transform: translateX(var(--toggle-x, 0)) scale(0.96);
 }
