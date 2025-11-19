@@ -223,24 +223,31 @@ if (chatForm) {
 }
 
 // ============================
-// DARK MODE TOGGLE
+// DARK / LIGHT MODE TOGGLE
 // ============================
 
 const toggle = document.getElementById("dark-toggle");
 
-// Load saved mode
-if (localStorage.getItem("theme") === "dark") {
+// Load saved theme
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "dark") {
   document.body.classList.add("dark");
   toggle.checked = true;
+} else {
+  document.body.classList.add("light");
 }
 
 // Toggle mode
 toggle.addEventListener("change", () => {
   if (toggle.checked) {
+    document.body.classList.remove("light");
     document.body.classList.add("dark");
     localStorage.setItem("theme", "dark");
   } else {
     document.body.classList.remove("dark");
+    document.body.classList.add("light");
     localStorage.setItem("theme", "light");
   }
 });
+
