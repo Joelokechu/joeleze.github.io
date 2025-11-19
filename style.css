@@ -499,3 +499,30 @@ input {
     display: flex; /* show hamburger */
   }
 }
+
+/* Hide mobile hamburger on desktop */
+.mobile-hamburger {
+  display: none;
+}
+
+/* Show mobile hamburger on screens <900px */
+@media (max-width: 900px) {
+  .mobile-hamburger {
+    display: flex;
+  }
+  .desktop-hamburger {
+    display: none;
+  }
+}
+
+/* Style fix for animated hamburger bars */
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: #c5c6c7;
+  margin: 4px 0;
+  border-radius: 3px;
+  transition: 0.3s ease;
+}
+
