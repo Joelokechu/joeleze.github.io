@@ -13,55 +13,59 @@
 <body>
   <div class="parallax-bg"></div>
 
-  <!-- === Navbar === -->
-  <nav class="navbar">
+ <!-- === Navbar === -->
+<nav class="navbar">
     <div class="logo">Insights<span>ByJoel</span></div>
 
-    <!-- Desktop Nav Links -->
-    <ul class="nav-links">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <!-- RIGHT SIDE (links + desktop toggle + mobile toggle) -->
+    <div class="nav-right">
 
-      <!-- Desktop Hamburger (Admin dropdown trigger) -->
-      <li class="hamburger desktop-hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </li>
-    </ul>
+        <!-- Desktop Nav Links -->
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
 
-    <!-- === DARK MODE TOGGLE (moved & cleaned) === -->
-    <div class="theme-toggle">
-      <input type="checkbox" id="dark-toggle">
-      <label for="dark-toggle" class="toggle-label">
-        <span class="toggle-ball"></span>
-      </label>
+            <!-- Desktop Admin Hamburger -->
+            <li class="hamburger desktop-hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+        </ul>
+
+        <!-- Dark Mode Toggle -->
+        <div class="theme-toggle">
+            <input type="checkbox" id="dark-toggle">
+            <label for="dark-toggle" class="toggle-label">
+                <span class="toggle-ball"></span>
+            </label>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <div class="hamburger mobile-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
     </div>
 
     <!-- Desktop Admin Dropdown -->
     <div class="admin-dropdown hidden">
-      <a href="admin.html">Admin Login</a>
-    </div>
-
-    <!-- Mobile Hamburger -->
-    <div class="hamburger mobile-hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+        <a href="admin.html">Admin Login</a>
     </div>
 
     <!-- Mobile Dropdown Menu -->
     <div class="mobile-menu hidden">
-      <a href="#hero">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-      <a href="admin.html">Admin</a>
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="admin.html">Admin</a>
     </div>
-
-  </nav>
+</nav>
 
   <!-- === Hero Section === -->
   <section id="hero" class="hero fade-section hero-with-photo">
