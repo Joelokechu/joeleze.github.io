@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,54 +14,62 @@
 <body>
   <div class="parallax-bg"></div>
 
-  <!-- === Navbar === -->
-  <nav class="navbar">
+ <!-- === Navbar === -->
+<nav class="navbar">
     <div class="logo">Insights<span>ByJoel</span></div>
 
+    <!-- RIGHT SIDE (links + desktop toggle + mobile toggle) -->
     <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
 
-        <li class="hamburger desktop-hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </li>
-      </ul>
+        <!-- Desktop Nav Links -->
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
 
-      <div class="theme-toggle">
-        <input type="checkbox" id="dark-toggle">
-        <label for="dark-toggle" class="toggle-label">
-          <span class="toggle-ball"></span>
-        </label>
-      </div>
+            <!-- Desktop Admin Hamburger -->
+            <li class="hamburger desktop-hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+        </ul>
 
-      <div class="hamburger mobile-hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+        <!-- Dark Mode Toggle -->
+        <div class="theme-toggle">
+            <input type="checkbox" id="dark-toggle">
+            <label for="dark-toggle" class="toggle-label">
+                <span class="toggle-ball"></span>
+            </label>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <div class="hamburger mobile-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
     </div>
 
+    <!-- Desktop Admin Dropdown -->
     <div class="admin-dropdown hidden">
-      <a href="admin.html">Admin Login</a>
+        <a href="admin.html">Admin Login</a>
     </div>
 
+    <!-- Mobile Dropdown Menu -->
     <div class="mobile-menu hidden">
-      <a href="#hero">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-      <a href="admin.html">Admin</a>
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="admin.html">Admin</a>
     </div>
-  </nav>
+</nav>
 
   <!-- === Hero Section === -->
-  <section id="hero" class="hero fade-section fade-in hero-with-photo">
+  <section id="hero" class="hero fade-section hero-with-photo">
     <div class="hero-content fade-in-hero">
       <h1>Turning Data into Insights</h1>
       <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
@@ -83,14 +92,14 @@
   </section>
 
   <!-- === About Section === -->
-  <section id="about" class="about fade-section fade-in">
+  <section id="about" class="about fade-section">
     <h2>About Me</h2>
     <p>I’m a Data Analyst with a strong background in data visualisation, analytics, and storytelling. My mission is to bridge the gap between raw information and impactful business insights.</p>
     <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
   </section>
 
   <!-- === Projects Section === -->
-  <section id="projects" class="projects fade-section fade-in">
+  <section id="projects" class="projects fade-section">
     <h2>Featured Projects</h2>
     <div class="project-grid">
       <div class="project-card">
@@ -111,7 +120,7 @@
   </section>
 
   <!-- === Contact Section === -->
-  <section id="contact" class="contact fade-section fade-in">
+  <section id="contact" class="contact fade-section">
     <div class="contact-card">
       <h2>Get in Touch</h2>
       <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
@@ -122,7 +131,7 @@
   </section>
 
   <!-- === Footer === -->
-  <footer class="fade-in">
+  <footer>
     <p>© 2025 Joel Eze — All Rights Reserved.</p>
   </footer>
 
