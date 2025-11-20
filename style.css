@@ -128,7 +128,7 @@ body * {
   padding: 12px 18px;
   border-radius: 6px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-  z-index: 9999;
+  z-index: 1100; /* improved layering */
 }
 
 .admin-dropdown.hidden { display: none; }
@@ -148,10 +148,16 @@ body * {
   padding: 10px 0;
   box-shadow: 0 5px 20px rgba(0,0,0,0.4);
   animation: fadeSlide 0.25s ease-out;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.mobile-menu.hidden { display: none !important; }
-.mobile-menu:not(.hidden) { display: flex !important; }
+.mobile-menu.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
 
 .mobile-menu a {
   padding: 12px 18px;
@@ -333,6 +339,7 @@ section h2 {
 
 .project-card:hover {
   transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(102,252,241,0.12);
 }
 
 /* ============================
@@ -425,10 +432,11 @@ footer {
 .hidden { display: none !important; }
 
 /* ============================
-   GLOWING THEME TOGGLE (UPDATED)
+   THEME TOGGLE (UPDATED)
 ============================= */
 .theme-toggle {
-  margin-left: 18px;
+  margin-left: auto;
+  margin-right: 0;
   display: flex;
   align-items: center;
 }
@@ -445,23 +453,7 @@ footer {
   box-shadow: inset 0 0 6px rgba(0,0,0,0.25);
 }
 
-/* Icons — updated to 17px & perfectly centered */
-.toggle-label .icon {
-  position: absolute;
-  font-size: 17px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.65;
-  z-index: 3;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-/* Fixed icon positions */
-.icon.sun { left: 9px; }
-.icon.moon { right: 9px; opacity: 0; }
-
-/* Toggle Ball — updated to 20px */
+/* Toggle Ball */
 .toggle-ball {
   width: 20px;
   height: 20px;
@@ -474,9 +466,7 @@ footer {
   box-shadow: 0 0 10px rgba(255,255,255,0.9);
 }
 
-#dark-toggle {
-  display: none;
-}
+#dark-toggle { display: none; }
 
 /* ACTIVE (Dark Mode) */
 #dark-toggle:checked + .toggle-label {
@@ -490,17 +480,8 @@ footer {
   box-shadow: 0 0 18px rgba(79,195,247,1);
 }
 
-/* ICON FADE (no sideways shifting) */
-#dark-toggle:checked + .toggle-label .sun {
-  opacity: 0;
-}
-
-#dark-toggle:checked + .toggle-label .moon {
-  opacity: 1;
-}
-
 /* ============================
-   LIGHT MODE OVERRIDES UPDATED
+   LIGHT MODE OVERRIDES
 ============================= */
 body.light {
   background: linear-gradient(135deg, #f7f9fc, #eef3f8);
@@ -547,7 +528,6 @@ body.light #chat-bubble.collapsed {
   background: linear-gradient(135deg, #1f5eff, #4fc3f7);
 }
 
-/* Light mode card + footer gradients */
 body.light .about,
 body.light .contact-card {
   background: linear-gradient(135deg, #ffffff, #f2f5f9);
@@ -614,4 +594,29 @@ body.dark .hero-photo img {
 
 body.dark img:hover {
   filter: brightness(1) contrast(1);
+}
+
+/* ============================
+   CHAT TYPING INDICATOR
+============================= */
+.typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background: #4aa9ff;
+  border-radius: 50%;
+  animation: blink 1s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80% { opacity: 0.2; transform: translateY(0px); }
+  40% { opacity: 1; transform: translateY(-3px); }
 }
