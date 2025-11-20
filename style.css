@@ -615,3 +615,21 @@ body.dark .hero-photo img {
 body.dark img:hover {
   filter: brightness(1) contrast(1);
 }
+
+nav ul {
+    list-style: none;      /* removes the dots */
+    margin: 0;             /* removes default spacing */
+    padding: 0;            /* removes default spacing */
+}
+
+nav ul li {
+    list-style-type: none; /* backup to ensure no bullets */
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+.menu-toggle {
+    margin-left: 0.5rem;
+}
+
