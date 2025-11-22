@@ -347,3 +347,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// ALL your existing JS (toggle, chat widget, menus, etc)
+
+// VERY LAST — add the carousel code here
+// =====================================
+// FIXED PROJECT CAROUSEL
+// =====================================
+const track = document.querySelector(".carousel-track");
+const slides = Array.from(track.children);
+const nextButton = document.querySelector(".carousel-arrow.right");
+const prevButton = document.querySelector(".carousel-arrow.left");
+
+if (track && slides.length > 0) {
+  let index = 0;
+
+  function updateSlider() {
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    track.style.transform = `translateX(-${index * slideWidth}px)`;
+  }
+
+  nextButton.addEventListener("click", () => {
+    if (index < slides.length - 2) {
+      index += 2;
+      updateSlider();
+    }
+  });
+
+  prevButton.addEventListener("click", () => {
+    if (index > 0) {
+      index -= 2;
+      updateSlider();
+    }
+  });
+}
+
+
