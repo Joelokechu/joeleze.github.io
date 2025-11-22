@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,59 +13,50 @@
 <body>
   <div class="parallax-bg"></div>
 
- <!-- === Navbar === -->
-<nav class="navbar">
-    <div class="logo">Insights<span>ByJoel</span></div>
+  <!-- === Navbar === -->
+  <nav class="navbar">
+      <div class="logo">Insights<span>ByJoel</span></div>
 
-    <!-- RIGHT SIDE (links + desktop toggle + mobile toggle) -->
-    <div class="nav-right">
+      <div class="nav-right">
+          <ul class="nav-links">
+              <li><a href="#hero">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li class="hamburger desktop-hamburger">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </li>
+          </ul>
 
-        <!-- Desktop Nav Links -->
-        <ul class="nav-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+          <!-- Dark Mode Toggle -->
+          <div class="theme-toggle">
+              <input type="checkbox" id="dark-toggle">
+              <label for="dark-toggle" class="toggle-label">
+                  <span class="toggle-ball"></span>
+              </label>
+          </div>
 
-            <!-- Desktop Admin Hamburger -->
-            <li class="hamburger desktop-hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </li>
-        </ul>
+          <div class="hamburger mobile-hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+          </div>
+      </div>
 
-        <!-- Dark Mode Toggle -->
-        <div class="theme-toggle">
-            <input type="checkbox" id="dark-toggle">
-            <label for="dark-toggle" class="toggle-label">
-                <span class="toggle-ball"></span>
-            </label>
-        </div>
+      <div class="admin-dropdown hidden">
+          <a href="admin.html">Admin Login</a>
+      </div>
 
-        <!-- Mobile Hamburger -->
-        <div class="hamburger mobile-hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-    </div>
-
-    <!-- Desktop Admin Dropdown -->
-    <div class="admin-dropdown hidden">
-        <a href="admin.html">Admin Login</a>
-    </div>
-
-    <!-- Mobile Dropdown Menu -->
-    <div class="mobile-menu hidden">
-        <a href="#hero">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <a href="admin.html">Admin</a>
-    </div>
-</nav>
+      <div class="mobile-menu hidden">
+          <a href="#hero">Home</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+          <a href="admin.html">Admin</a>
+      </div>
+  </nav>
 
   <!-- === Hero Section === -->
   <section id="hero" class="hero fade-section hero-with-photo">
@@ -78,18 +66,14 @@
 
       <div class="hero-buttons">
         <a href="#projects" class="btn">View My Work</a>
-
-        <a href="https://github.com/Joelokechu/joeleze.github.io/raw/refs/heads/main/Joel%20Eze-%20CV.docx"
-           class="btn-cv"
-           download>
+        <a href="https://github.com/Joelokechu/joeleze.github.io/raw/refs/heads/main/Joel%20Eze-%20CV.docx" class="btn-cv" download>
           📄 Download CV
         </a>
       </div>
     </div>
 
     <div class="hero-photo">
-      <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg"
-           alt="Joel Portrait" />
+      <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg" alt="Joel Portrait" />
     </div>
   </section>
 
@@ -103,41 +87,31 @@
   <!-- === Projects Section === -->
   <section id="projects" class="projects fade-section">
     <h2>Featured Projects</h2>
-  <div class="project-carousel">
-  <button class="carousel-arrow left">&lt;</button>
-  
-  <div class="carousel-track">
-    <div class="project-card">
-      <h3>Airline Delays and Cancellation</h3>
-      <iframe title="Airline Delays and Cancellation" width="600" height="636" 
-              src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" 
-              frameborder="0" allowFullScreen="true"></iframe>
-    </div>
+    <div class="project-carousel">
+      <button class="carousel-arrow left">&lt;</button>
+      <div class="carousel-track">
+        <div class="project-card">
+          <h3>Airline Delays and Cancellation</h3>
+          <iframe title="Airline Delays and Cancellation" src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
+        </div>
 
-    <div class="project-card">
-      <h3>Olist Sales</h3>
-      <iframe title="Olist Sales" width="600" height="373.5" 
-              src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" 
-              frameborder="0" allowFullScreen="true"></iframe>
-    </div>
+        <div class="project-card">
+          <h3>Olist Sales</h3>
+          <iframe title="Olist Sales" src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
+        </div>
 
-    <div class="project-card">
-      <h3>Electronic Sales Dashboard</h3>
-      <iframe title="Electronic Sales Dashboard" width="600" height="373.5" 
-              src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" 
-              frameborder="0" allowFullScreen="true"></iframe>
-    </div>
+        <div class="project-card">
+          <h3>Electronic Sales Dashboard</h3>
+          <iframe title="Electronic Sales Dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
+        </div>
 
-    <div class="project-card">
-      <h3>Excel Project</h3>
-      <iframe width="402" height="346" frameborder="0" scrolling="no" 
-              src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True"></iframe>
+        <div class="project-card">
+          <h3>Excel Project</h3>
+          <iframe src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True"></iframe>
+        </div>
+      </div>
+      <button class="carousel-arrow right">&gt;</button>
     </div>
-  </div>
-  
-  <button class="carousel-arrow right">&gt;</button>
-</div>
-
   </section>
 
   <!-- === Contact Section === -->
@@ -145,7 +119,6 @@
     <div class="contact-card">
       <h2>Get in Touch</h2>
       <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
-
       <p><a href="mailto:Joel.okechu@gmail.com"><i class="fas fa-envelope"></i> Joel.okechu@gmail.com</a></p>
       <p><a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> linkedin.com/in/jeze12</a></p>
     </div>
@@ -159,22 +132,17 @@
   <!-- === Chat Bubble === -->
   <div id="chat-bubble" class="collapsed">
     <div class="collapsed-content">💬 Chat</div>
-
     <div class="chat-header hidden">💬 Chat With Me</div>
-
     <div id="chat-window" class="hidden"></div>
-
     <form id="chat-form" class="hidden">
       <div class="input-row">
         <input type="text" id="user-name" placeholder="Your Name" required />
         <input type="email" id="user-email" placeholder="Your Email" required />
       </div>
-
       <div class="message-row">
         <input type="text" id="user-input" placeholder="Your Message" required />
         <button type="submit">Send</button>
       </div>
-
       <div id="change-info" class="hidden">Change your name or email</div>
     </form>
   </div>
