@@ -313,3 +313,37 @@ prevButton.addEventListener("click", () => {
     updateCarousel();
   }
 });
+
+// =====================================
+// FIXED PROJECT CAROUSEL
+// =====================================
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".carousel-track");
+  if (!track) return; // <-- prevents errors if carousel not found
+
+  const slides = Array.from(track.children);
+  const nextButton = document.querySelector(".carousel-arrow.right");
+  const prevButton = document.querySelector(".carousel-arrow.left");
+
+  let index = 0;
+
+  function updateSlider() {
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    track.style.transform = `translateX(-${index * slideWidth}px)`;
+  }
+
+  nextButton.addEventListener("click", () => {
+    if (index < slides.length - 2) {
+      index += 2;
+      updateSlider();
+    }
+  });
+
+  prevButton.addEventListener("click", () => {
+    if (index > 0) {
+      index -= 2;
+      updateSlider();
+    }
+  });
+});
+
