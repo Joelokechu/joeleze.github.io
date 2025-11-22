@@ -279,3 +279,38 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => ripple.classList.remove("active"), 600);
   });
 });
+
+// =========================
+// Projects Carousel
+// =========================
+const track = document.querySelector(".carousel-track");
+const slides = Array.from(track.children);
+const nextButton = document.querySelector(".carousel-arrow.right");
+const prevButton = document.querySelector(".carousel-arrow.left");
+
+let currentIndex = 0;
+const slidesToShow = 2;
+
+function updateCarousel() {
+  const slideWidth = slides[0].getBoundingClientRect().width;
+  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+}
+
+// Next
+nextButton.addEventListener("click", () => {
+  if (currentIndex < slides.length - slidesToShow) {
+    currentIndex += slidesToShow;
+    if (currentIndex > slides.length - slidesToShow) currentIndex = slides.length - slidesToShow;
+    updateCarousel();
+  }
+});
+
+// Prev
+prevButton.addEventListener("click", () => {
+  if (currentIndex > 0) {
+    currentIndex -= slidesToShow;
+    if (currentIndex < 0) currentIndex = 0;
+    updateCarousel();
+  }
+});
+
