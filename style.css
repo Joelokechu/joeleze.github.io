@@ -654,5 +654,50 @@ nav {
   opacity: 1;
   transform: translateY(0);
 }
+.project-carousel {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 2rem auto;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.project-card {
+  flex: 0 0 50%;
+  padding: 0.8rem;
+  box-sizing: border-box;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #45a29e;
+  border: none;
+  color: #0b0c10;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.5rem 1rem;
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.carousel-arrow:hover {
+  background: #66fcf1;
+}
+
+.carousel-arrow.left { left: 0.5rem; }
+.carousel-arrow.right { right: 0.5rem; }
+
+@media (max-width: 768px) {
+  .project-card { flex: 0 0 100%; }
+  .carousel-arrow { font-size: 1.5rem; padding: 0.3rem 0.8rem; }
+}
+
 
 
