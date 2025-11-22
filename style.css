@@ -1,4 +1,3 @@
-
 /* ============================
    GLOBAL RESET
 ============================= */
@@ -56,7 +55,7 @@ body * {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px; /* reduced to bring toggle closer */
+  padding: 15px 20px;
   z-index: 1000;
 }
 
@@ -70,18 +69,17 @@ body * {
   color: #00bcd4;
 }
 
-/* NEW: Wraps nav links, theme toggle, and mobile hamburger */
 .nav-right {
   display: flex;
   align-items: center;
   gap: 18px;
   margin-left: auto;
-  padding-right: 20px; /* ensures toggle is 20px from edge */
+  padding-right: 20px;
 }
 
 .nav-links {
   display: flex;
-  gap: 20px; /* changed from 28px */
+  gap: 20px;
   align-items: center;
 }
 
@@ -181,9 +179,6 @@ body * {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================
-   RESPONSIVE NAV
-============================= */
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .desktop-hamburger { display: none; }
@@ -237,9 +232,6 @@ body * {
   gap: 1rem;
 }
 
-/* ============================
-   PORTRAIT
-============================= */
 .hero-photo img {
   width: 350px;
   height: 350px;
@@ -328,25 +320,90 @@ section h2 {
 
 .projects { background: #0b0c10; }
 
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-  gap: 1.6rem;
+/* ============================
+   PROJECT CAROUSEL UPDATES
+============================= */
+.project-carousel {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
 }
 
 .project-card {
+  flex: 0 0 50%;
+  padding: 1rem;
+  box-sizing: border-box;
   background: #1f2833;
-  padding: 1.6rem;
   border-radius: 12px;
-  transition: 0.3s ease;
+  margin: 0 1rem;
+  height: 420px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s;
 }
 
 .project-card:hover {
   transform: translateY(-6px);
+  box-shadow: 0 8px 30px rgba(102, 252, 241, 0.6);
+  opacity: 1;
+}
+
+.project-card h3 {
+  margin-bottom: 8px;
+  color: #66fcf1;
+  font-size: 1.1rem;
+}
+
+/* Iframe auto-scaling */
+.project-card iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* Carousel arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #45a29e;
+  border: none;
+  color: #0b0c10;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.5rem 0.9rem;
+  z-index: 20;
+  transition: 0.3s ease;
+}
+
+.carousel-arrow:hover {
+  background: #66fcf1;
+}
+
+.carousel-arrow.left { left: 0; }
+.carousel-arrow.right { right: 0; }
+
+@media (max-width: 900px) {
+  .project-card {
+    flex: 0 0 100%;
+    height: 360px;
+  }
+  .carousel-arrow { font-size: 1.5rem; padding: 0.3rem 0.8rem; }
 }
 
 /* ============================
-   CONTACT
+   CONTACT, FOOTER, CHAT, TOGGLE
 ============================= */
 .contact {
   padding: 4rem 6%;
@@ -362,18 +419,12 @@ section h2 {
   text-align: center;
 }
 
-/* ============================
-   FOOTER
-============================= */
 footer {
   text-align: center;
   padding: 2rem;
   font-size: 0.9rem;
 }
 
-/* ============================
-   CHAT WIDGET
-============================= */
 #chat-bubble {
   position: fixed;
   bottom: 18px;
@@ -434,16 +485,12 @@ footer {
 
 .hidden { display: none !important; }
 
-/* ============================
-   GLOWING THEME TOGGLE (UPDATED)
-============================= */
 .theme-toggle {
   display: flex;
   align-items: center;
-  margin-left: 0; /* Updated */
+  margin-left: 0;
 }
 
-/* Toggle body */
 .toggle-label {
   width: 60px;
   height: 30px;
@@ -455,23 +502,6 @@ footer {
   box-shadow: inset 0 0 6px rgba(0,0,0,0.25);
 }
 
-/* Icons — updated to 17px & perfectly centered */
-.toggle-label .icon {
-  position: absolute;
-  font-size: 17px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.65;
-  z-index: 3;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-/* Fixed icon positions */
-.icon.sun { left: 9px; }
-.icon.moon { right: 9px; opacity: 0; }
-
-/* Toggle Ball — updated to 20px */
 .toggle-ball {
   width: 20px;
   height: 20px;
@@ -484,11 +514,8 @@ footer {
   box-shadow: 0 0 10px rgba(255,255,255,0.9);
 }
 
-#dark-toggle {
-  display: none;
-}
+#dark-toggle { display: none; }
 
-/* ACTIVE (Dark Mode) */
 #dark-toggle:checked + .toggle-label {
   background: linear-gradient(135deg, #1f5eff, #4fc3f7);
   box-shadow: 0 0 12px rgba(79,195,247,0.8),
@@ -500,18 +527,6 @@ footer {
   box-shadow: 0 0 18px rgba(79,195,247,1);
 }
 
-/* ICON FADE (no sideways shifting) */
-#dark-toggle:checked + .toggle-label .sun {
-  opacity: 0;
-}
-
-#dark-toggle:checked + .toggle-label .moon {
-  opacity: 1;
-}
-
-/* ============================
-   LIGHT MODE OVERRIDES UPDATED
-============================= */
 body.light {
   background: linear-gradient(135deg, #f7f9fc, #eef3f8);
   color: #10151c;
@@ -536,32 +551,15 @@ body.light .contact-card {
   color: #10151c;
 }
 
-body.light section h2 {
-  color: #1f5eff;
-}
+body.light section h2 { color: #1f5eff; }
 
-body.light .btn {
-  background: #1f5eff;
-  color: #fff;
-}
+body.light .btn { background: #1f5eff; color: #fff; }
+body.light .btn:hover { background: #4fc3f7; }
+body.light .btn-cv { background: linear-gradient(135deg, #1f5eff, #4fc3f7); }
+body.light #chat-bubble.collapsed { background: linear-gradient(135deg, #1f5eff, #4fc3f7); }
 
-body.light .btn:hover {
-  background: #4fc3f7;
-}
-
-body.light .btn-cv {
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-}
-
-body.light #chat-bubble.collapsed {
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-}
-
-/* Light mode card + footer gradients */
 body.light .about,
-body.light .contact-card {
-  background: linear-gradient(135deg, #ffffff, #f2f5f9);
-}
+body.light .contact-card { background: linear-gradient(135deg, #ffffff, #f2f5f9); }
 
 body.light .project-card {
   background: linear-gradient(145deg, #ffffff, #f4f7fa);
@@ -570,208 +568,4 @@ body.light .project-card {
 
 body.light footer {
   background: linear-gradient(135deg, #e8edf5, #f9fbfd);
-}
-
-/* ============================
-   PAGE FADE TRANSITION
-============================= */
-.page-fade {
-  position: fixed;
-  inset: 0;
-  background: rgba(255,255,255,0.6);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.55s ease;
-  z-index: 99999;
-}
-
-body.dark .page-fade {
-  background: rgba(0,0,0,0.4);
-}
-
-/* ============================
-   RIPPLE FLASH EFFECT
-============================= */
-.ripple {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(79,195,247,0.4);
-  pointer-events: none;
-  opacity: 0;
-  transform: scale(0);
-  z-index: 99998;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-.ripple.active {
-  opacity: 1;
-  transform: scale(40);
-}
-
-/* ============================
-   DARK MODE IMAGE FIXES
-============================= */
-body.dark img {
-  filter: brightness(0.85) contrast(1.1);
-  transition: filter 0.4s ease;
-}
-
-body.dark .hero-photo img {
-  filter: brightness(0.78) contrast(1.15);
-}
-
-body.dark img:hover {
-  filter: brightness(1) contrast(1);
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    list-style-type: none;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-}
-
-.menu-toggle {
-    margin-left: 0.5rem;
-}
-
-.fade-in {
-  opacity: 0;
-  transform: translateY(25px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.project-carousel {
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  margin: 2rem auto;
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.project-card {
-  flex: 0 0 50%;
-  padding: 0.8rem;
-  box-sizing: border-box;
-}
-
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #45a29e;
-  border: none;
-  color: #0b0c10;
-  font-size: 2rem;
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 0.5rem 1rem;
-  z-index: 10;
-  transition: background 0.3s;
-}
-
-.carousel-arrow:hover {
-  background: #66fcf1;
-}
-
-.carousel-arrow.left { left: 0.5rem; }
-.carousel-arrow.right { right: 0.5rem; }
-
-@media (max-width: 768px) {
-  .project-card { flex: 0 0 100%; }
-  .carousel-arrow { font-size: 1.5rem; padding: 0.3rem 0.8rem; }
-}
-
-/* ============================
-   FIXED PROJECT CAROUSEL (Option A)
-============================= */
-
-.project-carousel {
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  margin: 2rem auto;
-  padding: 0 2rem;
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.project-card {
-  flex: 0 0 50%;
-  padding: 1rem;
-  box-sizing: border-box;
-  background: #1f2833;
-  border-radius: 12px;
-  margin: 0 1rem;
-  height: 420px; /* FIXED HEIGHT */
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-card h3 {
-  margin-bottom: 8px;
-  color: #66fcf1;
-  font-size: 1.1rem;
-}
-
-/* FIX IFRAME CROPPING */
-.project-card iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 8px;
-  object-fit: cover; /* ensures fitting */
-}
-
-/* ARROWS */
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #45a29e;
-  border: none;
-  color: #0b0c10;
-  font-size: 2rem;
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 0.5rem 0.9rem;
-  z-index: 20;
-  transition: 0.3s ease;
-}
-
-.carousel-arrow:hover {
-  background: #66fcf1;
-}
-
-.carousel-arrow.left { left: 0; }
-.carousel-arrow.right { right: 0; }
-
-/* MOBILE — show ONE project per slide */
-@media (max-width: 900px) {
-  .project-card { 
-    flex: 0 0 100%; 
-    height: 360px;
-  }
 }
