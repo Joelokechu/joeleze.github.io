@@ -1,4 +1,3 @@
-
 /* ============================
    Smooth Scroll for Navigation
 ============================= */
@@ -46,25 +45,19 @@ fadeSections.forEach(section => appearObserver.observe(section));
 emailjs.init("rgJiaabQfCfMpGz3t");
 
 /* ============================
-   New Hamburger Menu Logic
+   Hamburger Menu Logic
 ============================= */
-
-// Desktop elements
 const desktopHamburger = document.querySelector(".desktop-hamburger");
 const adminDropdown = document.querySelector(".admin-dropdown");
-
-// Mobile elements
 const mobileHamburger = document.querySelector(".mobile-hamburger");
 const mobileMenu = document.querySelector(".mobile-menu");
 
-// Desktop hamburger
 desktopHamburger.addEventListener("click", (e) => {
   e.stopPropagation();
   desktopHamburger.classList.toggle("active");
   adminDropdown.classList.toggle("hidden");
 });
 
-// Close desktop admin when clicking outside
 document.addEventListener("click", (e) => {
   if (!adminDropdown.contains(e.target) && !desktopHamburger.contains(e.target)) {
     adminDropdown.classList.add("hidden");
@@ -72,13 +65,11 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Mobile hamburger
 mobileHamburger.addEventListener("click", () => {
   mobileHamburger.classList.toggle("active");
   mobileMenu.classList.toggle("hidden");
 });
 
-// Close mobile menu when clicking link
 mobileMenu.querySelectorAll("a").forEach(link => {
   link.addEventListener("click", () => {
     mobileMenu.classList.add("hidden");
@@ -224,21 +215,18 @@ if (chatForm) {
 /* ============================
    DARK / LIGHT MODE TOGGLE
 ============================= */
-const toggle = document.getElementById("dark-toggle");
-
-// Load saved theme
+const toggleTheme = document.getElementById("dark-toggle");
 const savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "dark") {
   document.body.classList.add("dark");
-  toggle.checked = true;
+  toggleTheme.checked = true;
 } else {
   document.body.classList.add("light");
 }
 
-// Toggle mode
-toggle.addEventListener("change", () => {
-  if (toggle.checked) {
+toggleTheme.addEventListener("change", () => {
+  if (toggleTheme.checked) {
     document.body.classList.remove("light");
     document.body.classList.add("dark");
     localStorage.setItem("theme", "dark");
@@ -255,22 +243,18 @@ toggle.addEventListener("change", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("dark-toggle");
 
-  // Create fade overlay
   const fade = document.createElement("div");
   fade.className = "page-fade";
   document.body.appendChild(fade);
 
-  // Create ripple flash element
   const ripple = document.createElement("div");
   ripple.className = "ripple";
   document.body.appendChild(ripple);
 
   toggle.addEventListener("change", (e) => {
-    // Fade overlay
     fade.style.opacity = "1";
     setTimeout(() => (fade.style.opacity = "0"), 300);
 
-    // Ripple animation
     const rect = e.target.getBoundingClientRect();
     ripple.style.left = rect.left + rect.width / 2 + "px";
     ripple.style.top = rect.top + rect.height / 2 + "px";
@@ -280,52 +264,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// =========================
-// Projects Carousel
-// =========================
-const track = document.querySelector(".carousel-track");
-const slides = Array.from(track.children);
-const nextButton = document.querySelector(".carousel-arrow.right");
-const prevButton = document.querySelector(".carousel-arrow.left");
-
-let currentIndex = 0;
-const slidesToShow = 2;
-
-function updateCarousel() {
-  const slideWidth = slides[0].getBoundingClientRect().width;
-  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-}
-
-// Next
-nextButton.addEventListener("click", () => {
-  if (currentIndex < slides.length - slidesToShow) {
-    currentIndex += slidesToShow;
-    if (currentIndex > slides.length - slidesToShow) currentIndex = slides.length - slidesToShow;
-    updateCarousel();
-  }
-});
-
-// Prev
-prevButton.addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex -= slidesToShow;
-    if (currentIndex < 0) currentIndex = 0;
-    updateCarousel();
-  }
-});
-
-// =====================================
-// FIXED PROJECT CAROUSEL
-// =====================================
+/* ============================
+   PROJECT CAROUSEL (FULLY FIXED)
+============================= */
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".carousel-track");
-  if (!track) return; // <-- prevents errors if carousel not found
+  if (!track) return;
 
   const slides = Array.from(track.children);
   const nextButton = document.querySelector(".carousel-arrow.right");
   const prevButton = document.querySelector(".carousel-arrow.left");
 
   let index = 0;
+  const slidesToShow = 2;
 
   function updateSlider() {
     const slideWidth = slides[0].getBoundingClientRect().width;
@@ -333,52 +284,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   nextButton.addEventListener("click", () => {
-    if (index < slides.length - 2) {
-      index += 2;
+    if (index < slides.length - slidesToShow) {
+      index += slidesToShow;
       updateSlider();
     }
   });
 
   prevButton.addEventListener("click", () => {
     if (index > 0) {
-      index -= 2;
+      index -= slidesToShow;
       updateSlider();
     }
   });
 });
-
-// ALL your existing JS (toggle, chat widget, menus, etc)
-
-// VERY LAST — add the carousel code here
-// =====================================
-// FIXED PROJECT CAROUSEL
-// =====================================
-const track = document.querySelector(".carousel-track");
-const slides = Array.from(track.children);
-const nextButton = document.querySelector(".carousel-arrow.right");
-const prevButton = document.querySelector(".carousel-arrow.left");
-
-if (track && slides.length > 0) {
-  let index = 0;
-
-  function updateSlider() {
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    track.style.transform = `translateX(-${index * slideWidth}px)`;
-  }
-
-  nextButton.addEventListener("click", () => {
-    if (index < slides.length - 2) {
-      index += 2;
-      updateSlider();
-    }
-  });
-
-  prevButton.addEventListener("click", () => {
-    if (index > 0) {
-      index -= 2;
-      updateSlider();
-    }
-  });
-}
-
-
