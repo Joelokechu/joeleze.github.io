@@ -840,3 +840,26 @@ nav {
     display: none; /* Hide arrows on mobile */
   }
 }
+@media (max-width: 900px) {
+  .project-carousel {
+    overflow: visible; /* IMPORTANT — let scroll show all cards */
+    padding: 0; /* optional: removes left-right padding that causes clipping */
+  }
+
+  .carousel-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .project-card {
+    scroll-snap-align: center;
+    flex: 0 0 85%;
+    margin-right: 1.5rem;
+  }
+
+  .carousel-arrow {
+    display: none;
+  }
+}
+
