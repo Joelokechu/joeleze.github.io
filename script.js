@@ -1,4 +1,4 @@
-~~~{"variant":"standard","title":"Updated JS with Mobile Carousel","id":"49201"}
+~~~{"variant":"standard","title":"Updated JS with Mobile Carousel","id":"49202"}
 /* ============================
    Smooth Scroll for Navigation
 ============================= */
@@ -141,78 +141,6 @@ chatBubble.addEventListener("click", (e) => {
   }
 });
 
-if (chatForm) {
-  const nameInput = document.getElementById("user-name");
-  const emailInput = document.getElementById("user-email");
-
-  const savedName = localStorage.getItem("chatUserName");
-  const savedEmail = localStorage.getItem("chatUserEmail");
-
-  if (savedName && savedEmail) {
-    nameInput.value = savedName;
-    emailInput.value = savedEmail;
-    nameInput.style.display = "none";
-    emailInput.style.display = "none";
-    changeInfo.classList.remove("hidden");
-    setTimeout(() => changeInfo.classList.add("visible"), 40);
-  }
-
-  changeInfo.addEventListener("click", () => {
-    localStorage.removeItem("chatUserName");
-    localStorage.removeItem("chatUserEmail");
-
-    nameInput.style.display = "block";
-    emailInput.style.display = "block";
-
-    changeInfo.classList.remove("visible");
-    setTimeout(() => changeInfo.classList.add("hidden"), 250);
-
-    addMessage("✏️ You can now update your name and email.", "bot");
-  });
-
-  chatForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const msg = userInput.value.trim();
-
-    if (!name || !email || !msg) {
-      addMessage("⚠️ Please fill in your name, email, and message before sending.", "bot");
-      return;
-    }
-
-    localStorage.setItem("chatUserName", name);
-    localStorage.setItem("chatUserEmail", email);
-
-    nameInput.style.display = "none";
-    emailInput.style.display = "none";
-    changeInfo.classList.remove("hidden");
-    setTimeout(() => changeInfo.classList.add("visible"), 40);
-
-    addMessage(msg, "user");
-    userInput.value = "";
-
-    const typing = showTypingIndicator();
-
-    emailjs.send("service_71fb2en", "template_56f6p8n", {
-      from_name: name,
-      from_email: email,
-      message: msg,
-    })
-      .then(() => {
-        setTimeout(() => {
-          typing.remove();
-          addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, "bot");
-        }, 900);
-      })
-      .catch(() => {
-        typing.remove();
-        addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
-      });
-  });
-}
-
 /* ============================
    DARK / LIGHT MODE TOGGLE
 ============================= */
@@ -266,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ============================
-   PROJECT CAROUSEL (MOBILE SCROLL HANDLING)
+   PROJECT CAROUSEL (Desktop + Mobile)
 ============================= */
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".carousel-track");
@@ -283,10 +211,12 @@ document.addEventListener("DOMContentLoaded", () => {
     track.style.transform = "none";
     track.style.transition = "none";
 
+    // Remove arrow buttons
     nextButton?.remove();
     prevButton?.remove();
 
-    return; // allow native scroll
+    // Allow native scroll behavior
+    return;
   }
 
   let index = 0;
