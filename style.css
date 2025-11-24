@@ -818,4 +818,8 @@ nav {
     height: 360px;
   }
 }
+/* === FINAL CARD SPACING FIX === */
+.project-card {
+  margin: 0 1rem !important;
+}
 
