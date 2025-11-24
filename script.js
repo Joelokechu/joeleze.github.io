@@ -224,18 +224,16 @@ toggleTheme.addEventListener("change", () => {
 ============================= */
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("dark-toggle");
-
   const fade = document.createElement("div");
   fade.className = "page-fade";
   document.body.appendChild(fade);
-
   const ripple = document.createElement("div");
   ripple.className = "ripple";
   document.body.appendChild(ripple);
 
   toggle.addEventListener("change", (e) => {
     fade.style.opacity = "1";
-    setTimeout(() => (fade.style.opacity = "0"), 300);
+    setTimeout(() => fade.style.opacity = "0", 300);
     const rect = e.target.getBoundingClientRect();
     ripple.style.left = rect.left + rect.width / 2 + "px";
     ripple.style.top = rect.top + rect.height / 2 + "px";
@@ -245,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ============================
-   PROJECT CAROUSEL (Fully Mobile-Friendly)
+   PROJECT CAROUSEL (Desktop + Mobile)
 ============================= */
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".carousel-track");
@@ -254,11 +252,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const slides = Array.from(track.children);
   const nextButton = document.querySelector(".carousel-arrow.right");
   const prevButton = document.querySelector(".carousel-arrow.left");
-
   const isMobile = window.innerWidth < 900;
 
   if (isMobile) {
-    // Remove JS controls entirely for mobile
+    // Mobile: Native scroll only
     nextButton?.remove();
     prevButton?.remove();
     track.style.transform = "none";
@@ -273,9 +270,10 @@ document.addEventListener("DOMContentLoaded", () => {
       slide.style.marginRight = "1.5rem";
     });
 
-    return; // mobile uses native scroll
+    return;
   }
 
+  // Desktop: arrow-controlled sliding
   let index = 0;
   const slidesToShow = 2;
 
