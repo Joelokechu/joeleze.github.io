@@ -702,33 +702,38 @@ nav {
 }
 
 /* ============================
-   FIXED PROJECT CAROUSEL (Option A)
+   FIXED PROJECT CAROUSEL (FINAL VERSION)
 ============================= */
 
 .project-carousel {
   position: relative;
   overflow: hidden;
-  max-width: 100%;
+  width: 100%;
   margin: 2rem auto;
-  padding: 0 2rem;
+  padding: 0; /* IMPORTANT: Remove padding that caused cutoff */
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.6s ease-in-out;
 }
 
 .project-card {
-  flex: 0 0 50%;
+  flex: 0 0 50%; /* Exactly 2 per slide */
   padding: 1rem;
   box-sizing: border-box;
   background: #1f2833;
   border-radius: 12px;
-  margin: 0 1rem;
-  height: 420px; /* FIXED HEIGHT */
+  height: 420px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  margin: 0; /* IMPORTANT: Remove side margins */
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Glow effect */
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 22px rgba(102, 252, 241, 0.55);
 }
 
 .project-card h3 {
@@ -737,15 +742,13 @@ nav {
   font-size: 1.1rem;
 }
 
-/* FIX IFRAME CROPPING */
-
+/* Fix iframe clipping */
 .project-card iframe {
   width: 100%;
-  height: calc(100% - 2rem); /* leaves room for the project title */
+  height: calc(100% - 2rem);
   border: none;
   border-radius: 8px;
 }
-
 
 /* ARROWS */
 .carousel-arrow {
@@ -767,16 +770,17 @@ nav {
   background: #66fcf1;
 }
 
-.carousel-arrow.left { left: 0; }
-.carousel-arrow.right { right: 0; }
+.carousel-arrow.left { left: 0.3rem; }
+.carousel-arrow.right { right: 0.3rem; }
 
-/* MOBILE — show ONE project per slide */
-@media (max-width: 900px) {
-  .project-card { 
-    flex: 0 0 100%; 
+/* MOBILE — 1 card per slide */
+@media (max-width: 768px) {
+  .project-card {
+    flex: 0 0 100%;
     height: 360px;
   }
 }
+
 
 /* ============================
    CAROUSEL UPGRADE (Non-breaking)
