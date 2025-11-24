@@ -753,7 +753,7 @@ nav {
 /* ARROWS */
 .carousel-arrow {
   position: absolute;
-  top: 50%;
+  top: 45%; /* instead of 50% */
   transform: translateY(-50%);
   background: #45a29e;
   border: none;
@@ -765,6 +765,7 @@ nav {
   z-index: 20;
   transition: 0.3s ease;
 }
+
 
 .carousel-arrow:hover {
   background: #66fcf1;
