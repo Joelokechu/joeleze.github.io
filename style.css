@@ -819,3 +819,24 @@ nav {
     height: 360px;
   }
 }
+
+/* ============================
+   MOBILE SCROLLABLE CAROUSEL
+============================= */
+@media (max-width: 900px) {
+  .carousel-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .project-card {
+    scroll-snap-align: center;
+    flex: 0 0 85%; /* Show one card mostly */
+    margin-right: 1.5rem;
+  }
+
+  .carousel-arrow {
+    display: none; /* Hide arrows on mobile */
+  }
+}
