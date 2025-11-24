@@ -265,35 +265,42 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ============================
-   PROJECT CAROUSEL (FULLY FIXED)
+   PROJECT CAROUSEL (Enhanced Fade+Slide)
 ============================= */
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".carousel-track");
   if (!track) return;
 
-  const slides = Array.from(track.children);
+  const cards = Array.from(track.children);
   const nextButton = document.querySelector(".carousel-arrow.right");
   const prevButton = document.querySelector(".carousel-arrow.left");
 
   let index = 0;
-  const slidesToShow = 2;
+
+  function cardsPerSlide() {
+    return window.innerWidth <= 768 ? 1 : 2;
+  }
 
   function updateSlider() {
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    track.style.transform = `translateX(-${index * slideWidth}px)`;
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    track.style.opacity = "0";
+
+    setTimeout(() => {
+      track.style.transform = `translateX(-${index * cardWidth}px)`;
+      track.style.opacity = "1";
+    }, 250);
   }
 
   nextButton.addEventListener("click", () => {
-    if (index < slides.length - slidesToShow) {
-      index += slidesToShow;
-      updateSlider();
-    }
+    const maxIndex = cards.length - cardsPerSlide();
+    if (index < maxIndex) index += cardsPerSlide();
+    updateSlider();
   });
 
   prevButton.addEventListener("click", () => {
-    if (index > 0) {
-      index -= slidesToShow;
-      updateSlider();
-    }
+    if (index > 0) index -= cardsPerSlide();
+    updateSlider();
   });
+
+  window.addEventListener("resize", updateSlider);
 });
