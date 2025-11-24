@@ -1,4 +1,3 @@
-~~~{"variant":"standard","title":"Updated JS with Mobile Carousel","id":"49202"}
 /* ============================
    Smooth Scroll for Navigation
 ============================= */
@@ -100,11 +99,7 @@ function addMessage(text, sender) {
 function showTypingIndicator() {
   const typing = document.createElement("div");
   typing.classList.add("message", "bot", "typing");
-  typing.innerHTML = `
-    <span class="typing-dot"></span>
-    <span class="typing-dot"></span>
-    <span class="typing-dot"></span>
-  `;
+  typing.innerHTML = `<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>`;
   chatWindow.appendChild(typing);
   chatWindow.scrollTop = chatWindow.scrollHeight;
   return typing;
@@ -140,6 +135,64 @@ chatBubble.addEventListener("click", (e) => {
     }
   }
 });
+
+if (chatForm) {
+  const nameInput = document.getElementById("user-name");
+  const emailInput = document.getElementById("user-email");
+
+  const savedName = localStorage.getItem("chatUserName");
+  const savedEmail = localStorage.getItem("chatUserEmail");
+
+  if (savedName && savedEmail) {
+    nameInput.value = savedName;
+    emailInput.value = savedEmail;
+    nameInput.style.display = "none";
+    emailInput.style.display = "none";
+    changeInfo.classList.remove("hidden");
+    setTimeout(() => changeInfo.classList.add("visible"), 40);
+  }
+
+  changeInfo.addEventListener("click", () => {
+    localStorage.removeItem("chatUserName");
+    localStorage.removeItem("chatUserEmail");
+    nameInput.style.display = "block";
+    emailInput.style.display = "block";
+    changeInfo.classList.remove("visible");
+    setTimeout(() => changeInfo.classList.add("hidden"), 250);
+    addMessage("✏️ You can now update your name and email.", "bot");
+  });
+
+  chatForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const msg = userInput.value.trim();
+    if (!name || !email || !msg) {
+      addMessage("⚠️ Please fill in your name, email, and message before sending.", "bot");
+      return;
+    }
+    localStorage.setItem("chatUserName", name);
+    localStorage.setItem("chatUserEmail", email);
+    nameInput.style.display = "none";
+    emailInput.style.display = "none";
+    changeInfo.classList.remove("hidden");
+    setTimeout(() => changeInfo.classList.add("visible"), 40);
+    addMessage(msg, "user");
+    userInput.value = "";
+    const typing = showTypingIndicator();
+    emailjs.send("service_71fb2en", "template_56f6p8n", { from_name: name, from_email: email, message: msg })
+      .then(() => {
+        setTimeout(() => {
+          typing.remove();
+          addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, "bot");
+        }, 900);
+      })
+      .catch(() => {
+        typing.remove();
+        addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
+      });
+  });
+}
 
 /* ============================
    DARK / LIGHT MODE TOGGLE
@@ -183,18 +236,16 @@ document.addEventListener("DOMContentLoaded", () => {
   toggle.addEventListener("change", (e) => {
     fade.style.opacity = "1";
     setTimeout(() => (fade.style.opacity = "0"), 300);
-
     const rect = e.target.getBoundingClientRect();
     ripple.style.left = rect.left + rect.width / 2 + "px";
     ripple.style.top = rect.top + rect.height / 2 + "px";
-
     ripple.classList.add("active");
     setTimeout(() => ripple.classList.remove("active"), 600);
   });
 });
 
 /* ============================
-   PROJECT CAROUSEL (Desktop + Mobile)
+   PROJECT CAROUSEL (Fully Mobile-Friendly)
 ============================= */
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".carousel-track");
@@ -207,16 +258,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const isMobile = window.innerWidth < 900;
 
   if (isMobile) {
-    // Stop all JS-based sliding
-    track.style.transform = "none";
-    track.style.transition = "none";
-
-    // Remove arrow buttons
+    // Remove JS controls entirely for mobile
     nextButton?.remove();
     prevButton?.remove();
+    track.style.transform = "none";
+    track.style.transition = "none";
+    track.style.overflowX = "auto";
+    track.style.scrollSnapType = "x mandatory";
+    track.style.webkitOverflowScrolling = "touch";
 
-    // Allow native scroll behavior
-    return;
+    slides.forEach(slide => {
+      slide.style.scrollSnapAlign = "center";
+      slide.style.flex = "0 0 85%";
+      slide.style.marginRight = "1.5rem";
+    });
+
+    return; // mobile uses native scroll
   }
 
   let index = 0;
@@ -241,4 +298,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-~~~
