@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 /* ============================
-Smooth Scroll for Navigation
+Smooth Scroll
 ============================= */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 anchor.addEventListener('click', e => {
@@ -108,40 +108,12 @@ carouselTrack.addEventListener("mouseleave",e=>{ if(isDragging) dragEnd(e.client
 }
 
 /* ============================
-Chat Widget with Form
+Chat Widget
 ============================= */
 const chatBtn = document.querySelector('button:contains("💬 Chat")') || document.querySelector('button');
-const chatInputs = document.querySelectorAll('input[type="text"], input[type="email"]');
-const chatSendBtn = document.querySelector('button:contains("Send")');
-
-if(chatBtn && chatSendBtn && chatInputs.length >=3){
-const chatWindow = document.createElement("div"); chatWindow.className="chat-window"; chatBtn.insertAdjacentElement("afterend",chatWindow);
-chatBtn.addEventListener("click", ()=> chatWindow.classList.toggle("open"));
-
-```
-chatSendBtn.addEventListener("click", ()=>{
-  const [nameInput,emailInput,msgInput]=chatInputs;
-  const name=nameInput.value.trim();
-  const email=emailInput.value.trim();
-  const msg=msgInput.value.trim();
-  if(!name||!email||!msg){ alert("Please fill in name, email, and message."); return; }
-
-  chatWindow.innerHTML += `<div class="message user">${msg}</div>`;
-  nameInput.value=""; emailInput.value=""; msgInput.value="";
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-});
-```
-
-}
-
-/* ============================
-Hamburger Menu
-============================= */
-const hamburgerInput = document.querySelector('input[type="checkbox"]');
-if(hamburgerInput){
-hamburgerInput.addEventListener("change",()=>{
-document.body.classList.toggle("menu-open", hamburgerInput.checked);
-});
+if(chatBtn){
+const chatWindow=document.createElement("div"); chatWindow.className="chat-window"; chatBtn.insertAdjacentElement("afterend",chatWindow);
+chatBtn.addEventListener("click",()=>chatWindow.classList.toggle("open"));
 }
 
 });
