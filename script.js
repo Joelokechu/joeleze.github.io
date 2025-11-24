@@ -106,14 +106,9 @@ function showTypingIndicator() {
 }
 
 chatBubble.addEventListener("click", (e) => {
-  const interactive = e.target.closest("#chat-form") ||
-    e.target.tagName === "INPUT" ||
-    e.target.tagName === "BUTTON";
-
+  const interactive = e.target.closest("#chat-form") || e.target.tagName === "INPUT" || e.target.tagName === "BUTTON";
   if (interactive) return;
-
   const expanded = chatBubble.classList.contains("expanded");
-
   if (expanded) {
     chatBubble.classList.remove("expanded");
     chatBubble.classList.add("collapsed");
@@ -129,7 +124,6 @@ chatBubble.addEventListener("click", (e) => {
     chatForm.classList.remove("hidden");
     collapsedContent.classList.add("hidden");
     userInput.focus();
-
     if (chatWindow.children.length === 0) {
       addMessage("👋 Hi there! I’m Joel’s assistant bot. You can leave your name, email, and message, and Joel will get back to you shortly.", "bot");
     }
@@ -139,7 +133,6 @@ chatBubble.addEventListener("click", (e) => {
 if (chatForm) {
   const nameInput = document.getElementById("user-name");
   const emailInput = document.getElementById("user-email");
-
   const savedName = localStorage.getItem("chatUserName");
   const savedEmail = localStorage.getItem("chatUserEmail");
 
@@ -181,118 +174,11 @@ if (chatForm) {
     userInput.value = "";
     const typing = showTypingIndicator();
     emailjs.send("service_71fb2en", "template_56f6p8n", { from_name: name, from_email: email, message: msg })
-      .then(() => {
-        setTimeout(() => {
-          typing.remove();
-          addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, "bot");
-        }, 900);
-      })
-      .catch(() => {
-        typing.remove();
-        addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
-      });
+      .then(() => { setTimeout(() => { typing.remove(); addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, "bot"); }, 900); })
+      .catch(() => { typing.remove(); addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot"); });
   });
 }
 
 /* ============================
-   DARK / LIGHT MODE TOGGLE
-============================= */
-const toggleTheme = document.getElementById("dark-toggle");
-const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme === "dark") {
-  document.body.classList.add("dark");
-  toggleTheme.checked = true;
-} else {
-  document.body.classList.add("light");
-}
-
-toggleTheme.addEventListener("change", () => {
-  if (toggleTheme.checked) {
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-  } else {
-    document.body.classList.remove("dark");
-    document.body.classList.add("light");
-    localStorage.setItem("theme", "light");
-  }
-});
-
-/* ============================
-   FADE & RIPPLE EFFECTS
-============================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("dark-toggle");
-  const fade = document.createElement("div");
-  fade.className = "page-fade";
-  document.body.appendChild(fade);
-  const ripple = document.createElement("div");
-  ripple.className = "ripple";
-  document.body.appendChild(ripple);
-
-  toggle.addEventListener("change", (e) => {
-    fade.style.opacity = "1";
-    setTimeout(() => fade.style.opacity = "0", 300);
-    const rect = e.target.getBoundingClientRect();
-    ripple.style.left = rect.left + rect.width / 2 + "px";
-    ripple.style.top = rect.top + rect.height / 2 + "px";
-    ripple.classList.add("active");
-    setTimeout(() => ripple.classList.remove("active"), 600);
-  });
-});
-
-/* ============================
-   PROJECT CAROUSEL (Desktop + Mobile)
-============================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const track = document.querySelector(".carousel-track");
-  if (!track) return;
-
-  const slides = Array.from(track.children);
-  const nextButton = document.querySelector(".carousel-arrow.right");
-  const prevButton = document.querySelector(".carousel-arrow.left");
-  const isMobile = window.innerWidth < 900;
-
-  if (isMobile) {
-    // Mobile: Native scroll only
-    nextButton?.remove();
-    prevButton?.remove();
-    track.style.transform = "none";
-    track.style.transition = "none";
-    track.style.overflowX = "auto";
-    track.style.scrollSnapType = "x mandatory";
-    track.style.webkitOverflowScrolling = "touch";
-
-    slides.forEach(slide => {
-      slide.style.scrollSnapAlign = "center";
-      slide.style.flex = "0 0 85%";
-      slide.style.marginRight = "1.5rem";
-    });
-
-    return;
-  }
-
-  // Desktop: arrow-controlled sliding
-  let index = 0;
-  const slidesToShow = 2;
-
-  function updateSlider() {
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    track.style.transform = `translateX(-${index * slideWidth}px)`;
-  }
-
-  nextButton.addEventListener("click", () => {
-    if (index < slides.length - slidesToShow) {
-      index += slidesToShow;
-      updateSlider();
-    }
-  });
-
-  prevButton.addEventListener("click", () => {
-    if (index > 0) {
-      index -= slidesToShow;
-      updateSlider();
-    }
-  });
-});
+   Dark/Light Mode Toggle
+=========================
