@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+
 /* ============================
 Smooth Scroll
 ============================= */
@@ -17,13 +18,8 @@ Navbar Background
 const navbar = document.querySelector('.navbar');
 if (navbar) {
 window.addEventListener('scroll', () => {
-if (window.scrollY > 80) {
-navbar.style.background = 'rgba(11,12,16,0.95)';
-navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.5)';
-} else {
-navbar.style.background = 'rgba(20,20,20,0.95)';
-navbar.style.boxShadow = 'none';
-}
+navbar.style.background = window.scrollY > 80 ? 'rgba(11,12,16,0.95)' : 'rgba(20,20,20,0.95)';
+navbar.style.boxShadow = window.scrollY > 80 ? '0 2px 10px rgba(0,0,0,0.5)' : 'none';
 });
 }
 
@@ -242,7 +238,7 @@ chatForm.addEventListener("submit", (e) => {
   if (!name || !email || !msg) { addMessage("⚠️ Please fill all fields before sending.","bot"); return; }
   addMessage(msg,"user");
   userInput.value="";
-  // Here you can integrate EmailJS send logic
+  // EmailJS integration here
 });
 ```
 
