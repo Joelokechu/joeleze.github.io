@@ -738,13 +738,14 @@ nav {
 }
 
 /* FIX IFRAME CROPPING */
+
 .project-card iframe {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 2rem); /* leaves room for the project title */
   border: none;
   border-radius: 8px;
-  object-fit: cover; /* ensures fitting */
 }
+
 
 /* ARROWS */
 .carousel-arrow {
