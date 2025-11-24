@@ -15,47 +15,32 @@
 
   <!-- === Navbar === -->
   <nav class="navbar">
-      <div class="logo">Insights<span>ByJoel</span></div>
+    <div class="logo">Insights<span>ByJoel</span></div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="hamburger desktop-hamburger"><span></span><span></span><span></span></li>
+      </ul>
 
-      <div class="nav-right">
-          <ul class="nav-links">
-              <li><a href="#hero">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li class="hamburger desktop-hamburger">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-              </li>
-          </ul>
-
-          <!-- Dark Mode Toggle -->
-          <div class="theme-toggle">
-              <input type="checkbox" id="dark-toggle">
-              <label for="dark-toggle" class="toggle-label">
-                  <span class="toggle-ball"></span>
-              </label>
-          </div>
-
-          <div class="hamburger mobile-hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
-          </div>
+      <div class="theme-toggle">
+        <input type="checkbox" id="dark-toggle">
+        <label for="dark-toggle" class="toggle-label"><span class="toggle-ball"></span></label>
       </div>
 
-      <div class="admin-dropdown hidden">
-          <a href="admin.html">Admin Login</a>
-      </div>
+      <div class="hamburger mobile-hamburger"><span></span><span></span><span></span></div>
+    </div>
 
-      <div class="mobile-menu hidden">
-          <a href="#hero">Home</a>
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-          <a href="admin.html">Admin</a>
-      </div>
+    <div class="admin-dropdown hidden"><a href="admin.html">Admin Login</a></div>
+    <div class="mobile-menu hidden">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <a href="admin.html">Admin</a>
+    </div>
   </nav>
 
   <!-- === Hero Section === -->
@@ -63,15 +48,11 @@
     <div class="hero-content fade-in-hero">
       <h1>Turning Data into Insights</h1>
       <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
-
       <div class="hero-buttons">
         <a href="#projects" class="btn">View My Work</a>
-        <a href="https://github.com/Joelokechu/joeleze.github.io/raw/refs/heads/main/Joel%20Eze-%20CV.docx" class="btn-cv" download>
-          📄 Download CV
-        </a>
+        <a href="https://github.com/Joelokechu/joeleze.github.io/raw/refs/heads/main/Joel%20Eze-%20CV.docx" class="btn-cv" download>📄 Download CV</a>
       </div>
     </div>
-
     <div class="hero-photo">
       <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg" alt="Joel Portrait" />
     </div>
@@ -84,35 +65,30 @@
     <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
   </section>
 
-  <!-- === Projects Section === -->
+  <!-- === Projects Section with Autoplay + Fade === -->
   <section id="projects" class="projects fade-section">
     <h2>Featured Projects</h2>
     <div class="project-carousel">
       <button class="carousel-arrow left" aria-label="Previous Project">&lt;</button>
-
       <div class="carousel-track">
         <div class="project-card">
           <h3>Airline Delays and Cancellation</h3>
           <iframe title="Airline Delays and Cancellation" src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
         </div>
-
         <div class="project-card">
           <h3>Olist Sales</h3>
           <iframe title="Olist Sales" src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
         </div>
-
         <div class="project-card">
           <h3>Electronic Sales Dashboard</h3>
           <iframe title="Electronic Sales Dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
         </div>
-
         <div class="project-card">
           <h3>Excel Project</h3>
           <iframe src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True"></iframe>
         </div>
       </div>
       <button class="carousel-arrow right" aria-label="Next Project">&gt;</button>
-
     </div>
   </section>
 
@@ -148,6 +124,80 @@
       <div id="change-info" class="hidden">Change your name or email</div>
     </form>
   </div>
+
+  <!-- === Carousel JS === -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const track = document.querySelector(".carousel-track");
+      if (!track) return;
+
+      const slides = Array.from(track.children);
+      const nextButton = document.querySelector(".carousel-arrow.right");
+      const prevButton = document.querySelector(".carousel-arrow.left");
+      let index = 0;
+      let autoplayInterval;
+
+      function getSlidesToShow() {
+        return window.innerWidth < 768 ? 1 : 2;
+      }
+
+      function updateSlider() {
+        const slidesToShow = getSlidesToShow();
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        track.style.transform = `translateX(-${index * slideWidth}px)`;
+        slides.forEach((slide, i) => {
+          if (i >= index && i < index + slidesToShow) slide.classList.remove("inactive");
+          else slide.classList.add("inactive");
+        });
+      }
+
+      function nextSlide() {
+        const slidesToShow = getSlidesToShow();
+        index = (index + slidesToShow) % slides.length;
+        updateSlider();
+      }
+
+      function prevSlide() {
+        const slidesToShow = getSlidesToShow();
+        index = (index - slidesToShow + slides.length) % slides.length;
+        updateSlider();
+      }
+
+      function startAutoplay() {
+        autoplayInterval = setInterval(nextSlide, 4000);
+      }
+
+      function stopAutoplay() {
+        clearInterval(autoplayInterval);
+      }
+
+      nextButton.addEventListener("click", () => { nextSlide(); stopAutoplay(); startAutoplay(); });
+      prevButton.addEventListener("click", () => { prevSlide(); stopAutoplay(); startAutoplay(); });
+      window.addEventListener("resize", updateSlider);
+
+      // Mobile swipe
+      let startX = 0;
+      let isDragging = false;
+
+      track.addEventListener("touchstart", e => { startX = e.touches[0].clientX; isDragging = true; stopAutoplay(); });
+      track.addEventListener("touchmove", e => {
+        if (!isDragging) return;
+        const diff = e.touches[0].clientX - startX;
+        track.style.transform = `translateX(${ -index * slides[0].getBoundingClientRect().width + diff }px)`;
+      });
+      track.addEventListener("touchend", e => {
+        isDragging = false;
+        const diff = e.changedTouches[0].clientX - startX;
+        if (diff < -50) nextSlide();
+        else if (diff > 50) prevSlide();
+        updateSlider();
+        startAutoplay();
+      });
+
+      updateSlider();
+      startAutoplay();
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
