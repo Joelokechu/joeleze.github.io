@@ -1,4 +1,4 @@
-
+~~~{"variant":"standard","title":"Updated JS with Mobile Carousel","id":"49201"}
 /* ============================
    Smooth Scroll for Navigation
 ============================= */
@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ============================
-   PROJECT CAROUSEL (FULLY FIXED)
+   PROJECT CAROUSEL (MOBILE SCROLL HANDLING)
 ============================= */
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".carousel-track");
@@ -275,6 +275,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const slides = Array.from(track.children);
   const nextButton = document.querySelector(".carousel-arrow.right");
   const prevButton = document.querySelector(".carousel-arrow.left");
+
+  const isMobile = window.innerWidth < 900;
+
+  if (isMobile) {
+    // Stop all JS-based sliding
+    track.style.transform = "none";
+    track.style.transition = "none";
+
+    nextButton?.remove();
+    prevButton?.remove();
+
+    return; // allow native scroll
+  }
 
   let index = 0;
   const slidesToShow = 2;
@@ -298,3 +311,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+~~~
