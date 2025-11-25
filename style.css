@@ -894,3 +894,117 @@ nav {
   right: -15px;
 }
 
+/* ============================================================
+   UNIFIED + CLEANED CAROUSEL (NO CONFLICTS, FULLY RESPONSIVE)
+   Option A — Fix Existing Carousel
+=============================================================== */
+
+/* WRAPPER */
+.project-carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0;
+}
+
+/* TRACK (the sliding container) */
+.carousel-track {
+  display: flex;
+  transition: transform 0.55s ease-in-out, opacity 0.5s ease;
+  opacity: 1;
+}
+
+/* PROJECT CARD — desktop: 2 per slide */
+.project-card {
+  flex: 0 0 50%;               /* 2 cards per slide */
+  padding: 1rem;
+  background: #1f2833;
+  border-radius: 12px;
+
+  height: 420px;
+  overflow: hidden;
+
+  margin: 0;                    /* no unwanted spacing */
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.project-card h3 {
+  margin-bottom: 8px;
+  color: #66fcf1;
+  font-size: 1.1rem;
+}
+
+/* FIX IFRAME SIZING */
+.project-card iframe {
+  width: 100%;
+  height: calc(100% - 2rem);
+  border: none;
+  border-radius: 8px;
+}
+
+/* HOVER EFFECT */
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 22px rgba(102, 252, 241, 0.45);
+}
+
+/* ================
+   ARROWS
+=================== */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+
+  border: none;
+  cursor: pointer;
+
+  background: #45a29e;
+  color: #0b0c10;
+  font-size: 1.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.carousel-arrow:hover {
+  background: #66fcf1;
+}
+
+/* Proper arrow placement */
+.carousel-arrow.left { left: 10px; }
+.carousel-arrow.right { right: 10px; }
+
+/* ================
+   MOBILE BEHAVIOR
+=================== */
+@media (max-width: 768px) {
+  .project-card {
+    flex: 0 0 100%;      /* 1 per slide */
+    height: 360px;
+  }
+
+  /* arrows appear but smaller */
+  .carousel-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 1.4rem;
+  }
+}
+
+/* Optional: hide arrows completely on very small screens */
+@media (max-width: 500px) {
+  .carousel-arrow {
+    display: none;
+  }
+}
+
