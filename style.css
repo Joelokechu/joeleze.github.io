@@ -993,3 +993,62 @@ nav {
     display: none !important;
   }
 }
+/* ============================
+   Chat Bubble Form Styling
+============================= */
+#chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* Name and Email side by side */
+#chat-form .name-email-group {
+  display: flex;
+  gap: 8px;
+}
+
+#chat-form input[type="text"],
+#chat-form input[type="email"] {
+  flex: 1; /* equally divide the space */
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Message textarea full width */
+#chat-form textarea#user-input {
+  width: 100%;
+  min-height: 70px;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical; /* allow vertical resizing */
+}
+
+/* Submit button styling */
+#chat-form button[type="submit"] {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background-color: #0b0c10;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#chat-form button[type="submit"]:hover {
+  background-color: #1f2833;
+}
+
+/* Optional: adjust chat bubble input spacing */
+#chat-bubble.expanded #chat-form input,
+#chat-bubble.expanded #chat-form textarea {
+  margin-bottom: 4px;
+}
