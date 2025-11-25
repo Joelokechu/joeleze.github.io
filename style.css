@@ -994,7 +994,7 @@ nav {
   }
 }
 /* ============================
-   Clean Chat Bubble Styling
+   Clean Chat Bubble Styling (Updated)
 ============================= */
 #chat-bubble {
   position: fixed;
@@ -1002,7 +1002,7 @@ nav {
   right: 20px;
   width: 320px;
   max-width: 90vw;
-  background: #ffffff; /* remove dark theme */
+  background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   font-family: 'Arial', sans-serif;
@@ -1012,22 +1012,22 @@ nav {
   z-index: 1000;
 }
 
-/* Collapsed state – smaller padding */
+/* Collapsed state – reduced padding & size */
 #chat-bubble.collapsed {
-  width: 140px;
-  height: 48px;
-  border-radius: 14px;
+  width: 130px;
+  height: 42px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;  /* smaller padding */
+  padding: 3px; /* smaller padding */
   cursor: pointer;
   background: #ffffff;
   box-shadow: 0 3px 12px rgba(0,0,0,0.15);
 }
 
 #chat-bubble .collapsed-content {
-  font-size: 16px;
+  font-size: 15px;
   color: #000;
 }
 
@@ -1038,14 +1038,14 @@ nav {
   border-radius: 16px;
 }
 
-/* Header */
+/* Header – BLUE */
 #chat-bubble .chat-header {
-  background: #f3f3f3;
+  background: #0077ff;
   padding: 10px 12px;
   font-weight: bold;
   font-size: 16px;
-  border-bottom: 1px solid #ddd;
-  color: #000;
+  border-bottom: 1px solid #cce0ff;
+  color: #fff;
 }
 
 /* Chat window */
@@ -1056,14 +1056,14 @@ nav {
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
-/* Message bubbles */
+/* Message bubbles – improved padding */
 #chat-window .message {
-  padding: 10px 12px;
+  padding: 10px 14px;
   background: #e8f7ff;
-  border-radius: 10px;
+  border-radius: 12px;
   max-width: 85%;
   font-size: 14px;
   line-height: 1.4;
@@ -1079,7 +1079,7 @@ nav {
   gap: 10px;
 }
 
-/* Name + email row (fixed padding + alignment) */
+/* Name + email row – overflow fixed */
 #chat-form .name-email-group {
   display: flex;
   gap: 8px;
@@ -1089,15 +1089,17 @@ nav {
 #chat-form input[type="text"],
 #chat-form input[type="email"] {
   flex: 1;
-  padding: 8px 10px;      /* tighter padding */
+  min-width: 0; /* FIXES overflow */
+  padding: 8px 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #f9f9f9;
   font-size: 14px;
   color: #000;
+  box-sizing: border-box;
 }
 
-/* Message + send button row */
+/* Message + send button layout */
 #chat-form .message-row {
   display: flex;
   gap: 8px;
@@ -1130,12 +1132,13 @@ nav {
   transform: scale(1.05);
 }
 
-/* Change info link */
+/* Change info link – smaller and cleaner */
 #change-info {
-  font-size: 11px;
-  opacity: 0.6;
+  font-size: 10px;
+  opacity: 0.55;
   text-align: center;
   cursor: pointer;
+  margin-top: -4px;
 }
 
 /* Mobile */
@@ -1148,4 +1151,9 @@ nav {
   #chat-bubble.expanded {
     width: 90vw;
   }
+
+  #chat-window {
+    max-height: 220px;
+  }
 }
+
