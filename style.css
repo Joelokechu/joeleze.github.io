@@ -994,7 +994,7 @@ nav {
   }
 }
 /* ============================
-   Modern Chat Bubble Refinement
+   Chat Bubble Styling (Restored Theme)
 ============================= */
 #chat-bubble {
   position: fixed;
@@ -1003,7 +1003,7 @@ nav {
   width: 320px;
   max-width: 90vw;
   background-color: #0b0c10;
-  border-radius: 24px; /* fully rounded */
+  border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   font-family: 'Arial', sans-serif;
   color: #fff;
@@ -1012,27 +1012,28 @@ nav {
   z-index: 1000;
 }
 
-/* Collapsed state */
+/* Collapsed state — restored to your original style */
 #chat-bubble.collapsed {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 160px;
+  height: 55px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
   cursor: pointer;
+  background-color: #0b0c10;
 }
 
 #chat-bubble .collapsed-content {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 /* Expanded state */
 #chat-bubble.expanded {
   width: 320px;
   max-width: 90vw;
-  border-radius: 24px;
+  border-radius: 16px;
 }
 
 /* Chat header */
@@ -1042,7 +1043,6 @@ nav {
   font-weight: bold;
   font-size: 16px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  border-radius: 24px 24px 0 0;
 }
 
 /* Chat messages window */
@@ -1050,57 +1050,48 @@ nav {
   max-height: 300px;
   overflow-y: auto;
   padding: 12px;
-  font-size: 14px;
-  line-height: 1.4;
   background-color: #131516;
   display: flex;
   flex-direction: column;
-  gap: 8px; /* space between messages */
-  border-radius: 0 0 24px 24px;
+  gap: 8px;
 }
 
-/* Individual messages padding */
+/* Messages padded */
 #chat-window .message {
-  padding: 8px 12px;
-  border-radius: 12px;
-  background-color: rgba(69,162,158,0.2);
+  padding: 10px 12px;
+  background-color: rgba(69,162,158,0.18);
+  border-radius: 10px;
   max-width: 80%;
   word-wrap: break-word;
 }
 
 /* Chat form */
 #chat-form {
+  padding: 12px;
+  background-color: #131516;
   display: flex;
   flex-direction: column;
-  padding: 12px;
-  gap: 8px;
-  box-sizing: border-box;
-  background-color: #131516;
+  gap: 10px;
 }
 
-/* Name and Email side by side */
+/* Name + Email EXACT SIDE-BY-SIDE ROW */
 #chat-form .name-email-group {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap; /* prevent overflow on mobile */
 }
 
 #chat-form input[type="text"],
 #chat-form input[type="email"] {
-  flex: 1 1 48%; /* responsive width for small screens */
+  flex: 1;
   padding: 8px 10px;
   border: 1px solid #333;
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: #1c1e22;
   color: #fff;
   font-size: 14px;
 }
 
-#chat-form input::placeholder {
-  color: #aaa;
-}
-
-/* Message row with send button on right */
+/* Message row with send button on the right */
 #chat-form .message-row {
   display: flex;
   gap: 8px;
@@ -1108,72 +1099,47 @@ nav {
 
 #chat-form textarea#user-input {
   flex: 1;
-  padding: 8px 10px;
+  padding: 10px;
   border: 1px solid #333;
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: #1c1e22;
   color: #fff;
   font-size: 14px;
   resize: vertical;
-  min-height: 60px;
 }
 
-/* Send button on the right with gradient */
+/* Gradient send button */
 #chat-form button[type="submit"] {
   padding: 0 16px;
-  background: linear-gradient(135deg, #45a29e, #66d9ef);
+  border-radius: 10px;
   border: none;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #45a29e, #66d9ef);
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s ease;
 }
 
 #chat-form button[type="submit"]:hover {
   transform: scale(1.05);
-  opacity: 0.9;
 }
 
-/* Change info link smaller and cleaner */
+/* Change info link */
 #change-info {
   font-size: 11px;
-  color: #45a29e;
-  cursor: pointer;
+  opacity: 0.7;
   text-align: center;
-  margin-top: 2px;
+  cursor: pointer;
 }
 
-/* Scrollbar styling */
-#chat-window::-webkit-scrollbar {
-  width: 6px;
-}
-#chat-window::-webkit-scrollbar-thumb {
-  background-color: rgba(69,162,158,0.6);
-  border-radius: 3px;
-}
-
-/* Mobile responsive tweaks */
+/* Mobile adjustments */
 @media (max-width: 480px) {
   #chat-bubble {
     width: 90vw;
     right: 5vw;
-    bottom: 15px;
   }
 
   #chat-bubble.expanded {
     width: 90vw;
-  }
-
-  #chat-window {
-    max-height: 250px;
-  }
-
-  #chat-form textarea#user-input {
-    min-height: 50px;
-  }
-
-  #chat-form .name-email-group input {
-    flex: 1 1 100%; /* stack on very small screens */
   }
 }
