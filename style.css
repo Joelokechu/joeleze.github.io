@@ -965,4 +965,34 @@ nav {
   }
 }
 
+/* ============================================
+   MOBILE CAROUSEL (1 slide + scroll + no arrows)
+============================================ */
+@media (max-width: 768px) {
+
+  .project-carousel {
+    overflow: visible !important;
+  }
+
+  .carousel-track {
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  .project-card {
+    flex: 0 0 90% !important;   /* show 1 slide */
+    scroll-snap-align: center;
+    margin-right: 1.2rem;       /* spacing between cards */
+    height: 360px !important;
+  }
+
+  /* Hide arrows */
+  .carousel-arrow {
+    display: none !important;
+  }
+}
+
+
 
