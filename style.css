@@ -934,4 +934,35 @@ nav {
     display: none;
   }
 }
+/* ============================================
+   FINAL FIX — RESTORE MOBILE SCROLLING
+============================================ */
+@media (max-width: 900px) {
+
+  .project-carousel {
+    overflow: visible !important;
+  }
+
+  .carousel-track {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+
+    display: flex !important;
+    transform: none !important; /* Prevent slide-lock */
+  }
+
+  .project-card {
+    flex: 0 0 85% !important;
+    margin-right: 1.5rem !important;
+    scroll-snap-align: center !important;
+    height: 360px !important;
+  }
+
+  .carousel-arrow {
+    display: none !important; /* ensures no blocking on touch */
+  }
+}
+
 
