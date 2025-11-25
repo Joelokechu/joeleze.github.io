@@ -994,5 +994,22 @@ nav {
   }
 }
 
+/* At the end of style.css */
+@media (max-width: 768px) {
+  html, body {
+    overflow-y: hidden; /* hide normal scrollbar */
+  }
+
+  body {
+    animation: autoScroll 60s linear infinite;
+  }
+
+  @keyframes autoScroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+  }
+}
+
+
 
 
