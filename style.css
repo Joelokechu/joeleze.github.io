@@ -1052,3 +1052,34 @@ nav {
 #chat-bubble.expanded #chat-form textarea {
   margin-bottom: 4px;
 }
+
+<!-- === Chat Bubble === -->
+<div id="chat-bubble" class="collapsed">
+  <!-- Collapsed content -->
+  <div class="collapsed-content">💬</div>
+
+  <!-- Expanded header -->
+  <div class="chat-header hidden">💬 Chat With Me</div>
+
+  <!-- Chat messages -->
+  <div id="chat-window" class="hidden"></div>
+
+  <!-- Chat form -->
+  <form id="chat-form" class="hidden">
+    <!-- Name and Email side by side -->
+    <div class="name-email-group">
+      <input type="text" id="user-name" placeholder="Your Name" required />
+      <input type="email" id="user-email" placeholder="Your Email" required />
+    </div>
+
+    <!-- Message row with send button -->
+    <div class="message-row">
+      <textarea id="user-input" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </div>
+
+    <!-- Change info link -->
+    <div id="change-info" class="hidden">Change your name or email</div>
+  </form>
+</div>
+
