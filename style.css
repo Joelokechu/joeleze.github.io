@@ -1012,15 +1012,15 @@ nav {
   z-index: 1000;
 }
 
-/* Collapsed state – now blue */
+/* Collapsed state – blue + narrower */
 #chat-bubble.collapsed {
-  width: 130px;
+  width: 100px;       /* reduced width */
   height: 42px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3px; /* smaller padding */
+  padding: 3px; /* small padding */
   cursor: pointer;
   background: #0077ff;   /* BLUE */
   color: #fff;
@@ -1028,8 +1028,8 @@ nav {
 }
 
 #chat-bubble .collapsed-content {
-  font-size: 15px;
-  color: #fff; /* readable on blue */
+  font-size: 14px;   /* slightly smaller so it fits nicely */
+  color: #fff;
 }
 
 /* Expanded */
