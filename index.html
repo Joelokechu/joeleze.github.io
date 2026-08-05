@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Joel Eze — Data Analyst specialising in Power BI, SQL and Python. Explore dashboards, projects and get in touch." />
   <title>Insights by Joel</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="favicon.png" />
@@ -22,15 +23,19 @@
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li class="hamburger desktop-hamburger"><span></span><span></span><span></span></li>
+        <li class="hamburger desktop-hamburger" role="button" tabindex="0" aria-label="Admin menu"><span></span><span></span><span></span></li>
       </ul>
 
       <div class="theme-toggle">
-        <input type="checkbox" id="dark-toggle">
-        <label for="dark-toggle" class="toggle-label"><span class="toggle-ball"></span></label>
+        <input type="checkbox" id="dark-toggle" aria-label="Toggle dark mode">
+        <label for="dark-toggle" class="toggle-label">
+          <span class="icon sun" aria-hidden="true">☀️</span>
+          <span class="icon moon" aria-hidden="true">🌙</span>
+          <span class="toggle-ball"></span>
+        </label>
       </div>
 
-      <div class="hamburger mobile-hamburger"><span></span><span></span><span></span></div>
+      <div class="hamburger mobile-hamburger" role="button" tabindex="0" aria-label="Open menu"><span></span><span></span><span></span></div>
     </div>
 
     <div class="admin-dropdown hidden"><a href="admin.html">Admin Login</a></div>
@@ -54,7 +59,7 @@
       </div>
     </div>
     <div class="hero-photo">
-      <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg" alt="Joel Portrait" />
+      <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg" alt="Portrait of Joel Eze" loading="eager" />
     </div>
   </section>
 
@@ -65,30 +70,31 @@
     <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
   </section>
 
-  <!-- === Projects Section with Autoplay + Fade === -->
+  <!-- === Projects Section === -->
   <section id="projects" class="projects fade-section">
     <h2>Featured Projects</h2>
     <div class="project-carousel">
-      <button class="carousel-arrow left" aria-label="Previous Project">&lt;</button>
-      <div class="carousel-track">
-        <div class="project-card">
+      <button class="carousel-arrow left" aria-label="Previous project">&lt;</button>
+      <div class="carousel-track" role="list">
+        <div class="project-card" role="listitem">
           <h3>Airline Delays and Cancellation</h3>
-          <iframe title="Airline Delays and Cancellation" src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
+          <iframe title="Airline Delays and Cancellation" src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
         </div>
-        <div class="project-card">
+        <div class="project-card" role="listitem">
           <h3>Olist Sales</h3>
-          <iframe title="Olist Sales" src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
+          <iframe title="Olist Sales" src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
         </div>
-        <div class="project-card">
+        <div class="project-card" role="listitem">
           <h3>Electronic Sales Dashboard</h3>
-          <iframe title="Electronic Sales Dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" allowfullscreen></iframe>
+          <iframe title="Electronic Sales Dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
         </div>
-        <div class="project-card">
+        <div class="project-card" role="listitem">
           <h3>Excel Project</h3>
-          <iframe src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True"></iframe>
+          <iframe title="Excel Project" src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True" loading="lazy"></iframe>
         </div>
       </div>
-      <button class="carousel-arrow right" aria-label="Next Project">&gt;</button>
+      <button class="carousel-arrow right" aria-label="Next project">&gt;</button>
+      <div class="carousel-dots" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -111,100 +117,19 @@
   <div id="chat-bubble" class="collapsed">
     <div class="collapsed-content">💬 Chat</div>
     <div class="chat-header hidden">💬 Chat With Me</div>
-    <div id="chat-window" class="hidden"></div>
-    <!-- Chat form -->
-  <form id="chat-form" class="hidden">
-    <!-- Name and Email side by side -->
-    <div class="name-email-group">
-      <input type="text" id="user-name" placeholder="Your Name" required />
-      <input type="email" id="user-email" placeholder="Your Email" required />
-    </div>
-
-    <!-- Message row with send button -->
-    <div class="message-row">
-      <textarea id="user-input" placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
-    </div>
-
-    <!-- Change info link -->
-    <div id="change-info" class="hidden">Change your name or email</div>
-  </form>
-</div>
+    <div id="chat-window" class="hidden" role="log" aria-live="polite"></div>
+    <form id="chat-form" class="hidden">
+      <div class="name-email-group">
+        <input type="text" id="user-name" placeholder="Your Name" required />
+        <input type="email" id="user-email" placeholder="Your Email" required />
+      </div>
+      <div class="message-row">
+        <textarea id="user-input" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </div>
+      <div id="change-info" class="hidden">Change your name or email</div>
+    </form>
   </div>
-
-  <!-- === Carousel JS === -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const track = document.querySelector(".carousel-track");
-      if (!track) return;
-
-      const slides = Array.from(track.children);
-      const nextButton = document.querySelector(".carousel-arrow.right");
-      const prevButton = document.querySelector(".carousel-arrow.left");
-      let index = 0;
-      let autoplayInterval;
-
-      function getSlidesToShow() {
-        return window.innerWidth < 768 ? 1 : 2;
-      }
-
-      function updateSlider() {
-        const slidesToShow = getSlidesToShow();
-        const slideWidth = slides[0].getBoundingClientRect().width;
-        track.style.transform = `translateX(-${index * slideWidth}px)`;
-        slides.forEach((slide, i) => {
-          if (i >= index && i < index + slidesToShow) slide.classList.remove("inactive");
-          else slide.classList.add("inactive");
-        });
-      }
-
-      function nextSlide() {
-        const slidesToShow = getSlidesToShow();
-        index = (index + slidesToShow) % slides.length;
-        updateSlider();
-      }
-
-      function prevSlide() {
-        const slidesToShow = getSlidesToShow();
-        index = (index - slidesToShow + slides.length) % slides.length;
-        updateSlider();
-      }
-
-      function startAutoplay() {
-        autoplayInterval = setInterval(nextSlide, 7000);
-      }
-
-      function stopAutoplay() {
-        clearInterval(autoplayInterval);
-      }
-
-      nextButton.addEventListener("click", () => { nextSlide(); stopAutoplay(); startAutoplay(); });
-      prevButton.addEventListener("click", () => { prevSlide(); stopAutoplay(); startAutoplay(); });
-      window.addEventListener("resize", updateSlider);
-
-      // Mobile swipe
-      let startX = 0;
-      let isDragging = false;
-
-      track.addEventListener("touchstart", e => { startX = e.touches[0].clientX; isDragging = true; stopAutoplay(); });
-      track.addEventListener("touchmove", e => {
-        if (!isDragging) return;
-        const diff = e.touches[0].clientX - startX;
-        track.style.transform = `translateX(${ -index * slides[0].getBoundingClientRect().width + diff }px)`;
-      });
-      track.addEventListener("touchend", e => {
-        isDragging = false;
-        const diff = e.changedTouches[0].clientX - startX;
-        if (diff < -50) nextSlide();
-        else if (diff > 50) prevSlide();
-        updateSlider();
-        startAutoplay();
-      });
-
-      updateSlider();
-      startAutoplay();
-    });
-  </script>
 
   <script src="script.js"></script>
 </body>
