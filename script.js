@@ -4,25 +4,31 @@
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
-    if (!href.startsWith('#')) return;
+    if (!href.startsWith('#') || href === '#') return;
+    const target = document.querySelector(href);
+    if (!target) return;
     e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    target.scrollIntoView({ behavior: 'smooth' });
   });
 });
 
 /* ============================
    Navbar Background on Scroll
+   (respects current light/dark theme)
 ============================= */
 const navbar = document.querySelector('.navbar');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 80) {
-    navbar.style.background = 'rgba(11, 12, 16, 0.95)';
-    navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.5)';
+function updateNavbarBackground() {
+  const isLight = document.body.classList.contains('light');
+  const scrolled = window.scrollY > 80;
+
+  if (isLight) {
+    navbar.style.background = scrolled ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.85)';
   } else {
-    navbar.style.background = 'rgba(20,20,20,0.95)';
-    navbar.style.boxShadow = 'none';
+    navbar.style.background = scrolled ? 'rgba(11, 12, 16, 0.95)' : 'rgba(0,0,0,0.7)';
   }
-});
+  navbar.style.boxShadow = scrolled ? '0 2px 10px rgba(0,0,0,0.35)' : 'none';
+}
+window.addEventListener('scroll', updateNavbarBackground);
 
 /* ============================
    Fade-in Section Animation
@@ -42,7 +48,9 @@ fadeSections.forEach(section => appearObserver.observe(section));
 /* ============================
    EmailJS Initialization
 ============================= */
-emailjs.init("rgJiaabQfCfMpGz3t");
+if (window.emailjs) {
+  emailjs.init("rgJiaabQfCfMpGz3t");
+}
 
 /* ============================
    Hamburger Menu Logic
@@ -52,10 +60,20 @@ const adminDropdown = document.querySelector(".admin-dropdown");
 const mobileHamburger = document.querySelector(".mobile-hamburger");
 const mobileMenu = document.querySelector(".mobile-menu");
 
-desktopHamburger.addEventListener("click", (e) => {
-  e.stopPropagation();
+function toggleAdminDropdown() {
   desktopHamburger.classList.toggle("active");
   adminDropdown.classList.toggle("hidden");
+}
+
+desktopHamburger.addEventListener("click", (e) => {
+  e.stopPropagation();
+  toggleAdminDropdown();
+});
+desktopHamburger.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    toggleAdminDropdown();
+  }
 });
 
 document.addEventListener("click", (e) => {
@@ -65,9 +83,17 @@ document.addEventListener("click", (e) => {
   }
 });
 
-mobileHamburger.addEventListener("click", () => {
+function toggleMobileMenu() {
   mobileHamburger.classList.toggle("active");
   mobileMenu.classList.toggle("hidden");
+}
+
+mobileHamburger.addEventListener("click", toggleMobileMenu);
+mobileHamburger.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    toggleMobileMenu();
+  }
 });
 
 mobileMenu.querySelectorAll("a").forEach(link => {
@@ -153,7 +179,6 @@ if (chatForm) {
     nameInput.style.display = "none";
     emailInput.style.display = "none";
     changeInfo.classList.remove("hidden");
-    setTimeout(() => changeInfo.classList.add("visible"), 40);
   }
 
   changeInfo.addEventListener("click", () => {
@@ -162,9 +187,7 @@ if (chatForm) {
 
     nameInput.style.display = "block";
     emailInput.style.display = "block";
-
-    changeInfo.classList.remove("visible");
-    setTimeout(() => changeInfo.classList.add("hidden"), 250);
+    changeInfo.classList.add("hidden");
 
     addMessage("✏️ You can now update your name and email.", "bot");
   });
@@ -187,12 +210,20 @@ if (chatForm) {
     nameInput.style.display = "none";
     emailInput.style.display = "none";
     changeInfo.classList.remove("hidden");
-    setTimeout(() => changeInfo.classList.add("visible"), 40);
 
     addMessage(msg, "user");
     userInput.value = "";
 
     const typing = showTypingIndicator();
+    const submitBtn = chatForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+
+    if (!window.emailjs) {
+      typing.remove();
+      submitBtn.disabled = false;
+      addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
+      return;
+    }
 
     emailjs.send("service_71fb2en", "template_56f6p8n", {
       from_name: name,
@@ -202,11 +233,13 @@ if (chatForm) {
       .then(() => {
         setTimeout(() => {
           typing.remove();
+          submitBtn.disabled = false;
           addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, "bot");
         }, 900);
       })
       .catch(() => {
         typing.remove();
+        submitBtn.disabled = false;
         addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
       });
   });
@@ -214,16 +247,16 @@ if (chatForm) {
 
 /* ============================
    DARK / LIGHT MODE TOGGLE
+   Defaults to the visitor's system preference
+   the first time they land on the site.
 ============================= */
 const toggleTheme = document.getElementById("dark-toggle");
 const savedTheme = localStorage.getItem("theme");
+const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+const startDark = savedTheme ? savedTheme === "dark" : prefersDark;
 
-if (savedTheme === "dark") {
-  document.body.classList.add("dark");
-  toggleTheme.checked = true;
-} else {
-  document.body.classList.add("light");
-}
+document.body.classList.add(startDark ? "dark" : "light");
+toggleTheme.checked = startDark;
 
 toggleTheme.addEventListener("change", () => {
   if (toggleTheme.checked) {
@@ -235,14 +268,13 @@ toggleTheme.addEventListener("change", () => {
     document.body.classList.add("light");
     localStorage.setItem("theme", "light");
   }
+  updateNavbarBackground();
 });
 
 /* ============================
-   FADE & RIPPLE EFFECTS
+   FADE & RIPPLE EFFECTS ON TOGGLE
 ============================= */
 document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("dark-toggle");
-
   const fade = document.createElement("div");
   fade.className = "page-fade";
   document.body.appendChild(fade);
@@ -251,56 +283,144 @@ document.addEventListener("DOMContentLoaded", () => {
   ripple.className = "ripple";
   document.body.appendChild(ripple);
 
-  toggle.addEventListener("change", (e) => {
+  toggleTheme.addEventListener("change", (e) => {
     fade.style.opacity = "1";
     setTimeout(() => (fade.style.opacity = "0"), 300);
 
-    const rect = e.target.getBoundingClientRect();
+    const rect = e.target.nextElementSibling.getBoundingClientRect();
     ripple.style.left = rect.left + rect.width / 2 + "px";
     ripple.style.top = rect.top + rect.height / 2 + "px";
 
     ripple.classList.add("active");
     setTimeout(() => ripple.classList.remove("active"), 600);
   });
+
+  updateNavbarBackground();
 });
 
-/* ============================
-   PROJECT CAROUSEL (Enhanced Fade+Slide)
-============================= */
+/* ============================================================
+   PROJECT CAROUSEL
+   - Desktop/tablet (>900px): JS-driven, 2 cards per slide,
+     arrows disable at the ends, gentle autoplay that pauses
+     on hover/focus and respects reduced-motion.
+   - Mobile (<=900px): native horizontal scroll-snap (CSS),
+     JS just keeps the dot indicators in sync.
+=============================================================== */
 document.addEventListener("DOMContentLoaded", () => {
+  const carousel = document.querySelector(".project-carousel");
   const track = document.querySelector(".carousel-track");
-  if (!track) return;
+  if (!carousel || !track) return;
 
   const cards = Array.from(track.children);
   const nextButton = document.querySelector(".carousel-arrow.right");
   const prevButton = document.querySelector(".carousel-arrow.left");
+  const dotsContainer = document.querySelector(".carousel-dots");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   let index = 0;
+  let autoplayId = null;
 
-  function cardsPerSlide() {
-    return window.innerWidth <= 768 ? 1 : 2;
+  const isMobile = () => window.innerWidth <= 900;
+  const cardsPerSlide = () => (window.innerWidth <= 768 ? 1 : 2);
+
+  // ---- Dots (mobile only) ----
+  cards.forEach((_, i) => {
+    const dot = document.createElement("span");
+    dot.className = "dot" + (i === 0 ? " active" : "");
+    dotsContainer.appendChild(dot);
+  });
+  const dots = Array.from(dotsContainer.children);
+
+  function setActiveDot(i) {
+    dots.forEach((d, di) => d.classList.toggle("active", di === i));
+  }
+
+  let scrollTimeout;
+  track.addEventListener("scroll", () => {
+    if (!isMobile()) return;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const cardWidth = cards[0].getBoundingClientRect().width + 12; // + gap
+      const nearest = Math.round(track.scrollLeft / cardWidth);
+      setActiveDot(Math.min(nearest, dots.length - 1));
+    }, 100);
+  });
+
+  // ---- Desktop/tablet transform-based paging ----
+  function maxIndex() {
+    return Math.max(cards.length - cardsPerSlide(), 0);
+  }
+
+  function updateArrowState() {
+    if (!prevButton || !nextButton) return;
+    prevButton.disabled = index <= 0;
+    nextButton.disabled = index >= maxIndex();
   }
 
   function updateSlider() {
+    if (isMobile()) return; // native scroll handles it
     const cardWidth = cards[0].getBoundingClientRect().width;
-    track.style.opacity = "0";
-
-    setTimeout(() => {
-      track.style.transform = `translateX(-${index * cardWidth}px)`;
-      track.style.opacity = "1";
-    }, 250);
+    const gap = 19.2; // matches 1.2rem gap
+    track.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
+    updateArrowState();
   }
 
-  nextButton.addEventListener("click", () => {
-    const maxIndex = cards.length - cardsPerSlide();
-    if (index < maxIndex) index += cardsPerSlide();
+  function goNext() {
+    index = Math.min(index + cardsPerSlide(), maxIndex());
     updateSlider();
+  }
+
+  function goPrev() {
+    index = Math.max(index - cardsPerSlide(), 0);
+    updateSlider();
+  }
+
+  nextButton.addEventListener("click", () => { goNext(); restartAutoplay(); });
+  prevButton.addEventListener("click", () => { goPrev(); restartAutoplay(); });
+
+  function startAutoplay() {
+    if (prefersReducedMotion || isMobile()) return;
+    autoplayId = setInterval(() => {
+      if (index >= maxIndex()) {
+        index = 0;
+      } else {
+        index += cardsPerSlide();
+      }
+      updateSlider();
+    }, 7000);
+  }
+
+  function stopAutoplay() {
+    clearInterval(autoplayId);
+  }
+
+  function restartAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  carousel.addEventListener("mouseenter", stopAutoplay);
+  carousel.addEventListener("mouseleave", startAutoplay);
+  carousel.addEventListener("focusin", stopAutoplay);
+  carousel.addEventListener("focusout", startAutoplay);
+
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      index = Math.min(index, maxIndex());
+      if (isMobile()) {
+        track.style.transform = "none";
+        stopAutoplay();
+      } else {
+        updateSlider();
+        startAutoplay();
+      }
+    }, 150);
   });
 
-  prevButton.addEventListener("click", () => {
-    if (index > 0) index -= cardsPerSlide();
+  if (!isMobile()) {
     updateSlider();
-  });
-
-  window.addEventListener("resize", updateSlider);
+    startAutoplay();
+  }
 });
