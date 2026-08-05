@@ -1,5 +1,3 @@
-
-
 /* ============================
    GLOBAL RESET
 ============================= */
@@ -24,6 +22,28 @@ body * {
               border-color 0.4s ease;
 }
 
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+.hamburger:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid #66fcf1;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 /* ============================
    PARALLAX BACKGROUND
 ============================= */
@@ -46,7 +66,7 @@ body * {
 }
 
 /* ============================
-   NAVBAR (UPDATED)
+   NAVBAR
 ============================= */
 .navbar {
   position: fixed;
@@ -57,7 +77,7 @@ body * {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px; /* reduced to bring toggle closer */
+  padding: 15px 20px;
   z-index: 1000;
 }
 
@@ -71,18 +91,17 @@ body * {
   color: #00bcd4;
 }
 
-/* NEW: Wraps nav links, theme toggle, and mobile hamburger */
 .nav-right {
   display: flex;
   align-items: center;
   gap: 18px;
   margin-left: auto;
-  padding-right: 20px; /* ensures toggle is 20px from edge */
+  padding-right: 20px;
 }
 
 .nav-links {
   display: flex;
-  gap: 20px; /* changed from 28px */
+  gap: 20px;
   align-items: center;
 }
 
@@ -281,6 +300,7 @@ body * {
   font-weight: 600;
   text-decoration: none;
   transition: 0.25s;
+  display: inline-block;
 }
 
 .btn:hover {
@@ -297,6 +317,7 @@ body * {
   text-decoration: none;
   box-shadow: 0 4px 15px rgba(102, 252, 241, 0.25);
   transition: 0.3s ease;
+  display: inline-block;
 }
 
 .btn-cv:hover {
@@ -329,23 +350,6 @@ section h2 {
 
 .projects { background: #0b0c10; }
 
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-  gap: 1.6rem;
-}
-
-.project-card {
-  background: #1f2833;
-  padding: 1.6rem;
-  border-radius: 12px;
-  transition: 0.3s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-6px);
-}
-
 /* ============================
    CONTACT
 ============================= */
@@ -373,78 +377,13 @@ footer {
 }
 
 /* ============================
-   CHAT WIDGET
-============================= */
-#chat-bubble {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(15,23,42,0.35);
-  transition: 0.25s;
-  z-index: 999;
-}
-
-#chat-bubble.collapsed {
-  height: 48px;
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-#chat-bubble.expanded {
-  width: 340px;
-  background: white;
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-header {
-  background: linear-gradient(135deg, #1f5eff, #4fc3f7);
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-#chat-window {
-  padding: 12px;
-  max-height: 260px;
-  overflow-y: auto;
-  background: #f8f9fb;
-}
-
-.message {
-  padding: 0.6rem 0.9rem;
-  border-radius: 12px;
-  max-width: 85%;
-}
-
-.message.user {
-  background: #0078d7;
-  color: white;
-  margin-left: auto;
-}
-
-.message.bot {
-  background: #e9f3ff;
-  color: #333;
-}
-
-.hidden { display: none !important; }
-
-/* ============================
-   GLOWING THEME TOGGLE (UPDATED)
+   GLOWING THEME TOGGLE
 ============================= */
 .theme-toggle {
   display: flex;
   align-items: center;
-  margin-left: 0; /* Updated */
 }
 
-/* Toggle body */
 .toggle-label {
   width: 60px;
   height: 30px;
@@ -454,12 +393,12 @@ footer {
   cursor: pointer;
   transition: 0.4s ease;
   box-shadow: inset 0 0 6px rgba(0,0,0,0.25);
+  display: block;
 }
 
-/* Icons — updated to 17px & perfectly centered */
 .toggle-label .icon {
   position: absolute;
-  font-size: 17px;
+  font-size: 14px;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0.65;
@@ -468,11 +407,9 @@ footer {
   transition: opacity 0.35s ease;
 }
 
-/* Fixed icon positions */
-.icon.sun { left: 9px; }
-.icon.moon { right: 9px; opacity: 0; }
+.icon.sun { left: 8px; }
+.icon.moon { right: 8px; opacity: 0; }
 
-/* Toggle Ball — updated to 20px */
 .toggle-ball {
   width: 20px;
   height: 20px;
@@ -483,10 +420,19 @@ footer {
   left: 5px;
   transition: 0.35s ease;
   box-shadow: 0 0 10px rgba(255,255,255,0.9);
+  z-index: 4;
 }
 
 #dark-toggle {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+#dark-toggle:focus-visible + .toggle-label {
+  outline: 2px solid #66fcf1;
+  outline-offset: 3px;
 }
 
 /* ACTIVE (Dark Mode) */
@@ -501,17 +447,11 @@ footer {
   box-shadow: 0 0 18px rgba(79,195,247,1);
 }
 
-/* ICON FADE (no sideways shifting) */
-#dark-toggle:checked + .toggle-label .sun {
-  opacity: 0;
-}
-
-#dark-toggle:checked + .toggle-label .moon {
-  opacity: 1;
-}
+#dark-toggle:checked + .toggle-label .sun { opacity: 0; }
+#dark-toggle:checked + .toggle-label .moon { opacity: 1; }
 
 /* ============================
-   LIGHT MODE OVERRIDES UPDATED
+   LIGHT MODE OVERRIDES
 ============================= */
 body.light {
   background: linear-gradient(135deg, #f7f9fc, #eef3f8);
@@ -558,7 +498,6 @@ body.light #chat-bubble.collapsed {
   background: linear-gradient(135deg, #1f5eff, #4fc3f7);
 }
 
-/* Light mode card + footer gradients */
 body.light .about,
 body.light .contact-card {
   background: linear-gradient(135deg, #ffffff, #f2f5f9);
@@ -628,22 +567,13 @@ body.dark img:hover {
 }
 
 nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li {
-    list-style-type: none;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-}
-
-.menu-toggle {
-    margin-left: 0.5rem;
+  list-style-type: none;
 }
 
 .fade-in {
@@ -656,203 +586,42 @@ nav {
   opacity: 1;
   transform: translateY(0);
 }
-.project-carousel {
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  margin: 2rem auto;
+
+.fade-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
+.fade-section.appear {
+  opacity: 1;
+  transform: translateY(0);
 }
-
-.project-card {
-  flex: 0 0 50%;
-  padding: 0.8rem;
-  box-sizing: border-box;
-}
-
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #45a29e;
-  border: none;
-  color: #0b0c10;
-  font-size: 2rem;
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 0.5rem 1rem;
-  z-index: 10;
-  transition: background 0.3s;
-}
-
-.carousel-arrow:hover {
-  background: #66fcf1;
-}
-
-.carousel-arrow.left { left: 0.5rem; }
-.carousel-arrow.right { right: 0.5rem; }
-
-@media (max-width: 768px) {
-  .project-card { flex: 0 0 100%; }
-  .carousel-arrow { font-size: 1.5rem; padding: 0.3rem 0.8rem; }
-}
-
-/* ============================
-   FIXED PROJECT CAROUSEL (FINAL VERSION)
-============================= */
-
-.project-carousel {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  margin: 2rem auto;
-  padding: 0; /* IMPORTANT: Remove padding that caused cutoff */
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.6s ease-in-out;
-}
-
-.project-card {
-  flex: 0 0 50%; /* Exactly 2 per slide */
-  padding: 1rem;
-  box-sizing: border-box;
-  background: #1f2833;
-  border-radius: 12px;
-  height: 420px;
-  overflow: hidden;
-  margin: 0; /* IMPORTANT: Remove side margins */
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-/* Glow effect */
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 22px rgba(102, 252, 241, 0.55);
-}
-
-.project-card h3 {
-  margin-bottom: 8px;
-  color: #66fcf1;
-  font-size: 1.1rem;
-}
-
-/* Fix iframe clipping */
-.project-card iframe {
-  width: 100%;
-  height: calc(100% - 2rem);
-  border: none;
-  border-radius: 8px;
-}
-
-/* ARROWS */
-.carousel-arrow {
-  position: absolute;
-  top: 45%; /* instead of 50% */
-  transform: translateY(-50%);
-  background: #45a29e;
-  border: none;
-  color: #0b0c10;
-  font-size: 2rem;
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 0.5rem 0.9rem;
-  z-index: 20;
-  transition: 0.3s ease;
-}
-
-
-.carousel-arrow:hover {
-  background: #66fcf1;
-}
-
-.carousel-arrow.left { left: 0.3rem; }
-.carousel-arrow.right { right: 0.3rem; }
-
-/* MOBILE — 1 card per slide */
-@media (max-width: 768px) {
-  .project-card {
-    flex: 0 0 100%;
-    height: 360px;
-  }
-}
-
-
-/* ============================
-   CAROUSEL UPGRADE (Non-breaking)
-============================= */
-
-/* Fade animation */
-.carousel-track {
-  display: flex;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-.project-card {
-  background: #1f2833;
-  border-radius: 12px;
-  height: 420px; /* fixed height */
-  box-shadow: 0 0 0 rgba(102, 252, 241, 0);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-/* Glow effect */
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 22px rgba(102, 252, 241, 0.55);
-}
-
-/* Desktop: 2 cards per slide */
-.project-card {
-  flex: 0 0 50%;
-}
-
-/* Mobile: 1 card per slide */
-@media (max-width: 768px) {
-  .project-card {
-    flex: 0 0 100%;
-    height: 360px;
-  }
-}
-
 
 /* ============================================================
-   UNIFIED + CLEANED CAROUSEL (NO CONFLICTS, FULLY RESPONSIVE)
-   Option A — Fix Existing Carousel
+   PROJECT CAROUSEL (single, consolidated implementation)
 =============================================================== */
-
-/* WRAPPER */
 .project-carousel {
   position: relative;
   overflow: hidden;
   width: 100%;
   margin: 2rem auto;
-  padding: 0;
+  padding: 0 3rem; /* room for arrows so cards never sit under them */
 }
 
-/* TRACK (the sliding container) */
 .carousel-track {
   display: flex;
-  transition: transform 0.55s ease-in-out, opacity 0.5s ease;
-  opacity: 1;
+  gap: 1.2rem;
+  transition: transform 0.55s ease-in-out;
 }
 
-/* PROJECT CARD — desktop: 2 per slide */
 .project-card {
-  flex: 0 0 50%;               /* 2 cards per slide */
+  flex: 0 0 calc(50% - 0.6rem);
   padding: 1rem;
   background: #1f2833;
   border-radius: 12px;
-
   height: 420px;
   overflow: hidden;
-
-  margin: 0;                    /* no unwanted spacing */
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
@@ -862,139 +631,101 @@ nav {
   font-size: 1.1rem;
 }
 
-/* FIX IFRAME SIZING */
 .project-card iframe {
   width: 100%;
   height: calc(100% - 2rem);
   border: none;
   border-radius: 8px;
+  background: #10151c;
 }
 
-/* HOVER EFFECT */
 .project-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 0 22px rgba(102, 252, 241, 0.45);
 }
 
-/* ================
-   ARROWS
-=================== */
 .carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-
   width: 45px;
   height: 45px;
   border-radius: 50%;
-
   border: none;
   cursor: pointer;
-
   background: #45a29e;
   color: #0b0c10;
   font-size: 1.8rem;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   z-index: 10;
   transition: background 0.3s;
 }
 
-.carousel-arrow:hover {
-  background: #66fcf1;
+.carousel-arrow:hover { background: #66fcf1; }
+.carousel-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.carousel-arrow:disabled:hover { background: #45a29e; }
+
+.carousel-arrow.left { left: 0; }
+.carousel-arrow.right { right: 0; }
+
+.carousel-dots {
+  display: none;
 }
 
-/* Proper arrow placement */
-.carousel-arrow.left { left: 10px; }
-.carousel-arrow.right { right: 10px; }
-
-/* ================
-   MOBILE BEHAVIOR
-=================== */
-@media (max-width: 768px) {
-  .project-card {
-    flex: 0 0 100%;      /* 1 per slide */
-    height: 360px;
-  }
-
-  /* arrows appear but smaller */
-  .carousel-arrow {
-    width: 38px;
-    height: 38px;
-    font-size: 1.4rem;
-  }
-}
-
-/* Optional: hide arrows completely on very small screens */
-@media (max-width: 500px) {
-  .carousel-arrow {
-    display: none;
-  }
-}
-/* ============================================
-   FINAL FIX — RESTORE MOBILE SCROLLING
-============================================ */
+/* TABLET/MOBILE: 1 card per view, native snap scroll (no JS transform fighting) */
 @media (max-width: 900px) {
-
   .project-carousel {
-    overflow: visible !important;
+    padding: 0;
   }
 
   .carousel-track {
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-
-    display: flex !important;
-    transform: none !important; /* Prevent slide-lock */
-  }
-
-  .project-card {
-    flex: 0 0 85% !important;
-    margin-right: 1.5rem !important;
-    scroll-snap-align: center !important;
-    height: 360px !important;
-  }
-
-  .carousel-arrow {
-    display: none !important; /* ensures no blocking on touch */
-  }
-}
-
-/* ============================================
-   MOBILE CAROUSEL (1 slide + scroll + no arrows)
-============================================ */
-@media (max-width: 768px) {
-
-  .project-carousel {
-    overflow: visible !important;
-  }
-
-  .carousel-track {
-    overflow-x: auto !important;
+    overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+    transform: none !important; /* scrolling is native here, not transform-driven */
   }
+
+  .carousel-track::-webkit-scrollbar { display: none; }
 
   .project-card {
-    flex: 0 0 90% !important;   /* show 1 slide */
+    flex: 0 0 88%;
     scroll-snap-align: center;
-    margin-right: 1.2rem;       /* spacing between cards */
-    height: 360px !important;
+    height: 360px;
   }
 
-  /* Hide arrows */
   .carousel-arrow {
-    display: none !important;
+    display: none;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0.8rem;
+  }
+
+  .carousel-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(102, 252, 241, 0.3);
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .carousel-dots .dot.active {
+    background: #66fcf1;
+    transform: scale(1.3);
   }
 }
+
 /* ============================
-   Clean Chat Bubble Styling (Updated)
+   Chat Bubble
 ============================= */
 #chat-bubble {
   position: fixed;
@@ -1012,34 +743,31 @@ nav {
   z-index: 1000;
 }
 
-/* Collapsed state – blue + narrower */
 #chat-bubble.collapsed {
-  width: 100px;       /* reduced width */
+  width: 100px;
   height: 42px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3px; /* small padding */
+  padding: 3px;
   cursor: pointer;
-  background: #0077ff;   /* BLUE */
+  background: #0077ff;
   color: #fff;
   box-shadow: 0 3px 12px rgba(0,0,0,0.25);
 }
 
 #chat-bubble .collapsed-content {
-  font-size: 14px;   /* slightly smaller so it fits nicely */
+  font-size: 14px;
   color: #fff;
 }
 
-/* Expanded */
 #chat-bubble.expanded {
   width: 320px;
   max-width: 90vw;
   border-radius: 16px;
 }
 
-/* Header – BLUE */
 #chat-bubble .chat-header {
   background: #0077ff;
   padding: 10px 12px;
@@ -1049,7 +777,6 @@ nav {
   color: #fff;
 }
 
-/* Chat window */
 #chat-window {
   max-height: 280px;
   overflow-y: auto;
@@ -1060,7 +787,6 @@ nav {
   gap: 10px;
 }
 
-/* Message bubbles – improved padding */
 #chat-window .message {
   padding: 10px 14px;
   background: #e8f7ff;
@@ -1071,7 +797,34 @@ nav {
   color: #000;
 }
 
-/* Chat form */
+#chat-window .message.user {
+  background: #0078d7;
+  color: #fff;
+  margin-left: auto;
+}
+
+#chat-window .message.typing {
+  display: flex;
+  gap: 4px;
+  padding: 12px 14px;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0078d7;
+  opacity: 0.4;
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { opacity: 0.4; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
 #chat-form {
   padding: 12px;
   background: #ffffff;
@@ -1080,7 +833,6 @@ nav {
   gap: 10px;
 }
 
-/* Name + email row – overflow fixed */
 #chat-form .name-email-group {
   display: flex;
   gap: 8px;
@@ -1090,7 +842,7 @@ nav {
 #chat-form input[type="text"],
 #chat-form input[type="email"] {
   flex: 1;
-  min-width: 0; /* FIXES overflow */
+  min-width: 0;
   padding: 8px 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -1100,7 +852,6 @@ nav {
   box-sizing: border-box;
 }
 
-/* Message + send button layout */
 #chat-form .message-row {
   display: flex;
   gap: 8px;
@@ -1117,7 +868,6 @@ nav {
   resize: vertical;
 }
 
-/* Gradient send button */
 #chat-form button[type="submit"] {
   padding: 0 16px;
   border-radius: 10px;
@@ -1133,7 +883,6 @@ nav {
   transform: scale(1.05);
 }
 
-/* Change info link – smaller and cleaner */
 #change-info {
   font-size: 10px;
   opacity: 0.55;
@@ -1142,19 +891,17 @@ nav {
   margin-top: -4px;
 }
 
-/* Mobile */
+.hidden { display: none !important; }
+
 @media (max-width: 480px) {
   #chat-bubble {
     width: 90vw;
     right: 5vw;
   }
-
   #chat-bubble.expanded {
     width: 90vw;
   }
-
   #chat-window {
     max-height: 220px;
   }
 }
-
