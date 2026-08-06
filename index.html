@@ -22,6 +22,7 @@
         <li><a href="#hero">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#consult">Free Consultation</a></li>
         <li><a href="#contact">Contact</a></li>
         <li class="hamburger desktop-hamburger" role="button" tabindex="0" aria-label="Admin menu"><span></span><span></span><span></span></li>
       </ul>
@@ -43,31 +44,62 @@
       <a href="#hero">Home</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
+      <a href="#consult">Free Consultation</a>
       <a href="#contact">Contact</a>
       <a href="admin.html">Admin</a>
     </div>
   </nav>
 
   <!-- === Hero Section === -->
-  <section id="hero" class="hero fade-section hero-with-photo">
-    <div class="hero-content fade-in-hero">
-      <h1>Turning Data into Insights</h1>
-      <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
-      <div class="hero-buttons">
-        <a href="#projects" class="btn">View My Work</a>
-        <a href="Joel_Eze_CV.docx" class="btn-cv" download>📄 Download CV</a>
+  <section id="hero" class="hero fade-section">
+    <div class="hero-inner">
+      <div class="hero-content fade-in-hero">
+        <h1>Turning Data into Insights</h1>
+        <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
+        <div class="hero-buttons">
+          <a href="#consult" class="btn">Book a Free Consultation</a>
+          <a href="#projects" class="btn btn-ghost">View My Work</a>
+          <a href="Joel_Eze_CV.docx" class="btn-cv" download>📄 Download CV</a>
+        </div>
       </div>
-    </div>
-    <div class="hero-photo">
-      <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg" alt="Portrait of Joel Eze" loading="eager" />
+
+      <div id="consult" class="consultation-card fade-in-hero">
+        <h2>Free Consultation</h2>
+        <p class="consultation-sub">Tell me a bit about your data or dashboard needs — I’ll reply within one business day.</p>
+        <form id="consult-form">
+          <div class="name-email-group">
+            <input type="text" id="consult-name" name="consult-name" placeholder="Your Name" required />
+            <input type="email" id="consult-email" name="consult-email" placeholder="Your Email" required />
+          </div>
+          <input type="tel" id="consult-phone" name="consult-phone" placeholder="Phone (optional)" />
+          <select id="consult-service" name="consult-service" required>
+            <option value="" disabled selected>What do you need help with?</option>
+            <option value="Power BI Dashboard">Power BI Dashboard</option>
+            <option value="Data Analysis">Data Analysis</option>
+            <option value="SQL / Data Cleaning">SQL / Data Cleaning</option>
+            <option value="General Consultation Call">General Consultation Call</option>
+            <option value="Other">Other</option>
+          </select>
+          <textarea id="consult-message" name="consult-message" placeholder="A few details about your project" required></textarea>
+          <button type="submit">Request Free Consultation</button>
+          <div id="consult-status" class="hidden" role="status" aria-live="polite"></div>
+        </form>
+      </div>
     </div>
   </section>
 
   <!-- === About Section === -->
   <section id="about" class="about fade-section">
-    <h2>About Me</h2>
-    <p>I’m a Data Analyst with a strong background in data visualisation, analytics, and storytelling. My mission is to bridge the gap between raw information and impactful business insights.</p>
-    <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
+    <div class="about-inner">
+      <div class="about-photo">
+        <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg" alt="Portrait of Joel Eze" loading="lazy" class="portrait" />
+      </div>
+      <div class="about-text">
+        <h2>About Me</h2>
+        <p>I’m a Data Analyst with a strong background in data visualisation, analytics, and storytelling. My mission is to bridge the gap between raw information and impactful business insights.</p>
+        <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
+      </div>
+    </div>
   </section>
 
   <!-- === Projects Section === -->
