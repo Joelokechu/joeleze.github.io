@@ -1,168 +1,254 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Joel Eze — Data Analyst specialising in Power BI, SQL and Python. Explore dashboards, projects and get in touch." />
-  <title>Insights by Joel</title>
+  <meta name="description" content="Joel Eze — Data Analyst specialising in Power BI, SQL, Python and Excel. Explore dashboards and request a free consultation." />
+  <meta name="theme-color" content="#0b0e13" />
+
+  <title>Insights by Joel | Data Analyst</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <script>
+    (() => {
+      document.documentElement.classList.replace('no-js', 'js');
+      try {
+        const saved = localStorage.getItem('theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script defer src="script.js"></script>
 </head>
 
 <body>
-  <div class="parallax-bg"></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="parallax-bg" aria-hidden="true"></div>
+  <div class="page-fade" aria-hidden="true"></div>
+  <div class="theme-ripple" aria-hidden="true"></div>
 
-  <!-- === Navbar === -->
-  <nav class="navbar">
-    <div class="logo">Insights<span>ByJoel</span></div>
+  <nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="#hero" aria-label="Insights by Joel home">Insights<span>ByJoel</span></a>
+
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="#hero">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#consult">Free Consultation</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li class="hamburger desktop-hamburger" role="button" tabindex="0" aria-label="Admin menu"><span></span><span></span><span></span></li>
+        <li><a class="nav-cta" href="#consultation">Free consultation</a></li>
+        <li>
+          <button class="hamburger desktop-hamburger" id="desktop-menu-button" type="button" aria-label="Open admin menu" aria-expanded="false" aria-controls="admin-dropdown">
+            <span></span><span></span><span></span>
+          </button>
+        </li>
       </ul>
 
       <div class="theme-toggle">
-        <input type="checkbox" id="dark-toggle" aria-label="Toggle dark mode">
-        <label for="dark-toggle" class="toggle-label">
-          <span class="icon sun" aria-hidden="true">☀️</span>
-          <span class="icon moon" aria-hidden="true">🌙</span>
-          <span class="toggle-ball"></span>
+        <input type="checkbox" id="dark-toggle" aria-label="Use dark theme" />
+        <label for="dark-toggle" class="toggle-label" title="Change colour theme">
+          <span class="icon sun" aria-hidden="true">☀</span>
+          <span class="icon moon" aria-hidden="true">☾</span>
+          <span class="toggle-ball" aria-hidden="true"></span>
         </label>
       </div>
 
-      <div class="hamburger mobile-hamburger" role="button" tabindex="0" aria-label="Open menu"><span></span><span></span><span></span></div>
+      <button class="hamburger mobile-hamburger" id="mobile-menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
 
-    <div class="admin-dropdown hidden"><a href="admin.html">Admin Login</a></div>
-    <div class="mobile-menu hidden">
+    <div class="admin-dropdown hidden" id="admin-dropdown">
+      <a href="admin.html">Admin login</a>
+    </div>
+
+    <div class="mobile-menu hidden" id="mobile-menu">
       <a href="#hero">Home</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
-      <a href="#consult">Free Consultation</a>
       <a href="#contact">Contact</a>
-      <a href="admin.html">Admin</a>
+      <a href="#consultation">Free consultation</a>
+      <a href="admin.html">Admin login</a>
     </div>
   </nav>
 
-  <!-- === Hero Section === -->
-  <section id="hero" class="hero fade-section">
-    <div class="hero-inner">
-      <div class="hero-content fade-in-hero">
-        <h1>Turning Data into Insights</h1>
-        <p>Hi, I’m Joel — a Data Analyst passionate about transforming raw data into meaningful stories that drive decisions.</p>
-        <div class="hero-buttons">
-          <a href="#consult" class="btn">Book a Free Consultation</a>
-          <a href="#projects" class="btn btn-ghost">View My Work</a>
-          <a href="Joel_Eze_CV.docx" class="btn-cv" download>📄 Download CV</a>
-        </div>
-      </div>
-
-      <div id="consult" class="consultation-card fade-in-hero">
-        <h2>Free Consultation</h2>
-        <p class="consultation-sub">Tell me a bit about your data or dashboard needs — I’ll reply within one business day.</p>
-        <form id="consult-form">
-          <div class="name-email-group">
-            <input type="text" id="consult-name" name="consult-name" placeholder="Your Name" required />
-            <input type="email" id="consult-email" name="consult-email" placeholder="Your Email" required />
+  <main id="main-content">
+    <section id="hero" class="hero fade-section">
+      <div class="hero-inner">
+        <div class="hero-content fade-in-hero">
+          <p class="eyebrow">DATA ANALYST · POWER BI · SQL · PYTHON</p>
+          <h1>Turn your data into decisions that move your business forward.</h1>
+          <p>I help organisations clean, analyse and visualise their data so they can understand performance, uncover opportunities and act with confidence.</p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn">View my work</a>
+            <a href="Joel_Eze_CV.docx" class="btn btn-ghost" download>Download CV</a>
           </div>
-          <input type="tel" id="consult-phone" name="consult-phone" placeholder="Phone (optional)" />
-          <select id="consult-service" name="consult-service" required>
-            <option value="" disabled selected>What do you need help with?</option>
-            <option value="Power BI Dashboard">Power BI Dashboard</option>
-            <option value="Data Analysis">Data Analysis</option>
-            <option value="SQL / Data Cleaning">SQL / Data Cleaning</option>
-            <option value="General Consultation Call">General Consultation Call</option>
-            <option value="Other">Other</option>
-          </select>
-          <textarea id="consult-message" name="consult-message" placeholder="A few details about your project" required></textarea>
-          <button type="submit">Request Free Consultation</button>
-          <div id="consult-status" class="hidden" role="status" aria-live="polite"></div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- === About Section === -->
-  <section id="about" class="about fade-section">
-    <div class="about-inner">
-      <div class="about-photo">
-        <img src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg" alt="Portrait of Joel Eze" loading="lazy" class="portrait" />
-      </div>
-      <div class="about-text">
-        <h2>About Me</h2>
-        <p>I’m a Data Analyst with a strong background in data visualisation, analytics, and storytelling. My mission is to bridge the gap between raw information and impactful business insights.</p>
-        <p>With experience across Power BI, SQL, and Python, I thrive on uncovering trends that inform smarter decisions.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- === Projects Section === -->
-  <section id="projects" class="projects fade-section">
-    <h2>Featured Projects</h2>
-    <div class="project-carousel">
-      <button class="carousel-arrow left" aria-label="Previous project">&lt;</button>
-      <div class="carousel-track" role="list">
-        <div class="project-card" role="listitem">
-          <h3>Airline Delays and Cancellation</h3>
-          <iframe title="Airline Delays and Cancellation" src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
+          <div class="hero-proof" aria-label="Core services">
+            <span>Interactive dashboards</span>
+            <span>Business reporting</span>
+            <span>Data analysis</span>
+          </div>
         </div>
-        <div class="project-card" role="listitem">
-          <h3>Olist Sales</h3>
-          <iframe title="Olist Sales" src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
+
+        <aside id="consultation" class="consultation-card" aria-labelledby="consultation-title">
+          <p class="eyebrow">START A CONVERSATION</p>
+          <h2 id="consultation-title">Book a free consultation</h2>
+          <p class="consultation-sub">Tell me what you are trying to achieve and I’ll suggest the most practical next step.</p>
+
+          <form id="consult-form">
+            <div class="form-grid">
+              <label>
+                <span>Your name</span>
+                <input type="text" id="consult-name" name="name" autocomplete="name" required />
+              </label>
+              <label>
+                <span>Email address</span>
+                <input type="email" id="consult-email" name="email" autocomplete="email" required />
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <label>
+                <span>Phone <small>(optional)</small></span>
+                <input type="tel" id="consult-phone" name="phone" autocomplete="tel" />
+              </label>
+              <label>
+                <span>Service</span>
+                <select id="consult-service" name="service" required>
+                  <option value="">Choose a service</option>
+                  <option>Power BI dashboard</option>
+                  <option>Excel reporting</option>
+                  <option>Data cleaning and analysis</option>
+                  <option>SQL or database analysis</option>
+                  <option>Other data support</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              <span>What would you like help with?</span>
+              <textarea id="consult-message" name="message" maxlength="2000" required></textarea>
+            </label>
+
+            <label class="honeypot" aria-hidden="true">
+              <span>Website</span>
+              <input type="text" id="consult-website" name="website" tabindex="-1" autocomplete="off" />
+            </label>
+
+            <button type="submit">Request consultation</button>
+            <p id="consult-status" class="form-status hidden" role="status" aria-live="polite"></p>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="about fade-section">
+      <div class="about-inner">
+        <div class="about-photo">
+          <img class="portrait" src="https://raw.githubusercontent.com/Joelokechu/joeleze.github.io/refs/heads/main/Joel%20Eze.jpg" alt="Portrait of Joel Eze" width="240" height="240" loading="lazy" />
         </div>
-        <div class="project-card" role="listitem">
-          <h3>Electronic Sales Dashboard</h3>
-          <iframe title="Electronic Sales Dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="project-card" role="listitem">
-          <h3>Excel Project</h3>
-          <iframe title="Excel Project" src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True" loading="lazy"></iframe>
+        <div class="about-text">
+          <p class="eyebrow">ABOUT ME</p>
+          <h2>Clear analysis, practical insight and reporting people can use.</h2>
+          <p>I’m a Data Analyst with experience across Power BI, SQL, Python and Excel. I enjoy turning complex or untidy information into structured analysis that supports smarter decisions.</p>
+          <p>My work combines data transformation, visual storytelling and stakeholder-focused reporting—so the final result is not only technically correct, but also clear and actionable.</p>
+          <div class="skill-list" aria-label="Technical skills">
+            <span>Power BI</span><span>SQL</span><span>Python</span><span>Excel</span><span>Data visualisation</span>
+          </div>
         </div>
       </div>
-      <button class="carousel-arrow right" aria-label="Next project">&gt;</button>
-      <div class="carousel-dots" aria-hidden="true"></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- === Contact Section === -->
-  <section id="contact" class="contact fade-section">
-    <div class="contact-card">
-      <h2>Get in Touch</h2>
-      <p>I’d love to hear from you! Whether you’d like to discuss data projects, collaborations, or have a quick question — feel free to reach out.</p>
-      <p><a href="mailto:Joel.okechu@gmail.com"><i class="fas fa-envelope"></i> Joel.okechu@gmail.com</a></p>
-      <p><a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> linkedin.com/in/jeze12</a></p>
-    </div>
-  </section>
+    <section id="projects" class="projects fade-section">
+      <div class="section-heading">
+        <p class="eyebrow">SELECTED WORK</p>
+        <h2>Featured Projects</h2>
+        <p>Explore interactive dashboards and analytical work across sales, operations and customer data.</p>
+      </div>
 
-  <!-- === Footer === -->
-  <footer>
-    <p>© 2025 Joel Eze — All Rights Reserved.</p>
-  </footer>
+      <div class="project-carousel" aria-roledescription="carousel" aria-label="Featured projects">
+        <button class="carousel-arrow left" type="button" aria-label="Previous projects">‹</button>
 
-  <!-- === Chat Bubble === -->
+        <div class="carousel-viewport" tabindex="0">
+          <div class="carousel-track" role="list">
+            <article class="project-card" role="listitem">
+              <div class="project-card-heading"><span class="project-type">Power BI</span><h3>Airline Delays and Cancellations</h3></div>
+              <iframe title="Airline delays and cancellations Power BI dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
+              <a class="project-link" href="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" target="_blank" rel="noopener noreferrer">Open dashboard</a>
+            </article>
+
+            <article class="project-card" role="listitem">
+              <div class="project-card-heading"><span class="project-type">Power BI</span><h3>Olist Sales Analysis</h3></div>
+              <iframe title="Olist sales Power BI dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
+              <a class="project-link" href="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" target="_blank" rel="noopener noreferrer">Open dashboard</a>
+            </article>
+
+            <article class="project-card" role="listitem">
+              <div class="project-card-heading"><span class="project-type">Power BI</span><h3>Electronic Sales Dashboard</h3></div>
+              <iframe title="Electronic sales Power BI dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
+              <a class="project-link" href="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" target="_blank" rel="noopener noreferrer">Open dashboard</a>
+            </article>
+
+            <article class="project-card" role="listitem">
+              <div class="project-card-heading"><span class="project-type">Excel</span><h3>Excel Analysis Project</h3></div>
+              <iframe title="Excel analysis project" src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&amp;action=embedview&amp;wdAllowInteractivity=False&amp;wdHideGridlines=True&amp;wdHideHeaders=True&amp;wdDownloadButton=True&amp;wdInConfigurator=True" loading="lazy"></iframe>
+              <a class="project-link" href="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&amp;action=embedview" target="_blank" rel="noopener noreferrer">Open workbook</a>
+            </article>
+          </div>
+        </div>
+
+        <button class="carousel-arrow right" type="button" aria-label="Next projects">›</button>
+        <div class="carousel-dots" aria-label="Choose a project page"></div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact fade-section">
+      <div class="contact-card">
+        <p class="eyebrow">LET’S CONNECT</p>
+        <h2>Have a data project in mind?</h2>
+        <p>Whether you need a dashboard, help cleaning a dataset or clearer reporting, send me a message and let’s discuss what would be most useful.</p>
+        <div class="contact-links">
+          <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a>
+          <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">linkedin.com/in/jeze12</a>
+        </div>
+        <a href="#consultation" class="btn">Book a free consultation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>© <span id="current-year">2026</span> Joel Eze. All rights reserved.</p></footer>
+
   <div id="chat-bubble" class="collapsed">
-    <div class="collapsed-content">💬 Chat</div>
-    <div class="chat-header hidden">💬 Chat With Me</div>
-    <div id="chat-window" class="hidden" role="log" aria-live="polite"></div>
-    <form id="chat-form" class="hidden">
-      <div class="name-email-group">
-        <input type="text" id="user-name" placeholder="Your Name" required />
-        <input type="email" id="user-email" placeholder="Your Email" required />
-      </div>
-      <div class="message-row">
-        <textarea id="user-input" placeholder="Your Message" required></textarea>
-        <button type="submit">Send</button>
-      </div>
-      <div id="change-info" class="hidden">Change your name or email</div>
-    </form>
-  </div>
+    <button id="chat-launcher" class="collapsed-content" type="button" aria-expanded="false" aria-controls="chat-panel"><span aria-hidden="true">💬</span> Chat</button>
 
-  <script src="script.js"></script>
+    <section id="chat-panel" class="chat-panel hidden" role="dialog" aria-labelledby="chat-title">
+      <header class="chat-header">
+        <h2 id="chat-title">Chat with me</h2>
+        <button id="chat-close" type="button" aria-label="Close chat">×</button>
+      </header>
+      <div id="chat-window" role="log" aria-live="polite" aria-relevant="additions"></div>
+      <form id="chat-form">
+        <div class="name-email-group">
+          <label><span class="sr-only">Your name</span><input type="text" id="user-name" name="name" placeholder="Your name" autocomplete="name" required /></label>
+          <label><span class="sr-only">Your email</span><input type="email" id="user-email" name="email" placeholder="Your email" autocomplete="email" required /></label>
+        </div>
+        <div class="message-row">
+          <label><span class="sr-only">Your message</span><textarea id="user-input" name="message" placeholder="Your message" maxlength="1500" required></textarea></label>
+          <button type="submit">Send</button>
+        </div>
+        <label class="honeypot" aria-hidden="true"><span>Website</span><input type="text" id="chat-website" tabindex="-1" autocomplete="off" /></label>
+        <button id="change-info" class="change-info hidden" type="button">Change your name or email</button>
+      </form>
+    </section>
+  </div>
 </body>
 </html>
