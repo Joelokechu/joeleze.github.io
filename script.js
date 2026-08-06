@@ -246,6 +246,72 @@ if (chatForm) {
 }
 
 /* ============================
+   FREE CONSULTATION FORM
+   Reuses the same EmailJS service/template as the chat
+   widget (from_name / from_email / message) so it works
+   without extra setup — phone & service type are folded
+   into the message body. Swap in a dedicated template
+   later if you'd like separate, structured fields.
+============================= */
+const consultForm = document.getElementById("consult-form");
+
+if (consultForm) {
+  const statusBox = document.getElementById("consult-status");
+
+  function showConsultStatus(text, type) {
+    statusBox.textContent = text;
+    statusBox.className = type; // "success" or "error"
+    statusBox.classList.remove("hidden");
+  }
+
+  consultForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("consult-name").value.trim();
+    const email = document.getElementById("consult-email").value.trim();
+    const phone = document.getElementById("consult-phone").value.trim();
+    const service = document.getElementById("consult-service").value;
+    const details = document.getElementById("consult-message").value.trim();
+
+    if (!name || !email || !service || !details) {
+      showConsultStatus("⚠️ Please fill in your name, email, service and a few details.", "error");
+      return;
+    }
+
+    const composedMessage =
+      `Free consultation request\n` +
+      `Service: ${service}\n` +
+      (phone ? `Phone: ${phone}\n` : "") +
+      `Details: ${details}`;
+
+    const submitBtn = consultForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    showConsultStatus("Sending your request…", "success");
+
+    if (!window.emailjs) {
+      submitBtn.disabled = false;
+      showConsultStatus("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "error");
+      return;
+    }
+
+    emailjs.send("service_71fb2en", "template_56f6p8n", {
+      from_name: name,
+      from_email: email,
+      message: composedMessage,
+    })
+      .then(() => {
+        submitBtn.disabled = false;
+        showConsultStatus(`✅ Thanks ${name}! I've received your request and will reply at ${email} within one business day.`, "success");
+        consultForm.reset();
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        showConsultStatus("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "error");
+      });
+  });
+}
+
+/* ============================
    DARK / LIGHT MODE TOGGLE
    Defaults to the visitor's system preference
    the first time they land on the site.
