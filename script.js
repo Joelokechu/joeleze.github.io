@@ -1,492 +1,479 @@
-/* ============================
-   Smooth Scroll for Navigation
-============================= */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (!href.startsWith('#') || href === '#') return;
-    const target = document.querySelector(href);
-    if (!target) return;
-    e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth' });
-  });
-});
+(() => {
+  "use strict";
 
-/* ============================
-   Navbar Background on Scroll
-   (respects current light/dark theme)
-============================= */
-const navbar = document.querySelector('.navbar');
-function updateNavbarBackground() {
-  const isLight = document.body.classList.contains('light');
-  const scrolled = window.scrollY > 80;
+  const EMAILJS_PUBLIC_KEY = "rgJiaabQfCfMpGz3t";
+  const EMAILJS_SERVICE_ID = "service_71fb2en";
+  const EMAILJS_TEMPLATE_ID = "template_56f6p8n";
 
-  if (isLight) {
-    navbar.style.background = scrolled ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.85)';
-  } else {
-    navbar.style.background = scrolled ? 'rgba(11, 12, 16, 0.95)' : 'rgba(0,0,0,0.7)';
-  }
-  navbar.style.boxShadow = scrolled ? '0 2px 10px rgba(0,0,0,0.35)' : 'none';
-}
-window.addEventListener('scroll', updateNavbarBackground);
-
-/* ============================
-   Fade-in Section Animation
-============================= */
-const fadeSections = document.querySelectorAll('.fade-section');
-const appearObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('appear');
-      appearObserver.unobserve(entry.target);
+  const safeStorage = {
+    get(key) {
+      try { return localStorage.getItem(key); } catch { return null; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(key, value); } catch { /* Storage may be blocked. */ }
+    },
+    remove(key) {
+      try { localStorage.removeItem(key); } catch { /* Storage may be blocked. */ }
     }
-  });
-}, { threshold: 0.2 });
+  };
 
-fadeSections.forEach(section => appearObserver.observe(section));
+  const qs = (selector, parent = document) => parent.querySelector(selector);
+  const qsa = (selector, parent = document) => [...parent.querySelectorAll(selector)];
 
-/* ============================
-   EmailJS Initialization
-============================= */
-if (window.emailjs) {
-  emailjs.init("rgJiaabQfCfMpGz3t");
-}
-
-/* ============================
-   Hamburger Menu Logic
-============================= */
-const desktopHamburger = document.querySelector(".desktop-hamburger");
-const adminDropdown = document.querySelector(".admin-dropdown");
-const mobileHamburger = document.querySelector(".mobile-hamburger");
-const mobileMenu = document.querySelector(".mobile-menu");
-
-function toggleAdminDropdown() {
-  desktopHamburger.classList.toggle("active");
-  adminDropdown.classList.toggle("hidden");
-}
-
-desktopHamburger.addEventListener("click", (e) => {
-  e.stopPropagation();
-  toggleAdminDropdown();
-});
-desktopHamburger.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    toggleAdminDropdown();
-  }
-});
-
-document.addEventListener("click", (e) => {
-  if (!adminDropdown.contains(e.target) && !desktopHamburger.contains(e.target)) {
-    adminDropdown.classList.add("hidden");
-    desktopHamburger.classList.remove("active");
-  }
-});
-
-function toggleMobileMenu() {
-  mobileHamburger.classList.toggle("active");
-  mobileMenu.classList.toggle("hidden");
-}
-
-mobileHamburger.addEventListener("click", toggleMobileMenu);
-mobileHamburger.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    toggleMobileMenu();
-  }
-});
-
-mobileMenu.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    mobileMenu.classList.add("hidden");
-    mobileHamburger.classList.remove("active");
-  });
-});
-
-/* ============================
-   Chat Widget Logic
-============================= */
-const chatBubble = document.getElementById("chat-bubble");
-const chatHeader = chatBubble.querySelector(".chat-header");
-const chatWindow = document.getElementById("chat-window");
-const chatForm = document.getElementById("chat-form");
-const userInput = document.getElementById("user-input");
-const collapsedContent = chatBubble.querySelector(".collapsed-content");
-const changeInfo = document.getElementById("change-info");
-
-function addMessage(text, sender) {
-  const msg = document.createElement("div");
-  msg.classList.add("message", sender);
-  msg.textContent = text;
-  chatWindow.appendChild(msg);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-}
-
-function showTypingIndicator() {
-  const typing = document.createElement("div");
-  typing.classList.add("message", "bot", "typing");
-  typing.innerHTML = `
-    <span class="typing-dot"></span>
-    <span class="typing-dot"></span>
-    <span class="typing-dot"></span>
-  `;
-  chatWindow.appendChild(typing);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-  return typing;
-}
-
-chatBubble.addEventListener("click", (e) => {
-  const interactive = e.target.closest("#chat-form") ||
-    e.target.tagName === "INPUT" ||
-    e.target.tagName === "BUTTON";
-
-  if (interactive) return;
-
-  const expanded = chatBubble.classList.contains("expanded");
-
-  if (expanded) {
-    chatBubble.classList.remove("expanded");
-    chatBubble.classList.add("collapsed");
-    chatHeader.classList.add("hidden");
-    chatWindow.classList.add("hidden");
-    chatForm.classList.add("hidden");
-    collapsedContent.classList.remove("hidden");
-  } else {
-    chatBubble.classList.remove("collapsed");
-    chatBubble.classList.add("expanded");
-    chatHeader.classList.remove("hidden");
-    chatWindow.classList.remove("hidden");
-    chatForm.classList.remove("hidden");
-    collapsedContent.classList.add("hidden");
-    userInput.focus();
-
-    if (chatWindow.children.length === 0) {
-      addMessage("👋 Hi there! I’m Joel’s assistant bot. You can leave your name, email, and message, and Joel will get back to you shortly.", "bot");
+  function initialiseEmailJS() {
+    if (!window.emailjs) return false;
+    try {
+      window.emailjs.init(EMAILJS_PUBLIC_KEY);
+      return true;
+    } catch {
+      return false;
     }
   }
-});
 
-if (chatForm) {
-  const nameInput = document.getElementById("user-name");
-  const emailInput = document.getElementById("user-email");
-
-  const savedName = localStorage.getItem("chatUserName");
-  const savedEmail = localStorage.getItem("chatUserEmail");
-
-  if (savedName && savedEmail) {
-    nameInput.value = savedName;
-    emailInput.value = savedEmail;
-    nameInput.style.display = "none";
-    emailInput.style.display = "none";
-    changeInfo.classList.remove("hidden");
-  }
-
-  changeInfo.addEventListener("click", () => {
-    localStorage.removeItem("chatUserName");
-    localStorage.removeItem("chatUserEmail");
-
-    nameInput.style.display = "block";
-    emailInput.style.display = "block";
-    changeInfo.classList.add("hidden");
-
-    addMessage("✏️ You can now update your name and email.", "bot");
-  });
-
-  chatForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const msg = userInput.value.trim();
-
-    if (!name || !email || !msg) {
-      addMessage("⚠️ Please fill in your name, email, and message before sending.", "bot");
-      return;
-    }
-
-    localStorage.setItem("chatUserName", name);
-    localStorage.setItem("chatUserEmail", email);
-
-    nameInput.style.display = "none";
-    emailInput.style.display = "none";
-    changeInfo.classList.remove("hidden");
-
-    addMessage(msg, "user");
-    userInput.value = "";
-
-    const typing = showTypingIndicator();
-    const submitBtn = chatForm.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-
-    if (!window.emailjs) {
-      typing.remove();
-      submitBtn.disabled = false;
-      addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
-      return;
-    }
-
-    emailjs.send("service_71fb2en", "template_56f6p8n", {
-      from_name: name,
-      from_email: email,
-      message: msg,
-    })
-      .then(() => {
-        setTimeout(() => {
-          typing.remove();
-          submitBtn.disabled = false;
-          addMessage(`✅ Thanks ${name}! Your message has been sent. I’ll get back to you at ${email}.`, "bot");
-        }, 900);
-      })
-      .catch(() => {
-        typing.remove();
-        submitBtn.disabled = false;
-        addMessage("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "bot");
+  function initialiseSmoothScroll() {
+    qsa('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const href = anchor.getAttribute("href");
+        if (!href || href === "#") return;
+        const target = qs(href);
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
       });
-  });
-}
-
-/* ============================
-   FREE CONSULTATION FORM
-   Reuses the same EmailJS service/template as the chat
-   widget (from_name / from_email / message) so it works
-   without extra setup — phone & service type are folded
-   into the message body. Swap in a dedicated template
-   later if you'd like separate, structured fields.
-============================= */
-const consultForm = document.getElementById("consult-form");
-
-if (consultForm) {
-  const statusBox = document.getElementById("consult-status");
-
-  function showConsultStatus(text, type) {
-    statusBox.textContent = text;
-    statusBox.className = type; // "success" or "error"
-    statusBox.classList.remove("hidden");
+    });
   }
 
-  consultForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  function initialiseNavbar() {
+    const navbar = qs(".navbar");
+    if (!navbar) return;
 
-    const name = document.getElementById("consult-name").value.trim();
-    const email = document.getElementById("consult-email").value.trim();
-    const phone = document.getElementById("consult-phone").value.trim();
-    const service = document.getElementById("consult-service").value;
-    const details = document.getElementById("consult-message").value.trim();
+    const update = () => navbar.classList.toggle("scrolled", window.scrollY > 24);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
 
-    if (!name || !email || !service || !details) {
-      showConsultStatus("⚠️ Please fill in your name, email, service and a few details.", "error");
-      return;
-    }
+    const desktopButton = qs("#desktop-menu-button");
+    const adminDropdown = qs("#admin-dropdown");
+    const mobileButton = qs("#mobile-menu-button");
+    const mobileMenu = qs("#mobile-menu");
 
-    const composedMessage =
-      `Free consultation request\n` +
-      `Service: ${service}\n` +
-      (phone ? `Phone: ${phone}\n` : "") +
-      `Details: ${details}`;
+    const closeAdmin = () => {
+      if (!desktopButton || !adminDropdown) return;
+      desktopButton.classList.remove("active");
+      desktopButton.setAttribute("aria-expanded", "false");
+      adminDropdown.classList.add("hidden");
+    };
 
-    const submitBtn = consultForm.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    showConsultStatus("Sending your request…", "success");
+    const closeMobile = () => {
+      if (!mobileButton || !mobileMenu) return;
+      mobileButton.classList.remove("active");
+      mobileButton.setAttribute("aria-expanded", "false");
+      mobileMenu.classList.add("hidden");
+    };
 
-    if (!window.emailjs) {
-      submitBtn.disabled = false;
-      showConsultStatus("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "error");
-      return;
-    }
+    desktopButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeMobile();
+      const willOpen = adminDropdown.classList.contains("hidden");
+      adminDropdown.classList.toggle("hidden", !willOpen);
+      desktopButton.classList.toggle("active", willOpen);
+      desktopButton.setAttribute("aria-expanded", String(willOpen));
+    });
 
-    emailjs.send("service_71fb2en", "template_56f6p8n", {
-      from_name: name,
-      from_email: email,
-      message: composedMessage,
-    })
-      .then(() => {
-        submitBtn.disabled = false;
-        showConsultStatus(`✅ Thanks ${name}! I've received your request and will reply at ${email} within one business day.`, "success");
-        consultForm.reset();
-      })
-      .catch(() => {
-        submitBtn.disabled = false;
-        showConsultStatus("⚠️ Something went wrong. Please email me directly at Joel.okechu@gmail.com", "error");
-      });
-  });
-}
+    mobileButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeAdmin();
+      const willOpen = mobileMenu.classList.contains("hidden");
+      mobileMenu.classList.toggle("hidden", !willOpen);
+      mobileButton.classList.toggle("active", willOpen);
+      mobileButton.setAttribute("aria-expanded", String(willOpen));
+    });
 
-/* ============================
-   DARK / LIGHT MODE TOGGLE
-   Defaults to the visitor's system preference
-   the first time they land on the site.
-============================= */
-const toggleTheme = document.getElementById("dark-toggle");
-const savedTheme = localStorage.getItem("theme");
-const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-const startDark = savedTheme ? savedTheme === "dark" : prefersDark;
+    qsa("a", mobileMenu || document.createElement("div")).forEach((link) => link.addEventListener("click", closeMobile));
 
-document.body.classList.add(startDark ? "dark" : "light");
-toggleTheme.checked = startDark;
+    document.addEventListener("click", (event) => {
+      if (adminDropdown && desktopButton && !adminDropdown.contains(event.target) && !desktopButton.contains(event.target)) closeAdmin();
+      if (mobileMenu && mobileButton && !mobileMenu.contains(event.target) && !mobileButton.contains(event.target)) closeMobile();
+    });
 
-toggleTheme.addEventListener("change", () => {
-  if (toggleTheme.checked) {
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-  } else {
-    document.body.classList.remove("dark");
-    document.body.classList.add("light");
-    localStorage.setItem("theme", "light");
-  }
-  updateNavbarBackground();
-});
-
-/* ============================
-   FADE & RIPPLE EFFECTS ON TOGGLE
-============================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const fade = document.createElement("div");
-  fade.className = "page-fade";
-  document.body.appendChild(fade);
-
-  const ripple = document.createElement("div");
-  ripple.className = "ripple";
-  document.body.appendChild(ripple);
-
-  toggleTheme.addEventListener("change", (e) => {
-    fade.style.opacity = "1";
-    setTimeout(() => (fade.style.opacity = "0"), 300);
-
-    const rect = e.target.nextElementSibling.getBoundingClientRect();
-    ripple.style.left = rect.left + rect.width / 2 + "px";
-    ripple.style.top = rect.top + rect.height / 2 + "px";
-
-    ripple.classList.add("active");
-    setTimeout(() => ripple.classList.remove("active"), 600);
-  });
-
-  updateNavbarBackground();
-});
-
-/* ============================================================
-   PROJECT CAROUSEL
-   - Desktop/tablet (>900px): JS-driven, 2 cards per slide,
-     arrows disable at the ends, gentle autoplay that pauses
-     on hover/focus and respects reduced-motion.
-   - Mobile (<=900px): native horizontal scroll-snap (CSS),
-     JS just keeps the dot indicators in sync.
-=============================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const carousel = document.querySelector(".project-carousel");
-  const track = document.querySelector(".carousel-track");
-  if (!carousel || !track) return;
-
-  const cards = Array.from(track.children);
-  const nextButton = document.querySelector(".carousel-arrow.right");
-  const prevButton = document.querySelector(".carousel-arrow.left");
-  const dotsContainer = document.querySelector(".carousel-dots");
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  let index = 0;
-  let autoplayId = null;
-
-  const isMobile = () => window.innerWidth <= 900;
-  const cardsPerSlide = () => (window.innerWidth <= 768 ? 1 : 2);
-
-  // ---- Dots (mobile only) ----
-  cards.forEach((_, i) => {
-    const dot = document.createElement("span");
-    dot.className = "dot" + (i === 0 ? " active" : "");
-    dotsContainer.appendChild(dot);
-  });
-  const dots = Array.from(dotsContainer.children);
-
-  function setActiveDot(i) {
-    dots.forEach((d, di) => d.classList.toggle("active", di === i));
-  }
-
-  let scrollTimeout;
-  track.addEventListener("scroll", () => {
-    if (!isMobile()) return;
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      const cardWidth = cards[0].getBoundingClientRect().width + 12; // + gap
-      const nearest = Math.round(track.scrollLeft / cardWidth);
-      setActiveDot(Math.min(nearest, dots.length - 1));
-    }, 100);
-  });
-
-  // ---- Desktop/tablet transform-based paging ----
-  function maxIndex() {
-    return Math.max(cards.length - cardsPerSlide(), 0);
-  }
-
-  function updateArrowState() {
-    if (!prevButton || !nextButton) return;
-    prevButton.disabled = index <= 0;
-    nextButton.disabled = index >= maxIndex();
-  }
-
-  function updateSlider() {
-    if (isMobile()) return; // native scroll handles it
-    const cardWidth = cards[0].getBoundingClientRect().width;
-    const gap = 19.2; // matches 1.2rem gap
-    track.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
-    updateArrowState();
-  }
-
-  function goNext() {
-    index = Math.min(index + cardsPerSlide(), maxIndex());
-    updateSlider();
-  }
-
-  function goPrev() {
-    index = Math.max(index - cardsPerSlide(), 0);
-    updateSlider();
-  }
-
-  nextButton.addEventListener("click", () => { goNext(); restartAutoplay(); });
-  prevButton.addEventListener("click", () => { goPrev(); restartAutoplay(); });
-
-  function startAutoplay() {
-    if (prefersReducedMotion || isMobile()) return;
-    autoplayId = setInterval(() => {
-      if (index >= maxIndex()) {
-        index = 0;
-      } else {
-        index += cardsPerSlide();
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeAdmin();
+        closeMobile();
       }
-      updateSlider();
-    }, 7000);
+    });
   }
 
-  function stopAutoplay() {
-    clearInterval(autoplayId);
+  function initialiseTheme() {
+    const toggle = qs("#dark-toggle");
+    const fade = qs(".page-fade");
+    const ripple = qs(".theme-ripple");
+    if (!toggle) return;
+
+    const currentTheme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+    toggle.checked = currentTheme === "dark";
+
+    toggle.addEventListener("change", () => {
+      const theme = toggle.checked ? "dark" : "light";
+      const label = toggle.nextElementSibling;
+      const rect = label?.getBoundingClientRect();
+
+      if (fade) {
+        fade.style.opacity = "0.5";
+        window.setTimeout(() => { fade.style.opacity = "0"; }, 160);
+      }
+
+      if (ripple && rect) {
+        ripple.style.left = `${rect.left + rect.width / 2}px`;
+        ripple.style.top = `${rect.top + rect.height / 2}px`;
+        ripple.classList.remove("active");
+        void ripple.offsetWidth;
+        ripple.classList.add("active");
+      }
+
+      document.documentElement.dataset.theme = theme;
+      safeStorage.set("theme", theme);
+      const themeColour = qs('meta[name="theme-color"]');
+      themeColour?.setAttribute("content", theme === "dark" ? "#0b0e13" : "#f4f7fa");
+    });
   }
 
-  function restartAutoplay() {
-    stopAutoplay();
-    startAutoplay();
+  function initialiseRevealAnimations() {
+    const sections = qsa(".fade-section");
+    if (!("IntersectionObserver" in window)) {
+      sections.forEach((section) => section.classList.add("appear"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("appear");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px" });
+
+    sections.forEach((section) => observer.observe(section));
   }
 
-  carousel.addEventListener("mouseenter", stopAutoplay);
-  carousel.addEventListener("mouseleave", startAutoplay);
-  carousel.addEventListener("focusin", stopAutoplay);
-  carousel.addEventListener("focusout", startAutoplay);
+  async function sendEmail(parameters) {
+    if (!window.emailjs) throw new Error("EmailJS unavailable");
+    return window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, parameters);
+  }
 
-  let resizeTimeout;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      index = Math.min(index, maxIndex());
-      if (isMobile()) {
-        track.style.transform = "none";
-        stopAutoplay();
+  function initialiseConsultationForm() {
+    const form = qs("#consult-form");
+    if (!form) return;
+
+    const status = qs("#consult-status");
+    const submit = qs('button[type="submit"]', form);
+    let lastSubmittedAt = 0;
+
+    const showStatus = (message, type) => {
+      if (!status) return;
+      status.textContent = message;
+      status.className = `form-status ${type}`;
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      if (qs("#consult-website")?.value) return;
+
+      const now = Date.now();
+      if (now - lastSubmittedAt < 15000) {
+        showStatus("Please wait a few seconds before sending another request.", "error");
+        return;
+      }
+
+      const name = qs("#consult-name")?.value.trim() || "";
+      const email = qs("#consult-email")?.value.trim() || "";
+      const phone = qs("#consult-phone")?.value.trim() || "";
+      const service = qs("#consult-service")?.value || "";
+      const details = qs("#consult-message")?.value.trim() || "";
+
+      const message = [
+        "Free consultation request",
+        `Service: ${service}`,
+        phone ? `Phone: ${phone}` : null,
+        `Details: ${details}`
+      ].filter(Boolean).join("\n");
+
+      submit.disabled = true;
+      showStatus("Sending your request…", "success");
+
+      try {
+        await sendEmail({ from_name: name, from_email: email, message });
+        lastSubmittedAt = Date.now();
+        showStatus(`Thanks ${name}. Your request has been sent and I’ll reply to ${email}.`, "success");
+        form.reset();
+      } catch {
+        showStatus("The form could not send. Please email Joel.okechu@gmail.com directly.", "error");
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  }
+
+  function initialiseChat() {
+    const bubble = qs("#chat-bubble");
+    const launcher = qs("#chat-launcher");
+    const panel = qs("#chat-panel");
+    const closeButton = qs("#chat-close");
+    const windowElement = qs("#chat-window");
+    const form = qs("#chat-form");
+    const nameInput = qs("#user-name");
+    const emailInput = qs("#user-email");
+    const messageInput = qs("#user-input");
+    const changeInfo = qs("#change-info");
+    if (!bubble || !launcher || !panel || !windowElement || !form || !nameInput || !emailInput || !messageInput) return;
+
+    let lastSubmittedAt = 0;
+
+    const addMessage = (text, sender) => {
+      const message = document.createElement("div");
+      message.className = `message ${sender}`;
+      message.textContent = text;
+      windowElement.appendChild(message);
+      windowElement.scrollTop = windowElement.scrollHeight;
+      return message;
+    };
+
+    const addTyping = () => {
+      const typing = document.createElement("div");
+      typing.className = "message bot typing";
+      typing.setAttribute("aria-label", "Typing");
+      typing.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+      windowElement.appendChild(typing);
+      windowElement.scrollTop = windowElement.scrollHeight;
+      return typing;
+    };
+
+    const openChat = () => {
+      bubble.classList.replace("collapsed", "expanded");
+      launcher.classList.add("hidden");
+      panel.classList.remove("hidden");
+      launcher.setAttribute("aria-expanded", "true");
+      if (!windowElement.children.length) addMessage("Hi! Leave your name, email and message, and I’ll get back to you shortly.", "bot");
+      window.setTimeout(() => messageInput.focus(), 0);
+    };
+
+    const closeChat = () => {
+      bubble.classList.replace("expanded", "collapsed");
+      panel.classList.add("hidden");
+      launcher.classList.remove("hidden");
+      launcher.setAttribute("aria-expanded", "false");
+      launcher.focus();
+    };
+
+    launcher.addEventListener("click", openChat);
+    closeButton?.addEventListener("click", closeChat);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !panel.classList.contains("hidden")) closeChat();
+    });
+
+    const savedName = safeStorage.get("chatUserName");
+    const savedEmail = safeStorage.get("chatUserEmail");
+    if (savedName && savedEmail) {
+      nameInput.value = savedName;
+      emailInput.value = savedEmail;
+      nameInput.closest("label")?.classList.add("hidden");
+      emailInput.closest("label")?.classList.add("hidden");
+      changeInfo?.classList.remove("hidden");
+    }
+
+    changeInfo?.addEventListener("click", () => {
+      safeStorage.remove("chatUserName");
+      safeStorage.remove("chatUserEmail");
+      nameInput.closest("label")?.classList.remove("hidden");
+      emailInput.closest("label")?.classList.remove("hidden");
+      changeInfo.classList.add("hidden");
+      nameInput.focus();
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      if (qs("#chat-website")?.value) return;
+
+      const now = Date.now();
+      if (now - lastSubmittedAt < 10000) {
+        addMessage("Please wait a few seconds before sending another message.", "bot");
+        return;
+      }
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const text = messageInput.value.trim();
+      const submit = qs('button[type="submit"]', form);
+
+      safeStorage.set("chatUserName", name);
+      safeStorage.set("chatUserEmail", email);
+      nameInput.closest("label")?.classList.add("hidden");
+      emailInput.closest("label")?.classList.add("hidden");
+      changeInfo?.classList.remove("hidden");
+
+      addMessage(text, "user");
+      messageInput.value = "";
+      submit.disabled = true;
+      const typing = addTyping();
+
+      try {
+        await sendEmail({ from_name: name, from_email: email, message: text });
+        lastSubmittedAt = Date.now();
+        typing.remove();
+        addMessage(`Thanks ${name}. Your message has been sent and I’ll reply to ${email}.`, "bot");
+      } catch {
+        typing.remove();
+        addMessage("The message could not send. Please email Joel.okechu@gmail.com directly.", "bot");
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  }
+
+  function initialiseCarousel() {
+    const carousel = qs(".project-carousel");
+    const viewport = qs(".carousel-viewport", carousel || document);
+    const track = qs(".carousel-track", carousel || document);
+    const previous = qs(".carousel-arrow.left", carousel || document);
+    const next = qs(".carousel-arrow.right", carousel || document);
+    const dotsContainer = qs(".carousel-dots", carousel || document);
+    if (!carousel || !viewport || !track || !previous || !next || !dotsContainer) return;
+
+    const cards = qsa(".project-card", track);
+    if (!cards.length) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let page = 0;
+    let autoplayId = null;
+    let resizeId = null;
+
+    const perPage = () => window.innerWidth <= 980 ? 1 : 2;
+    const pageCount = () => Math.ceil(cards.length / perPage());
+    const gap = () => parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+
+    const stopAutoplay = () => {
+      if (autoplayId !== null) {
+        window.clearInterval(autoplayId);
+        autoplayId = null;
+      }
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (reducedMotion.matches || document.hidden || pageCount() < 2) return;
+      autoplayId = window.setInterval(() => {
+        page = (page + 1) % pageCount();
+        render();
+      }, 7000);
+    };
+
+    const renderDots = () => {
+      dotsContainer.replaceChildren();
+      for (let index = 0; index < pageCount(); index += 1) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = `carousel-dot${index === page ? " active" : ""}`;
+        dot.setAttribute("aria-label", `Show project page ${index + 1}`);
+        dot.setAttribute("aria-current", index === page ? "true" : "false");
+        dot.addEventListener("click", () => {
+          page = index;
+          render();
+          startAutoplay();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    };
+
+    const render = () => {
+      page = Math.min(page, Math.max(pageCount() - 1, 0));
+      const step = cards[0].getBoundingClientRect().width + gap();
+      track.style.transform = `translate3d(-${page * perPage() * step}px, 0, 0)`;
+      previous.disabled = page === 0;
+      next.disabled = page >= pageCount() - 1;
+      renderDots();
+    };
+
+    previous.addEventListener("click", () => {
+      page = Math.max(page - 1, 0);
+      render();
+      startAutoplay();
+    });
+
+    next.addEventListener("click", () => {
+      page = Math.min(page + 1, pageCount() - 1);
+      render();
+      startAutoplay();
+    });
+
+    viewport.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") previous.click();
+      if (event.key === "ArrowRight") next.click();
+    });
+
+    let pointerStart = null;
+    viewport.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      pointerStart = event.clientX;
+      stopAutoplay();
+    });
+    viewport.addEventListener("pointerup", (event) => {
+      if (pointerStart === null) return;
+      const distance = event.clientX - pointerStart;
+      pointerStart = null;
+      if (Math.abs(distance) > 55) {
+        if (distance < 0) next.click();
+        else previous.click();
       } else {
-        updateSlider();
         startAutoplay();
       }
-    }, 150);
-  });
+    });
+    viewport.addEventListener("pointercancel", () => {
+      pointerStart = null;
+      startAutoplay();
+    });
 
-  if (!isMobile()) {
-    updateSlider();
+    carousel.addEventListener("mouseenter", stopAutoplay);
+    carousel.addEventListener("mouseleave", startAutoplay);
+    carousel.addEventListener("focusin", stopAutoplay);
+    carousel.addEventListener("focusout", (event) => {
+      if (!carousel.contains(event.relatedTarget)) startAutoplay();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopAutoplay();
+      else startAutoplay();
+    });
+
+    window.addEventListener("resize", () => {
+      window.clearTimeout(resizeId);
+      resizeId = window.setTimeout(() => {
+        page = Math.min(page, pageCount() - 1);
+        render();
+        startAutoplay();
+      }, 140);
+    });
+
+    reducedMotion.addEventListener?.("change", startAutoplay);
+    render();
     startAutoplay();
   }
-});
+
+  function initialiseFooter() {
+    const year = qs("#current-year");
+    if (year) year.textContent = String(new Date().getFullYear());
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initialiseEmailJS();
+    initialiseSmoothScroll();
+    initialiseNavbar();
+    initialiseTheme();
+    initialiseRevealAnimations();
+    initialiseConsultationForm();
+    initialiseChat();
+    initialiseCarousel();
+    initialiseFooter();
+  });
+})();
