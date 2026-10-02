@@ -1,52 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <meta name="robots" content="noindex,nofollow" />
-  <meta name="referrer" content="no-referrer" />
-
-  <title>Track your request | Insights by Joel</title>
-
-  <link rel="stylesheet" href="style.css" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Your request | Insights by Joel</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tickets.css">
   <script defer src="ticket-config.js"></script>
   <script defer src="tickets.js"></script>
 </head>
-
-<body>
-  <main class="ticket-shell">
-    <a href="index.html">Insights by Joel</a>
-
-    <h1>Track your request</h1>
-
-    <p>
-      This link is private. Keep it so you can return for updates.
-    </p>
-
-    <div
-      id="ticket-result"
-      class="ticket-box"
-      role="status"
-      aria-live="polite"
-    >
-      Loading your request…
-    </div>
-
-    <button id="refresh-status" type="button">
-      Refresh status
-    </button>
-
-    <p>
-      <a href="mailto:Joel.okechu@gmail.com">
-        Contact Joel
-      </a>
-    </p>
+<body class="tracking-page">
+  <main class="tracking-shell">
+    <a class="tracking-brand" href="index.html"><img class="tracking-logo" src="logo.png" alt="Insights by Joel logo" width="64" height="64">Insights by Joel</a>
+    <p class="tracking-intro">Your private request page. Keep this link to return for updates.</p>
+    <section class="receipt-card" aria-label="Request status">
+      <header class="receipt-head"><img class="receipt-logo" src="logo.png" alt="Insights by Joel logo" width="84" height="84"><p class="receipt-kicker">Your project, one step closer</p><h3>Request overview</h3></header>
+      <div class="receipt-body">
+        <div id="ticket-result" role="status" aria-live="polite">Loading your request…</div>
+        <div class="receipt-actions"><button id="refresh-status" type="button">Refresh status</button><a href="mailto:joel.okechu@gmail.com">Contact Joel</a></div>
+      </div>
+    </section>
+    <p class="tracking-footer">Data analysis · Web development · Free consultation<br><a href="index.html">Back to Insights by Joel</a></p>
   </main>
 </body>
 </html>
