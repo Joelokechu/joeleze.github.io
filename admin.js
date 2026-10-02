@@ -1,93 +1,321 @@
-/* ---------- Firebase Config ---------- */
-const firebaseConfig = {
-  apiKey: "AIzaSyDpUQZOHf5aUNu8FEd2dEaAoft0BWR3cHM",
-  authDomain: "insightsbyjoel.firebaseapp.com",
-  projectId: "insightsbyjoel",
-  storageBucket: "insightsbyjoel.firebasestorage.app",
-  messagingSenderId: "852390433890",
-  appId: "1:852390433890:web:af1e2f56f6e8ec99fcad3b",
-  measurementId: "G-XWK3J4S54V"
-};
+(async () => {
+  const $ = (id) => document.getElementById(id);
+  const message = $("admin-message");
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const storage = firebase.storage();
-
-/* ---------- Elements ---------- */
-const loginScreen = document.getElementById("login-screen");
-const adminPanel = document.getElementById("admin-panel");
-const loginBtn = document.getElementById("login-btn");
-const logoutBtn = document.getElementById("logout-btn");
-const fileList = document.getElementById("file-list");
-
-const ADMIN_EMAIL = "joel.okechu@gmail.com";
-
-/* ---------- Login ---------- */
-loginBtn.addEventListener("click", () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider);
-});
-
-/* ---------- Auth State ---------- */
-auth.onAuthStateChanged(user => {
-  if (!user) return;
-
-  if (user.email !== ADMIN_EMAIL) {
-    alert("Access denied. Admin only.");
-    auth.signOut();
+  if (!window.IBJTickets.ready() || !window.supabase) {
+    message.textContent =
+      "The ticket system needs to be connected before you can sign in.";
     return;
   }
 
-  loginScreen.classList.add("hidden");
-  adminPanel.classList.remove("hidden");
+  const {
+    supabaseUrl,
+    publishableKey
+  } = window.IBJ_TICKET_CONFIG;
 
-  loadFiles();
-});
+  const db = window.supabase.createClient(
+    supabaseUrl,
+    publishableKey
+  );
 
-/* ---------- Logout ---------- */
-logoutBtn.addEventListener("click", () => auth.signOut());
+  let offset = 0;
 
-/* ---------- Load Files ---------- */
-function loadFiles() {
-  fileList.innerHTML = `<p class="loading">Loading files...</p>`;
+  const statuses = [
+    "New",
+    "Contacted",
+    "In Progress",
+    "Completed",
+    "Closed"
+  ];
 
-  const listRef = storage.ref();
+  const say = (text) => {
+    message.textContent = text;
+  };
 
-  listRef.listAll().then(result => {
-    fileList.innerHTML = "";
+  function field(label, value, tag = "textarea") {
+    const wrapper = document.createElement("label");
+    wrapper.append(document.createTextNode(label));
 
-    result.items.forEach(fileRef => {
-      fileRef.getDownloadURL().then(url => {
-        const row = document.createElement("div");
-        row.classList.add("file-item");
+    const input = document.createElement(tag);
+    input.value = value || "";
 
-        row.innerHTML = `
-          <span>${fileRef.name}</span>
-          <div class="actions">
-            <button onclick="copyURL('${url}')">Copy URL</button>
-            <button onclick="window.open('${url}', '_blank')">Download</button>
-            <button class="del" onclick="deleteFile('${fileRef.fullPath}')">Delete</button>
-          </div>
-        `;
+    wrapper.append(input);
 
-        fileList.appendChild(row);
-      });
+    return [wrapper, input];
+  }
+
+  function card(ticket) {
+    const box = document.createElement("article");
+    box.className = "ticket-box";
+
+    const heading = document.createElement("h2");
+    heading.textContent = ticket.reference;
+
+    const info = document.createElement("p");
+    info.className = "ticket-notes";
+
+    info.textContent =
+      `${window.IBJTickets.labels[ticket.service]} · ` +
+      `${new Date(ticket.created_at).toLocaleString("en-GB")}\n` +
+      `${ticket.name} · ${ticket.email}` +
+      `${ticket.phone ? " · " + ticket.phone : ""}\n\n` +
+      ticket.message;
+
+    const delivery = document.createElement("p");
+    delivery.className = "ticket-meta";
+
+    delivery.textContent =
+      `Confirmation email: ${ticket.customer_email} · ` +
+      `Owner notification: ${ticket.owner_email}`;
+
+    const [statusWrapper, select] = field(
+      "Status",
+      ticket.status,
+      "select"
+    );
+
+    statuses.forEach((status) => {
+      const option = document.createElement("option");
+
+      option.value = status;
+      option.textContent = status;
+
+      select.append(option);
     });
-  });
-}
 
-/* ---------- Copy URL ---------- */
-function copyURL(url) {
-  navigator.clipboard.writeText(url);
-  alert("URL copied!");
-}
+    select.value = ticket.status;
 
-/* ---------- Delete ---------- */
-function deleteFile(path) {
-  if (!confirm("Delete this file?")) return;
+    const [publicWrapper, publicUpdate] = field(
+      "Update visible to customer",
+      ticket.public_update
+    );
 
-  storage.ref(path).delete().then(() => {
-    alert("File deleted.");
-    loadFiles();
-  });
-}
+    publicUpdate.maxLength = 2000;
+
+    const [notesWrapper, notes] = field(
+      "Private notes",
+      ticket.admin_notes
+    );
+
+    notes.maxLength = 10000;
+
+    const buttons = document.createElement("div");
+    buttons.className = "ticket-tools";
+
+    const save = document.createElement("button");
+    save.textContent = "Save changes";
+
+    const remove = document.createElement("button");
+    remove.textContent = "Delete request";
+
+    save.onclick = async () => {
+      save.disabled = true;
+
+      try {
+        const { data, error } = await db
+          .from("ibj_requests")
+          .update({
+            status: select.value,
+            public_update: publicUpdate.value,
+            admin_notes: notes.value
+          })
+          .eq("id", ticket.id)
+          .eq("updated_at", ticket.updated_at)
+          .select("updated_at")
+          .single();
+
+        if (error) throw error;
+
+        ticket.updated_at = data.updated_at;
+
+        say(`${ticket.reference} updated.`);
+      } catch {
+        say(
+          "Could not save. Refresh requests before trying again."
+        );
+      } finally {
+        save.disabled = false;
+      }
+    };
+
+    remove.onclick = async () => {
+      const confirmed = confirm(
+        `Permanently delete ${ticket.reference}? ` +
+        "Its tracking link will stop working."
+      );
+
+      if (!confirmed) return;
+
+      remove.disabled = true;
+
+      try {
+        const { data, error } = await db
+          .from("ibj_requests")
+          .delete()
+          .eq("id", ticket.id)
+          .select("id")
+          .single();
+
+        if (error || !data) {
+          throw new Error("Deletion failed");
+        }
+
+        box.remove();
+
+        say(`${ticket.reference} deleted.`);
+      } catch {
+        say("Could not delete this request.");
+      } finally {
+        remove.disabled = false;
+      }
+    };
+
+    buttons.append(save, remove);
+
+    box.append(
+      heading,
+      info,
+      delivery,
+      statusWrapper,
+      publicWrapper,
+      notesWrapper,
+      buttons
+    );
+
+    return box;
+  }
+
+  async function load(append = false) {
+    if (!append) offset = 0;
+
+    $("more-tickets").disabled = true;
+
+    let query = db
+      .from("ibj_requests")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .range(offset, offset + 49);
+
+    if ($("filter-service").value) {
+      query = query.eq(
+        "service",
+        $("filter-service").value
+      );
+    }
+
+    if ($("filter-status").value) {
+      query = query.eq(
+        "status",
+        $("filter-status").value
+      );
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      say("Unable to load requests. Please sign in again.");
+      $("more-tickets").disabled = false;
+      return;
+    }
+
+    if (!append) {
+      $("ticket-list").replaceChildren();
+    }
+
+    if (!data.length && !append) {
+      $("ticket-list").textContent =
+        "No requests match these filters.";
+    }
+
+    data.forEach((ticket) => {
+      $("ticket-list").append(card(ticket));
+    });
+
+    offset += data.length;
+
+    $("more-tickets").classList.toggle(
+      "hidden",
+      data.length < 50
+    );
+
+    $("more-tickets").disabled = false;
+  }
+
+  async function session(currentSession) {
+    if (currentSession) {
+      const { data, error } = await db
+        .from("ibj_admin_users")
+        .select("user_id")
+        .eq("user_id", currentSession.user.id)
+        .maybeSingle();
+
+      if (error || !data) {
+        say(
+          "This account does not have permission to manage requests."
+        );
+
+        $("ticket-manager").classList.add("hidden");
+        return;
+      }
+    }
+
+    $("ticket-login").classList.toggle(
+      "hidden",
+      !!currentSession
+    );
+
+    $("ticket-manager").classList.toggle(
+      "hidden",
+      !currentSession
+    );
+
+    if (currentSession) {
+      say("Signed in.");
+      await load();
+    } else {
+      $("ticket-list").replaceChildren();
+    }
+  }
+
+  $("ticket-login").onsubmit = async (event) => {
+    event.preventDefault();
+
+    const button = event.target.querySelector("button");
+    button.disabled = true;
+
+    const { data, error } = await db.auth.signInWithPassword({
+      email: event.target.email.value,
+      password: event.target.password.value
+    });
+
+    button.disabled = false;
+
+    if (error) {
+      say("Sign in failed. Check your email and password.");
+      return;
+    }
+
+    event.target.password.value = "";
+
+    await session(data.session);
+  };
+
+  $("logout-tickets").onclick = async () => {
+    await db.auth.signOut();
+    await session(null);
+
+    say("Signed out.");
+  };
+
+  $("reload-tickets").onclick = () => load();
+
+  $("more-tickets").onclick = () => load(true);
+
+  for (const id of ["filter-service", "filter-status"]) {
+    $(id).onchange = () => load();
+  }
+
+  const { data } = await db.auth.getSession();
+
+  await session(data.session);
+})();
