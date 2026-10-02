@@ -12,25 +12,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
 
   <script>
     (() => {
       document.documentElement.classList.replace('no-js', 'js');
-
       try {
         const saved = localStorage.getItem('theme');
-        const preferred = window.matchMedia('(prefers-color-scheme: light)').matches
-          ? 'light'
-          : 'dark';
-
+        const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         document.documentElement.dataset.theme = saved || preferred;
       } catch {
         document.documentElement.dataset.theme = 'dark';
       }
     })();
   </script>
-
   <script defer src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script defer src="ticket-config.js"></script>
   <script defer src="tickets.js"></script>
@@ -39,15 +35,12 @@
 
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-
   <div class="parallax-bg" aria-hidden="true"></div>
   <div class="page-fade" aria-hidden="true"></div>
   <div class="theme-ripple" aria-hidden="true"></div>
 
   <nav class="navbar" aria-label="Main navigation">
-    <a class="logo" href="#hero" aria-label="Insights by Joel home">
-      Insights<span>ByJoel</span>
-    </a>
+    <a class="logo" href="#hero" aria-label="Insights by Joel home" style="display:inline-flex;align-items:center;gap:10px"><img src="logo.png" alt="" width="48" height="48" style="width:48px;height:48px;object-fit:contain"><span style="color:var(--text)">Insights<span>ByJoel</span></span></a>
 
     <div class="nav-right">
       <ul class="nav-links">
@@ -56,54 +49,25 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a class="nav-cta" href="#consultation">Free consultation</a></li>
         <li>
-          <a class="nav-cta" href="#consultation">Free consultation</a>
-        </li>
-        <li>
-          <button
-            class="hamburger desktop-hamburger"
-            id="desktop-menu-button"
-            type="button"
-            aria-label="Open admin menu"
-            aria-expanded="false"
-            aria-controls="admin-dropdown"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
+          <button class="hamburger desktop-hamburger" id="desktop-menu-button" type="button" aria-label="Open admin menu" aria-expanded="false" aria-controls="admin-dropdown">
+            <span></span><span></span><span></span>
           </button>
         </li>
       </ul>
 
       <div class="theme-toggle">
-        <input
-          type="checkbox"
-          id="dark-toggle"
-          aria-label="Use dark theme"
-        />
-
-        <label
-          for="dark-toggle"
-          class="toggle-label"
-          title="Change colour theme"
-        >
+        <input type="checkbox" id="dark-toggle" aria-label="Use dark theme" />
+        <label for="dark-toggle" class="toggle-label" title="Change colour theme">
           <span class="icon sun" aria-hidden="true">☀</span>
           <span class="icon moon" aria-hidden="true">☾</span>
           <span class="toggle-ball" aria-hidden="true"></span>
         </label>
       </div>
 
-      <button
-        class="hamburger mobile-hamburger"
-        id="mobile-menu-button"
-        type="button"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="hamburger mobile-hamburger" id="mobile-menu-button" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
       </button>
     </div>
 
@@ -127,21 +91,12 @@
       <div class="hero-inner">
         <div class="hero-content fade-in-hero">
           <p class="eyebrow">DATA ANALYSIS · WEB DEVELOPMENT</p>
-
           <h1>Clearer insights. Websites that work for your business.</h1>
-
-          <p>
-            I help organisations turn data into practical decisions and build
-            websites that showcase their business and handle customer enquiries.
-          </p>
-
+          <p>I help organisations turn data into practical decisions and build websites that showcase their business and handle customer enquiries.</p>
           <div class="hero-buttons">
             <a href="#projects" class="btn">View my work</a>
-            <a href="Joel_Eze_CV.docx" class="btn btn-ghost" download>
-              Download CV
-            </a>
+            <a href="Joel_Eze_CV.docx" class="btn btn-ghost" download>Download CV</a>
           </div>
-
           <div class="hero-proof" aria-label="Core services">
             <span>Interactive dashboards</span>
             <span>Business websites</span>
@@ -149,59 +104,28 @@
           </div>
         </div>
 
-        <aside
-          id="consultation"
-          class="consultation-card"
-          aria-labelledby="consultation-title"
-        >
+        <aside id="consultation" class="consultation-card" aria-labelledby="consultation-title">
           <p class="eyebrow">START A CONVERSATION</p>
-
           <h2 id="consultation-title">Let’s discuss your project</h2>
-
-          <p class="consultation-sub">
-            Request data analysis, web development or a free consultation using
-            the same form.
-          </p>
+          <p class="consultation-sub">Request data analysis, web development or a free consultation using the same form.</p>
 
           <form id="consult-form">
             <div class="form-grid">
               <label>
                 <span>Your name</span>
-                <input
-                  maxlength="120"
-                  type="text"
-                  id="consult-name"
-                  name="name"
-                  autocomplete="name"
-                  required
-                />
+                <input maxlength="120" type="text" id="consult-name" name="name" autocomplete="name" required />
               </label>
-
               <label>
                 <span>Email address</span>
-                <input
-                  maxlength="254"
-                  type="email"
-                  id="consult-email"
-                  name="email"
-                  autocomplete="email"
-                  required
-                />
+                <input maxlength="254" type="email" id="consult-email" name="email" autocomplete="email" required />
               </label>
             </div>
 
             <div class="form-grid">
               <label>
                 <span>Phone <small>(optional)</small></span>
-                <input
-                  maxlength="40"
-                  type="tel"
-                  id="consult-phone"
-                  name="phone"
-                  autocomplete="tel"
-                />
+                <input maxlength="40" type="tel" id="consult-phone" name="phone" autocomplete="tel" />
               </label>
-
               <label>
                 <span>Service</span>
                 <select id="consult-service" name="service" required>
@@ -215,44 +139,18 @@
 
             <label>
               <span>What would you like help with?</span>
-              <textarea
-                id="consult-message"
-                name="message"
-                maxlength="2000"
-                required
-              ></textarea>
+              <textarea id="consult-message" name="message" maxlength="2000" required></textarea>
             </label>
 
             <label class="honeypot" aria-hidden="true">
               <span>Website</span>
-              <input
-                type="text"
-                id="consult-website"
-                name="website"
-                tabindex="-1"
-                autocomplete="off"
-              />
+              <input type="text" id="consult-website" name="website" tabindex="-1" autocomplete="off" />
             </label>
 
-            <p class="request-privacy">
-              Your details will be used to respond to and manage your enquiry.
-            </p>
-
+            <p class="request-privacy">Your details will be used to respond to and manage your enquiry.</p>
             <button type="submit">Submit request</button>
-
-            <div
-              id="ticket-receipt"
-              class="hidden"
-              role="status"
-              aria-live="polite"
-            ></div>
-
-            <p
-              id="consult-status"
-              class="form-status hidden"
-              role="status"
-              aria-live="polite"
-            ></p>
+            <div id="ticket-receipt" class="hidden" role="status" aria-live="polite"></div>
+            <p id="consult-status" class="form-status hidden" role="status" aria-live="polite"></p>
           </form>
         </aside>
       </div>
@@ -261,158 +159,33 @@
     <section id="about" class="about fade-section">
       <div class="about-inner">
         <div class="about-photo">
-          <img
-            class="portrait"
-            src="Joel%20Eze.jpg"
-            alt="Portrait of Joel Eze"
-            width="240"
-            height="240"
-            loading="lazy"
-          />
+          <img class="portrait" src="Joel%20Eze.jpg" alt="Portrait of Joel Eze" width="240" height="240" loading="lazy" />
         </div>
-
         <div class="about-text">
           <p class="eyebrow">ABOUT ME</p>
-
-          <h2>
-            Clear analysis, practical insight and reporting people can use.
-          </h2>
-
-          <p>
-            I’m a Data Analyst with experience across Power BI, SQL, Python and
-            Excel. I enjoy turning complex or untidy information into structured
-            analysis that supports smarter decisions.
-          </p>
-
-          <p>
-            My work combines data transformation, visual storytelling and
-            stakeholder-focused reporting—so the final result is not only
-            technically correct, but also clear and actionable.
-          </p>
-
+          <h2>Clear analysis, practical insight and reporting people can use.</h2>
+          <p>I’m a Data Analyst with experience across Power BI, SQL, Python and Excel. I enjoy turning complex or untidy information into structured analysis that supports smarter decisions.</p>
+          <p>My work combines data transformation, visual storytelling and stakeholder-focused reporting—so the final result is not only technically correct, but also clear and actionable.</p>
           <div class="skill-list" aria-label="Technical skills">
-            <span>Power BI</span>
-            <span>SQL</span>
-            <span>Python</span>
-            <span>Excel</span>
-            <span>Data visualisation</span>
+            <span>Power BI</span><span>SQL</span><span>Python</span><span>Excel</span><span>Data visualisation</span>
           </div>
         </div>
       </div>
     </section>
 
     <section id="services" class="services fade-section">
-      <div class="section-heading">
-        <p class="eyebrow">HOW I CAN HELP</p>
-        <h2>Data analysis &amp; web development</h2>
-      </div>
-
+      <div class="section-heading"><p class="eyebrow">HOW I CAN HELP</p><h2>Data analysis &amp; web development</h2></div>
       <div class="service-grid">
-        <article class="service-card">
-          <p class="eyebrow">01 · DATA ANALYSIS</p>
-          <h3>Understand your data</h3>
-
-          <p>
-            Data cleaning, SQL analysis, Excel reporting and interactive Power BI
-            dashboards to help you understand performance and make informed
-            decisions.
-          </p>
-
-          <a
-            class="btn"
-            href="#consultation"
-            data-service="data_analysis"
-          >
-            Request data analysis
-          </a>
-        </article>
-
-        <article class="service-card">
-          <p class="eyebrow">02 · WEB DEVELOPMENT</p>
-          <h3>Build your online presence</h3>
-
-          <p>
-            Responsive business websites, portfolios and customer enquiry
-            systems, designed around what your visitors need to do.
-          </p>
-
-          <a
-            class="btn"
-            href="#consultation"
-            data-service="web_development"
-          >
-            Request a website
-          </a>
-        </article>
-
-        <article class="service-card">
-          <p class="eyebrow">03 · FREE CONSULTATION</p>
-          <h3>Find the right starting point</h3>
-
-          <p>
-            Discuss your goals, your current challenges and whether data analysis
-            or a website could help. No commitment required.
-          </p>
-
-          <a
-            class="btn btn-ghost"
-            href="#consultation"
-            data-service="free_consultation"
-          >
-            Request a free consultation
-          </a>
-        </article>
+        <article class="service-card"><p class="eyebrow">01 · DATA ANALYSIS</p><h3>Understand your data</h3><p>Data cleaning, SQL analysis, Excel reporting and interactive Power BI dashboards to help you understand performance and make informed decisions.</p><a class="btn" href="#consultation" data-service="data_analysis">Request data analysis</a></article>
+        <article class="service-card"><p class="eyebrow">02 · WEB DEVELOPMENT</p><h3>Build your online presence</h3><p>Responsive business websites, portfolios and customer enquiry systems, designed around what your visitors need to do.</p><a class="btn" href="#consultation" data-service="web_development">Request a website</a></article>
+        <article class="service-card"><p class="eyebrow">03 · FREE CONSULTATION</p><h3>Find the right starting point</h3><p>Discuss your goals, your current challenges and whether data analysis or a website could help. No commitment required.</p><a class="btn btn-ghost" href="#consultation" data-service="free_consultation">Request a free consultation</a></article>
       </div>
     </section>
-
     <section id="websites" class="services fade-section">
-      <div class="section-heading">
-        <p class="eyebrow">WEBSITES I’VE WORKED ON</p>
-        <h2>Explore my web development work</h2>
-
-        <p>
-          Visit the live websites to explore the design and customer experience.
-        </p>
-      </div>
-
+      <div class="section-heading"><p class="eyebrow">WEBSITES I’VE WORKED ON</p><h2>Explore my web development work</h2><p>Visit the live websites to explore the design and customer experience.</p></div>
       <div class="website-grid">
-        <article class="service-card">
-          <p class="eyebrow">PROPERTY WEBSITE</p>
-          <h3>Helen Estates Realtors</h3>
-
-          <p>
-            A property website presenting listings and helping visitors enquire
-            about buying, renting and advertising property.
-          </p>
-
-          <a
-            class="btn btn-ghost"
-            href="https://helenestatesrealtors.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit Helen Estates
-          </a>
-        </article>
-
-        <article class="service-card">
-          <p class="eyebrow">BUSINESS STOREFRONT</p>
-          <h3>EGEC · Eze Green Energy Company</h3>
-
-          <p>
-            A product website helping customers browse the range and submit
-            order requests.
-          </p>
-
-          <a
-            class="btn btn-ghost"
-            href="https://ezegreenenergycompany.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit EGEC
-          </a>
-        </article>
+        <article class="service-card"><p class="eyebrow">PROPERTY WEBSITE</p><h3>Helen Estates Realtors</h3><p>A property website presenting listings and helping visitors enquire about buying, renting and advertising property.</p><a class="btn btn-ghost" href="https://helenestatesrealtors.com/" target="_blank" rel="noopener noreferrer">Visit Helen Estates</a></article>
+        <article class="service-card"><p class="eyebrow">BUSINESS STOREFRONT</p><h3>EGEC · Eze Green Energy Company</h3><p>A product website helping customers browse the range and submit order requests.</p><a class="btn btn-ghost" href="https://ezegreenenergycompany.com/" target="_blank" rel="noopener noreferrer">Visit EGEC</a></article>
       </div>
     </section>
 
@@ -420,133 +193,42 @@
       <div class="section-heading">
         <p class="eyebrow">SELECTED WORK</p>
         <h2>Featured Projects</h2>
-
-        <p>
-          Explore interactive dashboards and analytical work across sales,
-          operations and customer data.
-        </p>
+        <p>Explore interactive dashboards and analytical work across sales, operations and customer data.</p>
       </div>
 
-      <div
-        class="project-carousel"
-        aria-roledescription="carousel"
-        aria-label="Featured projects"
-      >
-        <button
-          class="carousel-arrow left"
-          type="button"
-          aria-label="Previous projects"
-        >
-          ‹
-        </button>
+      <div class="project-carousel" aria-roledescription="carousel" aria-label="Featured projects">
+        <button class="carousel-arrow left" type="button" aria-label="Previous projects">‹</button>
 
         <div class="carousel-viewport" tabindex="0">
           <div class="carousel-track" role="list">
             <article class="project-card" role="listitem">
-              <div class="project-card-heading">
-                <span class="project-type">Power BI</span>
-                <h3>Airline Delays and Cancellations</h3>
-              </div>
-
-              <iframe
-                title="Airline delays and cancellations Power BI dashboard"
-                src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9"
-                loading="lazy"
-                allowfullscreen
-              ></iframe>
-
-              <a
-                class="project-link"
-                href="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open dashboard
-              </a>
+              <div class="project-card-heading"><span class="project-type">Power BI</span><h3>Airline Delays and Cancellations</h3></div>
+              <iframe title="Airline delays and cancellations Power BI dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
+              <a class="project-link" href="https://app.powerbi.com/view?r=eyJrIjoiODZiZjdlMzMtYWNiZi00NzkyLTkxNjgtZGQ0N2U1N2JjM2I0IiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" target="_blank" rel="noopener noreferrer">Open dashboard</a>
             </article>
 
             <article class="project-card" role="listitem">
-              <div class="project-card-heading">
-                <span class="project-type">Power BI</span>
-                <h3>Olist Sales Analysis</h3>
-              </div>
-
-              <iframe
-                title="Olist sales Power BI dashboard"
-                src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9"
-                loading="lazy"
-                allowfullscreen
-              ></iframe>
-
-              <a
-                class="project-link"
-                href="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open dashboard
-              </a>
+              <div class="project-card-heading"><span class="project-type">Power BI</span><h3>Olist Sales Analysis</h3></div>
+              <iframe title="Olist sales Power BI dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
+              <a class="project-link" href="https://app.powerbi.com/view?r=eyJrIjoiMmRmY2JlZGUtOTc2YS00MjY0LWI3NTAtNDZiMDg2ODg2YWNhIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" target="_blank" rel="noopener noreferrer">Open dashboard</a>
             </article>
 
             <article class="project-card" role="listitem">
-              <div class="project-card-heading">
-                <span class="project-type">Power BI</span>
-                <h3>Electronic Sales Dashboard</h3>
-              </div>
-
-              <iframe
-                title="Electronic sales Power BI dashboard"
-                src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9"
-                loading="lazy"
-                allowfullscreen
-              ></iframe>
-
-              <a
-                class="project-link"
-                href="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open dashboard
-              </a>
+              <div class="project-card-heading"><span class="project-type">Power BI</span><h3>Electronic Sales Dashboard</h3></div>
+              <iframe title="Electronic sales Power BI dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" loading="lazy" allowfullscreen></iframe>
+              <a class="project-link" href="https://app.powerbi.com/view?r=eyJrIjoiMmMxNTBkMmEtM2Q0Yy00OGFkLWFkYTctZTdkOWYzYTY5NjkyIiwidCI6IjMzMmU0MDliLTYwYzYtNDBlNy05NGZkLTJkNGYwZjFiZTVhZCJ9" target="_blank" rel="noopener noreferrer">Open dashboard</a>
             </article>
 
             <article class="project-card" role="listitem">
-              <div class="project-card-heading">
-                <span class="project-type">Excel</span>
-                <h3>Excel Analysis Project</h3>
-              </div>
-
-              <iframe
-                title="Excel analysis project"
-                src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&amp;action=embedview&amp;wdAllowInteractivity=False&amp;wdHideGridlines=True&amp;wdHideHeaders=True&amp;wdDownloadButton=True&amp;wdInConfigurator=True"
-                loading="lazy"
-              ></iframe>
-
-              <a
-                class="project-link"
-                href="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&amp;action=embedview"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open workbook
-              </a>
+              <div class="project-card-heading"><span class="project-type">Excel</span><h3>Excel Analysis Project</h3></div>
+              <iframe title="Excel analysis project" src="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&amp;action=embedview&amp;wdAllowInteractivity=False&amp;wdHideGridlines=True&amp;wdHideHeaders=True&amp;wdDownloadButton=True&amp;wdInConfigurator=True" loading="lazy"></iframe>
+              <a class="project-link" href="https://generationye-my.sharepoint.com/personal/joele_genstudents_org/_layouts/15/Doc.aspx?sourcedoc={5881c3bb-99ab-4e01-93c2-b15b3653ac91}&amp;action=embedview" target="_blank" rel="noopener noreferrer">Open workbook</a>
             </article>
           </div>
         </div>
 
-        <button
-          class="carousel-arrow right"
-          type="button"
-          aria-label="Next projects"
-        >
-          ›
-        </button>
-
-        <div
-          class="carousel-dots"
-          aria-label="Choose a project page"
-        ></div>
+        <button class="carousel-arrow right" type="button" aria-label="Next projects">›</button>
+        <div class="carousel-dots" aria-label="Choose a project page"></div>
       </div>
     </section>
 
@@ -554,134 +236,38 @@
       <div class="contact-card">
         <p class="eyebrow">LET’S CONNECT</p>
         <h2>Have a data or website project in mind?</h2>
-
-        <p>
-          Whether you need a dashboard, help analysing data or a website for your
-          business, tell me what you have in mind.
-        </p>
-
+        <p>Whether you need a dashboard, help analysing data or a website for your business, tell me what you have in mind.</p>
         <div class="contact-links">
-          <a href="mailto:Joel.okechu@gmail.com">
-            Joel.okechu@gmail.com
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/jeze12"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            linkedin.com/in/jeze12
-          </a>
+          <a href="mailto:Joel.okechu@gmail.com">Joel.okechu@gmail.com</a>
+          <a href="https://www.linkedin.com/in/jeze12" target="_blank" rel="noopener noreferrer">linkedin.com/in/jeze12</a>
         </div>
-
-        <a href="#consultation" class="btn">
-          Book a free consultation
-        </a>
+        <a href="#consultation" class="btn">Book a free consultation</a>
       </div>
     </section>
   </main>
 
-  <footer>
-    <p>
-      © <span id="current-year">2026</span> Joel Eze. All rights reserved.
-    </p>
-  </footer>
+  <footer><p>© <span id="current-year">2026</span> Joel Eze. All rights reserved.</p></footer>
 
   <div id="chat-bubble" class="collapsed">
-    <button
-      id="chat-launcher"
-      class="collapsed-content"
-      type="button"
-      aria-expanded="false"
-      aria-controls="chat-panel"
-    >
-      <span aria-hidden="true">💬</span> Chat
-    </button>
+    <button id="chat-launcher" class="collapsed-content" type="button" aria-expanded="false" aria-controls="chat-panel"><span aria-hidden="true">💬</span> Chat</button>
 
-    <section
-      id="chat-panel"
-      class="chat-panel hidden"
-      role="dialog"
-      aria-labelledby="chat-title"
-    >
+    <section id="chat-panel" class="chat-panel hidden" role="dialog" aria-labelledby="chat-title">
       <header class="chat-header">
         <h2 id="chat-title">Chat with me</h2>
-
-        <button
-          id="chat-close"
-          type="button"
-          aria-label="Close chat"
-        >
-          ×
-        </button>
+        <button id="chat-close" type="button" aria-label="Close chat">×</button>
       </header>
-
-      <div
-        id="chat-window"
-        role="log"
-        aria-live="polite"
-        aria-relevant="additions"
-      ></div>
-
+      <div id="chat-window" role="log" aria-live="polite" aria-relevant="additions"></div>
       <form id="chat-form">
         <div class="name-email-group">
-          <label>
-            <span class="sr-only">Your name</span>
-            <input
-              type="text"
-              id="user-name"
-              name="name"
-              placeholder="Your name"
-              autocomplete="name"
-              required
-            />
-          </label>
-
-          <label>
-            <span class="sr-only">Your email</span>
-            <input
-              type="email"
-              id="user-email"
-              name="email"
-              placeholder="Your email"
-              autocomplete="email"
-              required
-            />
-          </label>
+          <label><span class="sr-only">Your name</span><input type="text" id="user-name" name="name" placeholder="Your name" autocomplete="name" required /></label>
+          <label><span class="sr-only">Your email</span><input type="email" id="user-email" name="email" placeholder="Your email" autocomplete="email" required /></label>
         </div>
-
         <div class="message-row">
-          <label>
-            <span class="sr-only">Your message</span>
-            <textarea
-              id="user-input"
-              name="message"
-              placeholder="Your message"
-              maxlength="1500"
-              required
-            ></textarea>
-          </label>
-
+          <label><span class="sr-only">Your message</span><textarea id="user-input" name="message" placeholder="Your message" maxlength="1500" required></textarea></label>
           <button type="submit">Start request</button>
         </div>
-
-        <label class="honeypot" aria-hidden="true">
-          <span>Website</span>
-          <input
-            type="text"
-            id="chat-website"
-            tabindex="-1"
-            autocomplete="off"
-          />
-        </label>
-
-        <button
-          id="change-info"
-          class="change-info hidden"
-          type="button"
-        >
-          Change your name or email
-        </button>
+        <label class="honeypot" aria-hidden="true"><span>Website</span><input type="text" id="chat-website" tabindex="-1" autocomplete="off" /></label>
+        <button id="change-info" class="change-info hidden" type="button">Change your name or email</button>
       </form>
     </section>
   </div>
