@@ -1,115 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <meta name="robots" content="noindex,nofollow" />
-
-  <title>Manage requests | Insights by Joel</title>
-
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="admin.css" />
-
-  <script
-    defer
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4"
-  ></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Client desk | Insights by Joel</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <meta name="theme-color" content="#0b0e13">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4"></script>
   <script defer src="ticket-config.js"></script>
   <script defer src="tickets.js"></script>
   <script defer src="admin.js"></script>
 </head>
-
 <body>
-  <main class="ticket-shell">
-    <a href="index.html">Back to website</a>
-
-    <h1>Manage requests</h1>
-
-    <p
-      id="admin-message"
-      role="status"
-      aria-live="polite"
-    ></p>
-
-    <form id="ticket-login" class="ticket-box">
-      <h2>Sign in</h2>
-
-      <label>
-        Email
-        <input
-          type="email"
-          name="email"
-          autocomplete="username"
-          required
-        />
-      </label>
-
-      <label>
-        Password
-        <input
-          type="password"
-          name="password"
-          autocomplete="current-password"
-          required
-        />
-      </label>
-
-      <button type="submit">Sign in</button>
+  <section id="login-screen" class="login-screen">
+    <form id="ticket-login" class="login-card">
+      <a class="brand" href="index.html"><img class="brand-logo" src="logo.png" alt="Insights by Joel logo" width="76" height="76"><span><strong>Insights by Joel</strong><small>Private client desk</small></span></a>
+      <p class="kicker">Welcome back</p>
+      <h1>Your projects.<br>One clear view.</h1>
+      <p class="muted">Sign in to manage enquiries, follow up with clients and keep every project moving.</p>
+      <label>Email address<input name="email" type="email" autocomplete="username" placeholder="Your admin email" required></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" placeholder="Your password" required></label>
+      <button class="primary full" type="submit">Sign in to your desk <span aria-hidden="true">→</span></button>
+      <p id="login-message" class="notice" role="status" aria-live="polite"></p>
+      <a class="back-link" href="index.html">← Back to website</a>
     </form>
-
-    <section id="ticket-manager" class="hidden">
-      <div class="ticket-tools">
-        <button id="reload-tickets" type="button">
-          Refresh requests
-        </button>
-
-        <button id="logout-tickets" type="button">
-          Sign out
-        </button>
-      </div>
-
-      <div class="ticket-box">
-        <label>
-          Service
-
-          <select id="filter-service">
-            <option value="">All services</option>
-            <option value="data_analysis">Data analysis</option>
-            <option value="web_development">Web development</option>
-            <option value="free_consultation">Free consultation</option>
-          </select>
-        </label>
-
-        <label>
-          Status
-
-          <select id="filter-status">
-            <option value="">All statuses</option>
-            <option>New</option>
-            <option>Contacted</option>
-            <option>In Progress</option>
-            <option>Completed</option>
-            <option>Closed</option>
-          </select>
-        </label>
-      </div>
-
-      <div id="ticket-list"></div>
-
-      <button
-        id="more-tickets"
-        class="hidden"
-        type="button"
-      >
-        Load more requests
-      </button>
-    </section>
-  </main>
+  </section>
+  <div id="ticket-manager" class="app-shell" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="index.html"><img class="brand-logo" src="logo.png" alt="Insights by Joel logo" width="76" height="76"><span><strong>Insights by Joel</strong><small>Client & project desk</small></span></a>
+      <nav aria-label="Admin navigation">
+        <a class="side-link active" href="#requests">Requests <span aria-hidden="true">↗</span></a>
+        <a class="side-link" href="index.html" target="_blank" rel="noopener">View website <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="sidebar-footer"><p id="signed-in-email"></p><button id="logout-tickets" class="text-button" type="button">Sign out</button></div>
+    </aside>
+    <main class="admin-main" id="requests">
+      <header class="topbar"><div><p class="kicker">Your client desk</p><h1>Service requests</h1><p class="muted">Good projects begin with a conversation.</p></div><button id="reload-tickets" class="secondary" type="button">Refresh requests</button></header>
+      <p id="admin-message" class="notice" role="status" aria-live="polite"></p>
+      <section class="stats-grid" aria-label="All request totals">
+        <article class="stat-card"><span>Total requests</span><strong id="stat-total">—</strong><small>Across all services</small></article>
+        <article class="stat-card"><span>New enquiries</span><strong id="stat-new">—</strong><small>Awaiting your review</small></article>
+        <article class="stat-card"><span>In progress</span><strong id="stat-progress">—</strong><small>Projects under way</small></article>
+        <article class="stat-card"><span>Completed</span><strong id="stat-completed">—</strong><small>Delivered projects</small></article>
+      </section>
+      <section class="panel">
+        <div class="panel-heading"><div><p class="kicker">Request inbox</p><h2>Every conversation, together.</h2></div><div class="filters">
+          <label>Service<select id="filter-service"><option value="">All services</option><option value="data_analysis">Data analysis</option><option value="web_development">Web development</option><option value="free_consultation">Free consultation</option></select></label>
+          <label>Status<select id="filter-status"><option value="">All statuses</option><option>New</option><option>Contacted</option><option>In Progress</option><option>Completed</option><option>Closed</option></select></label>
+        </div></div>
+        <div id="ticket-list"></div>
+        <div class="more-wrap"><button id="more-tickets" class="secondary" type="button" hidden>Load more requests</button></div>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
