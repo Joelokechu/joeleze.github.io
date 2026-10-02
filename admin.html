@@ -1,37 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Panel – Insights by Joel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
 
-  <link rel="stylesheet" href="admin.css">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+  <meta name="robots" content="noindex,nofollow" />
 
+  <title>Manage requests | Insights by Joel</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4"
+  ></script>
+
+  <script defer src="ticket-config.js"></script>
+  <script defer src="tickets.js"></script>
+  <script defer src="admin.js"></script>
 </head>
+
 <body>
+  <main class="ticket-shell">
+    <a href="index.html">Back to website</a>
 
-<div id="login-screen" class="center">
-  <h1>Admin Login</h1>
-  <p>Sign in with your Google account</p>
-  <button id="login-btn">Sign in with Google</button>
-</div>
+    <h1>Manage requests</h1>
 
-<div id="admin-panel" class="hidden">
-  <header>
-    <h1>📁 Firebase Storage Files</h1>
-    <button id="logout-btn">Logout</button>
-  </header>
+    <p
+      id="admin-message"
+      role="status"
+      aria-live="polite"
+    ></p>
 
-  <div id="file-list" class="file-list">
-    <p class="loading">Loading files...</p>
-  </div>
-</div>
+    <form id="ticket-login" class="ticket-box">
+      <h2>Sign in</h2>
 
-<script src="admin.js"></script>
+      <label>
+        Email
+        <input
+          type="email"
+          name="email"
+          autocomplete="username"
+          required
+        />
+      </label>
+
+      <label>
+        Password
+        <input
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          required
+        />
+      </label>
+
+      <button type="submit">Sign in</button>
+    </form>
+
+    <section id="ticket-manager" class="hidden">
+      <div class="ticket-tools">
+        <button id="reload-tickets" type="button">
+          Refresh requests
+        </button>
+
+        <button id="logout-tickets" type="button">
+          Sign out
+        </button>
+      </div>
+
+      <div class="ticket-box">
+        <label>
+          Service
+
+          <select id="filter-service">
+            <option value="">All services</option>
+            <option value="data_analysis">Data analysis</option>
+            <option value="web_development">Web development</option>
+            <option value="free_consultation">Free consultation</option>
+          </select>
+        </label>
+
+        <label>
+          Status
+
+          <select id="filter-status">
+            <option value="">All statuses</option>
+            <option>New</option>
+            <option>Contacted</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+            <option>Closed</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="ticket-list"></div>
+
+      <button
+        id="more-tickets"
+        class="hidden"
+        type="button"
+      >
+        Load more requests
+      </button>
+    </section>
+  </main>
 </body>
 </html>
