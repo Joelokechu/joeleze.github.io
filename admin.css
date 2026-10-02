@@ -1,82 +1,26 @@
-body {
-  font-family: "Poppins", sans-serif;
-  background: #0b0c10;
-  color: #c5c6c7;
-  margin: 0;
-  padding: 0;
+/* Shared colours, layouts and controls are provided by style.css. */
+
+.ticket-shell h1 {
+  margin-top: 1.5rem;
 }
 
-.hidden { display: none !important; }
-
-.center {
-  text-align: center;
-  margin-top: 20vh;
+.ticket-box h2 {
+  font-size: 1.4rem;
 }
 
-h1 { color: #66fcf1; }
-
-button {
-  padding: 10px 20px;
-  background: #45a29e;
-  color: #0b0c10;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-button:hover {
-  background: #66fcf1;
+.ticket-tools button:disabled {
+  opacity: 0.5;
+  cursor: wait;
 }
 
-/* Admin Panel */
-#admin-panel {
-  padding: 30px;
+.ticket-box textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.file-list {
-  margin-top: 25px;
-  padding: 15px;
-  background: #1f2833;
-  border-radius: 10px;
-}
-
-.file-item {
-  display: flex;
-  justify-content: space-between;
-  background: #0b0c10;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  align-items: center;
-  border: 1px solid #1f2833;
-}
-
-.file-item span {
-  font-size: 0.95rem;
-  color: #66fcf1;
-}
-
-.actions button {
-  margin-left: 10px;
-  padding: 6px 12px;
-  border-radius: 6px;
-}
-
-.actions .del {
-  background: #d9534f;
-  color: white;
-}
-.actions .del:hover {
-  background: #b52b27;
-}
-
-.loading {
-  text-align: center;
-  opacity: 0.8;
+.ticket-box input:focus,
+.ticket-box select:focus,
+.ticket-box textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
